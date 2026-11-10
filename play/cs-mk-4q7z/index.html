@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Cosec Workspace · Play-test mockup v1 (sample data)</title>
+<style>
+:root{--bg:#f5f6f8;--panel:#fff;--ink:#1d2433;--muted:#667085;--line:#e4e7ec;--brand:#0f6e56;--brand2:#e7f4ef;--accent:#2f5bd3;--warn:#b54708;--warnbg:#fff4e5;--bad:#b42318;--badbg:#fef3f2;--ok:#067647;--okbg:#ecfdf3;--chip:#f2f4f7;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);--r:10px}
+*{box-sizing:border-box}html,body{margin:0;height:100%}
+body{font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit;border:1px solid var(--line);border-radius:8px;padding:7px 10px;background:#fff;width:100%}
+textarea{min-height:90px;resize:vertical}
+.banner{background:#fffbeb;border-bottom:1px solid #fde68a;color:#7a4a00;font-size:12.5px;padding:6px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.banner b{color:#5c3a00}.banner .sp{flex:1}
+.banner button{background:#fff;border:1px solid #f5d27a;border-radius:6px;padding:2px 8px;font-size:12px}
+.app{display:flex;min-height:calc(100vh - 31px)}
+.side{width:236px;flex:0 0 236px;background:#0d1b2a;color:#cfd8e3;padding:14px 10px;position:sticky;top:0;height:calc(100vh - 31px);overflow:auto}
+.logo{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;border-bottom:1px solid #1f3247;margin-bottom:10px}
+.logo .mk{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#19a07a,#0f6e56);display:grid;place-items:center;color:#fff;font-weight:700}
+.logo .t1{color:#fff;font-weight:650;font-size:14px}.logo .t2{font-size:11.5px;color:#8da2b8}
+.nav .sec{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6f86a0;margin:14px 8px 6px}
+.nav a{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;color:#cfd8e3;font-size:13.5px}
+.nav a:hover{background:#15283c;text-decoration:none}
+.nav a.on{background:#19354f;color:#fff}
+.nav .ic{width:18px;text-align:center}
+.nav .ct{margin-left:auto;background:#24415e;color:#dbe7f3;border-radius:10px;padding:0 7px;font-size:11px}
+.nav .ct.hot{background:#b54708;color:#fff}
+.main{flex:1;min-width:0;padding:20px 24px 80px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.top h1{font-size:20px;margin:0}.top .sub{color:var(--muted);font-size:13px}
+.top .sp{flex:1}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;min-width:0}
+.card h3{margin:0 0 10px;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.card h3 .sp{flex:1}
+.kpi .v{font-size:26px;font-weight:700;letter-spacing:-.01em}.kpi .l{color:var(--muted);font-size:12.5px}.kpi .d{font-size:12px;margin-top:4px}
+.muted{color:var(--muted)}.small{font-size:12.5px}.tiny{font-size:11.5px}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:1px 8px;font-size:11.5px;background:var(--chip);color:#344054;white-space:nowrap}
+.pill.ok{background:var(--okbg);color:var(--ok)}.pill.warn{background:var(--warnbg);color:var(--warn)}.pill.bad{background:var(--badbg);color:var(--bad)}.pill.blue{background:#eef4ff;color:#2f5bd3}.pill.green{background:var(--brand2);color:var(--brand)}.pill.purple{background:#f4f3ff;color:#5925dc}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:#f9fafb}.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}.btn.pri:hover{background:#0c5b47}
+.btn.sm{padding:3px 9px;font-size:12px}.btn.ghost{border-color:transparent;background:transparent}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:600;background:#fafbfc;position:sticky;top:0}
+tr.click{cursor:pointer}tr.click:hover td{background:#f8fafc}
+.tw{overflow:auto;max-height:68vh;border:1px solid var(--line);border-radius:8px;background:#fff}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.bar input,.bar select{width:auto;min-width:150px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:12px;flex-wrap:wrap}
+.tabs button{background:none;border:none;padding:8px 12px;border-bottom:2px solid transparent;color:var(--muted);font-weight:550}
+.tabs button.on{color:var(--ink);border-color:var(--brand)}
+.list .it{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+.list .it:last-child{border-bottom:none}.list .it .grow{flex:1;min-width:0}
+.dot{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:0 0 8px;background:#98a2b3}
+.dot.bad{background:var(--bad)}.dot.warn{background:#f79009}.dot.ok{background:#12b76a}
+.prog{height:8px;background:#eef0f3;border-radius:99px;overflow:hidden}.prog>i{display:block;height:100%;background:var(--brand)}
+/* kanban */
+.kb{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:12px;overflow:auto;padding-bottom:6px}
+.col{background:#eef1f5;border-radius:10px;padding:10px;min-height:300px}
+.col.over{outline:2px dashed var(--brand);background:#e7f4ef}
+.col h4{margin:0 0 8px;font-size:13px;display:flex;align-items:center;gap:6px}
+.col h4 .n{background:#fff;border-radius:10px;padding:0 7px;font-size:11.5px;color:var(--muted)}
+.kc{background:#fff;border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow);cursor:grab}
+.kc:active{cursor:grabbing}.kc .t{font-weight:600;font-size:13px;margin-bottom:4px}
+.kc .m{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.kc .src{font-size:11.5px;color:var(--muted);margin-top:6px}
+.kc .acts{display:flex;gap:6px;margin-top:8px}
+/* tree */
+.tree ul{list-style:none;margin:0;padding-left:20px;border-left:1px dashed #d0d5dd}
+.tree>ul{padding-left:0;border:none}
+.tree li{margin:3px 0}
+.node{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px 9px;cursor:pointer;max-width:100%}
+.node:hover{border-color:#98a2b3}.node .pc{font-weight:700;color:var(--brand);font-size:12px}
+.tg{width:18px;display:inline-block;color:var(--muted);cursor:pointer;user-select:none}
+/* drawer & modal */
+.scrim{position:fixed;inset:0;background:rgba(16,24,40,.35);z-index:40;display:none}
+.scrim.on{display:block}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(620px,100%);background:#fff;z-index:50;box-shadow:-8px 0 30px rgba(16,24,40,.15);transform:translateX(105%);transition:transform .2s ease;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer .hd{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.drawer .hd h2{margin:0;font-size:17px}.drawer .bd{padding:16px 18px;overflow:auto;flex:1}
+.x{margin-left:auto;background:none;border:none;font-size:22px;line-height:1;color:var(--muted)}
+.kv{display:grid;grid-template-columns:160px 1fr;gap:6px 12px;font-size:13px}.kv div:nth-child(odd){color:var(--muted)}
+.modal{position:fixed;left:50%;top:8%;transform:translateX(-50%);width:min(560px,94%);max-height:84vh;overflow:auto;background:#fff;border-radius:12px;z-index:60;box-shadow:0 20px 50px rgba(16,24,40,.25);display:none}
+.modal.on{display:block}.modal .hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex}.modal .hd h2{margin:0;font-size:16px}
+.modal .bd{padding:16px 18px}.modal .ft{padding:12px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
+.fld{margin-bottom:10px}.fld label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:550}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#101828;color:#fff;padding:9px 16px;border-radius:9px;z-index:90;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+.audit{border-left:2px solid var(--line);margin-left:4px;padding-left:12px}
+.audit .a{position:relative;padding:4px 0 8px;font-size:12.5px}
+.audit .a:before{content:"";position:absolute;left:-17px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.doc{background:#fbfbfa;border:1px solid var(--line);border-radius:8px;padding:18px 22px;font-family:Georgia,"Times New Roman",serif;font-size:13.5px;line-height:1.6;white-space:pre-wrap}
+.callout{border-radius:9px;padding:10px 12px;font-size:13px;display:flex;gap:8px;margin-bottom:12px}
+.callout.info{background:#eef4ff;color:#1e3a8a}.callout.warn{background:var(--warnbg);color:#7a3e00}.callout.ok{background:var(--okbg);color:#05603a}
+/* calendar month */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal .h{font-size:11.5px;color:var(--muted);text-align:center;padding:4px}
+.cal .d{background:#fff;border:1px solid var(--line);border-radius:7px;min-height:84px;padding:4px 5px;font-size:11px;overflow:hidden}
+.cal .d.o{background:#fafafa;color:#bbb}.cal .d.today{outline:2px solid var(--brand)}
+.cal .d .n{font-weight:600;font-size:11.5px}
+.cal .ev{display:block;border-radius:4px;padding:1px 4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#eef4ff;color:#2f5bd3;cursor:pointer}
+.cal .ev.bad{background:var(--badbg);color:var(--bad)}.cal .ev.ok{background:var(--okbg);color:var(--ok);text-decoration:line-through}
+/* AI */
+.fab{position:fixed;right:20px;bottom:20px;z-index:45;background:linear-gradient(135deg,#19a07a,#0f6e56);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-weight:650;box-shadow:0 8px 24px rgba(15,110,86,.35)}
+.ai{position:fixed;right:20px;bottom:76px;width:min(400px,calc(100% - 40px));height:min(560px,75vh);background:#fff;border-radius:14px;z-index:46;box-shadow:0 20px 50px rgba(16,24,40,.25);display:none;flex-direction:column;border:1px solid var(--line)}
+.ai.on{display:flex}.ai .hd{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.ai .msgs{flex:1;overflow:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.ai .m{max-width:88%;padding:8px 11px;border-radius:11px;font-size:13px;white-space:pre-wrap}
+.ai .m.u{align-self:flex-end;background:var(--brand);color:#fff;border-bottom-right-radius:3px}
+.ai .m.b{align-self:flex-start;background:#f2f4f7;border-bottom-left-radius:3px}
+.ai .chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 14px 8px}
+.ai .chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-size:12px}
+.ai form{display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--line)}
+.lock{color:var(--muted)}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:9px;background:#fcfcfd}
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:1fr 1fr}}
+@media (max-width:820px){
+ .side{position:fixed;left:0;top:0;height:100%;z-index:55;transform:translateX(-105%);transition:transform .2s}
+ .side.on{transform:none}.burger{display:inline-block}.main{padding:14px 12px 90px}
+ .g4,.g3,.g2,.row2{grid-template-columns:1fr}.kv{grid-template-columns:120px 1fr}
+ .kb{grid-template-columns:repeat(4,82vw)}
+}
+</style>
+</head>
+<body>
+<div class="banner"><b>SAMPLE DATA · Play-test mockup v1</b><span>Entity names, registration numbers and % holdings come from Eco World's public Annual Report 2025 (group structure as at 20 Jan 2026). Incorporation dates, meetings, approvals, requests and documents are made-up samples.</span><span class="sp"></span><span class="tiny">Changes save in this browser only</span><button onclick="App.reset()">Reset sample data</button></div>
+<div class="app">
+ <aside class="side" id="side">
+  <div class="logo"><div class="mk">CS</div><div><div class="t1">Cosec Workspace</div><div class="t2">Eco World group · mockup</div></div></div>
+  <nav class="nav" id="nav"></nav>
+  <div class="tiny" style="color:#6f86a0;padding:16px 8px 0">Draft v1 for play-testing by Digital Cookie. It only shows the screens and isn't connected to Notion yet.</div>
+ </aside>
+ <main class="main" id="main"></main>
+</div>
+<div class="scrim" id="scrim" onclick="App.closeAll()"></div>
+<div class="drawer" id="drawer"><div class="hd" id="dhd"></div><div class="bd" id="dbd"></div></div>
+<div class="modal" id="modal"></div>
+<div class="toast" id="toast"></div>
+<button class="fab" id="fab" onclick="AI.toggle()">✦ Ask Cosec AI</button>
+<div class="ai" id="ai">
+ <div class="hd"><b>✦ Cosec AI</b><span class="pill purple">mock</span><button class="x" onclick="AI.toggle()">×</button></div>
+ <div class="msgs" id="aimsgs"></div>
+ <div class="chips" id="aichips"></div>
+ <form onsubmit="event.preventDefault();AI.ask(this.q.value);this.q.value=''"><input name="q" placeholder="Ask about entities, deadlines, approvals…" autocomplete="off"><button class="btn pri">Ask</button></form>
+</div>
+<script>
+const DATA = {"entities": [{"k": "EWDGB", "n": "Eco World Development Group Berhad", "r": "197401000725 (17777-V)", "t": "Listed parent", "p": null, "pct": null, "lv": "0 - EWDGB", "note": "Bursa Main Market: ECOWLD. FYE 31 Oct. Registered office / registrar: Securities Services (Holdings) Sdn. Bhd. (per IAR Corporate Information).", "st": "Active", "c": "Malaysia", "inc": "1974-07-20", "src": "IAR 2025 p.9 Corporate Information; IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "ANTURY", "n": "Antury Sdn. Bhd.", "r": "202301037460 (1531383-A)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding", "st": "Active", "c": "Malaysia", "inc": "2023-09-07", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "ASCENSION", "n": "Ascension Synergy Sdn. Bhd.", "r": "202501055719 (1657125-U)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "New since FYE: on 20 Jan 2026 structure only, not in FS note 8(a)", "st": "Active", "c": "Malaysia", "inc": "2025-06-15", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "BALAU", "n": "Balau Ventures Sdn. Bhd.", "r": "202501048616 (1650024-T)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding. Incorporated 15 Oct 2025", "st": "Active", "c": "Malaysia", "inc": "2025-09-23", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "BOTANIC", "n": "Eco Botanic Sdn. Bhd.", "r": "201301037050 (1066879-M)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2013-12-14", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "BOTANIC3", "n": "Eco Botanic 3 Sdn. Bhd.", "r": "202301029684 (1523607-A)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2023-01-14", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "EBP1", "n": "Eco Business Park 1 Sdn. Bhd.", "r": "201401011962 (1088039-M)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2014-04-13", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "EBP2", "n": "Eco Business Park 2 Sdn. Bhd.", "r": "201401002507 (1078581-H)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2014-10-14", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "EBP6", "n": "Eco Business Park 6 Sdn. Bhd.", "r": "202301033096 (1527019-K)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2023-05-02", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "GRANDEUR", "n": "Eco Grandeur Sdn. Bhd.", "r": "201501021490 (1146818-W)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding (holds 50% of Eco Ardence)", "st": "Active", "c": "Malaysia", "inc": "2015-09-10", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "MACALISTER", "n": "Eco Macalister Development Sdn. Bhd.", "r": "201301034541 (1064369-M)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property investment holding", "st": "Active", "c": "Malaysia", "inc": "2013-10-19", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "MEADOWS", "n": "Eco Meadows Sdn. Bhd.", "r": "201401011951 (1088028-X)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2014-03-10", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "SANCTUARY", "n": "Eco Sanctuary Sdn. Bhd.", "r": "201401000413 (1076483-V)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development and property investment holding", "st": "Active", "c": "Malaysia", "inc": "2014-11-09", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "SKY", "n": "Eco Sky Sdn. Bhd.", "r": "201401003011 (1079085-X)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2014-08-25", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "SUMMER", "n": "Eco Summer Sdn. Bhd.", "r": "201401000315 (1076385-V)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development and property investment holding", "st": "Active", "c": "Malaysia", "inc": "2014-02-13", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "TERRACES", "n": "Eco Terraces Sdn. Bhd.", "r": "201401000161 (1076231-P)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2014-02-26", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "VERDANCE", "n": "Eco Verdance Sdn. Bhd.", "r": "202301043306 (1537222-H)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2023-03-10", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "EWCI", "n": "Eco World Capital (International) Sdn. Bhd.", "r": "201601003766 (1174692-P)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding (holds 30% of EWI Capital Berhad)", "st": "Active", "c": "Malaysia", "inc": "2016-03-27", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "CAPASSETS", "n": "Eco World Capital Assets Berhad", "r": "201601018863 (1189799-V)", "t": "SPV", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Issuer of notes under the Medium Term Note programme", "st": "Active", "c": "Malaysia", "inc": "2016-06-08", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "CAPBHD", "n": "Eco World Capital Berhad", "r": "202201025480 (1471177-K)", "t": "SPV", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Issuer of notes under the Islamic Medium Term Note programme", "st": "Active", "c": "Malaysia", "inc": "2022-10-18", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "CAPSERV", "n": "Eco World Capital Services Berhad", "r": "201401011942 (1088019-D)", "t": "SPV", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Issuer of notes under the Islamic Medium Term Note programme", "st": "Active", "c": "Malaysia", "inc": "2014-10-11", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "DEVS", "n": "Eco World Development (S) Pte. Ltd.", "r": "201417197R", "t": "Overseas", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Incorporated in Singapore. Marketing services", "st": "Active", "c": "Singapore", "inc": "2014-09-11", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "DEVMGMT", "n": "Eco World Development Management Sdn. Bhd.", "r": "201401020547 (1096633-W)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development and project management. Formerly Eco World Development Management (BBCC) Sdn. Bhd. (per 13 May 2025 chart)", "st": "Active", "c": "Malaysia", "inc": "2014-02-25", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "DIGITAL", "n": "Eco World Digital Services Sdn. Bhd.", "r": "201401013249 (1089333-D)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Provision of digital solution services", "st": "Active", "c": "Malaysia", "inc": "2014-11-14", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "IBS", "n": "Eco World IBS Sdn. Bhd.", "r": "201401010983 (1087059-U)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding", "st": "Active", "c": "Malaysia", "inc": "2014-05-12", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "PERPETUAL", "n": "Eco World Perpetual Capital Berhad", "r": "202501010607 (1612021-X)", "t": "SPV", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Issuer of perpetual notes under the Perpetual Islamic Note Programme. Incorporated 13 Mar 2025", "st": "Active", "c": "Malaysia", "inc": "2025-01-18", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "EWPM", "n": "Eco World Project Management Sdn. Bhd.", "r": "201201005078 (978603-W)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development project management (holds Eco World DM Services). NDA counterparty with Digital Cookie", "st": "Active", "c": "Malaysia", "inc": "2012-10-19", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "PSCENTRAL", "n": "Eco World Property Services (Eco Central) Sdn. Bhd.", "r": "201501027328 (1152652-W)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property management services", "st": "Active", "c": "Malaysia", "inc": "2015-02-12", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "PSNORTH", "n": "Eco World Property Services (Eco North) Sdn. Bhd.", "r": "201401021689 (1097775-M)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property management services", "st": "Active", "c": "Malaysia", "inc": "2014-05-13", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "PSSOUTH", "n": "Eco World Property Services (Eco South) Sdn. Bhd.", "r": "201401011941 (1088018-V)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property management services", "st": "Active", "c": "Malaysia", "inc": "2014-11-02", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "STRATCAP1", "n": "Eco World Strategic Capital 1 Sdn. Bhd.", "r": "202101037789 (1438089-H)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding", "st": "Active", "c": "Malaysia", "inc": "2021-12-26", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "TRADING", "n": "Eco World Trading Sdn. Bhd.", "r": "201401010069 (1086148-X)", "t": "Service co", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Traders of building materials", "st": "Active", "c": "Malaysia", "inc": "2014-10-19", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "UKAY", "n": "Eco World Ukay Sdn. Bhd.", "r": "201401000319 (1076389-M)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Construction services", "st": "Active", "c": "Malaysia", "inc": "2014-09-18", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "FAL", "n": "Focal Aims Land Sdn. Bhd.", "r": "199401033752 (319435-X)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "1994-01-21", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "FAP", "n": "Focal Aims Properties Sdn. Bhd.", "r": "199801014972 (471101-H)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding (holds Eco Tropics Development)", "st": "Active", "c": "Malaysia", "inc": "1998-03-24", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "HASRAT", "n": "Hasrat Budi Sdn. Bhd.", "r": "202101027399 (1427699-A)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding", "st": "Active", "c": "Malaysia", "inc": "2021-08-02", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "JASA", "n": "Jasa Hektar Sdn. Bhd.", "r": "201401022034 (1098120-M)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property investment holding", "st": "Active", "c": "Malaysia", "inc": "2014-11-13", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "MELIA", "n": "Melia Spring Sdn. Bhd.", "r": "201401019246 (1095333-H)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development", "st": "Active", "c": "Malaysia", "inc": "2014-06-21", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "MERIDIAN", "n": "Meridian Insight Sdn. Bhd.", "r": "201401014927 (1091013-W)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property investment holding", "st": "Active", "c": "Malaysia", "inc": "2014-11-13", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "PARAGON", "n": "Paragon Pinnacle Sdn. Bhd.", "r": "201401022036 (1098122-T)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property development and investment holding. Became wholly owned 18 Feb 2025 (bought remaining 40% from Tanjung Wibawa, an EPF subsidiary); was a JV", "st": "Active", "c": "Malaysia", "inc": "2014-04-10", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "QALPHA", "n": "Quantum Alpha Sdn. Bhd.", "r": "202401053423 (1599265-M)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Property investment holding. Incorporated 17 Dec 2024", "st": "Active", "c": "Malaysia", "inc": "2024-09-27", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "QMEGA", "n": "Quantum Mega Sdn. Bhd.", "r": "202401053420 (1599262-D)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding. Incorporated 17 Dec 2024", "st": "Active", "c": "Malaysia", "inc": "2024-11-02", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "RENTAS", "n": "Rentas Prestasi Sdn. Bhd.", "r": "201401021079 (1097165-X)", "t": "Subsidiary", "p": "EWDGB", "pct": 100, "lv": "1 - Direct", "note": "Investment holding (holds 98% of Eco Majestic Development)", "st": "Active", "c": "Malaysia", "inc": "2014-12-14", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "MUTIARA", "n": "Mutiara Balau Sdn. Bhd.", "r": "202401021213 (1567062-H)", "t": "Subsidiary", "p": "EWDGB", "pct": 81, "lv": "1 - Direct", "note": "Property development. 81% subscribed 1 Nov 2024. Other 19% holder not named in source", "st": "Active", "c": "Malaysia", "inc": "2024-09-05", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "HORIZON", "n": "Eco Horizon Sdn. Bhd.", "r": "201401006910 (1082988-W)", "t": "JV", "p": "EWDGB", "pct": 60, "lv": "1 - Direct", "note": "Property development and investment holding. Classified as a joint venture in FS (not a subsidiary) despite 60%", "st": "Active", "c": "Malaysia", "inc": "2014-09-07", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, joint ventures (FYE 31 Oct 2025)"}, {"k": "EBP7", "n": "Eco Business Park 7 Sdn. Bhd.", "r": "202401053413 (1599255-W)", "t": "JV", "p": "EWDGB", "pct": 55, "lv": "1 - Direct", "note": "Property development. Classified as a joint venture in FS. Partner for other 45% not named in source", "st": "Active", "c": "Malaysia", "inc": "2024-11-05", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, joint ventures (FYE 31 Oct 2025)"}, {"k": "EBP8", "n": "Eco Business Park 8 Sdn. Bhd.", "r": "202501044757 (1646165-H)", "t": "Unconfirmed", "p": "EWDGB", "pct": 45, "lv": "1 - Direct", "note": "Property development. 100% subsidiary at FYE 31 Oct 2025 (incorporated 24 Sep 2025) but 45% on 20 Jan 2026 structure. Classification after dilution and other holder(s) not stated", "st": "Active", "c": "Malaysia", "inc": "2025-02-25", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "BBCC", "n": "BBCC Development Sdn. Bhd.", "r": "201501003696 (1129028-T)", "t": "JV", "p": "EWDGB", "pct": 40, "lv": "1 - Direct", "note": "Property development and investment holding (Bukit Bintang City Centre). Joint venture, FYE 31 Dec. JV partners not named in source", "st": "Active", "c": "Malaysia", "inc": "2015-09-26", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, joint ventures (FYE 31 Oct 2025)"}, {"k": "IMMERSIFY", "n": "Immersify (KL) Sdn. Bhd.", "r": "202401019059 (1564908-X)", "t": "JV", "p": "EWDGB", "pct": 40, "lv": "1 - Direct", "note": "Digital art exhibitions / galleries. Joint venture", "st": "Active", "c": "Malaysia", "inc": "2024-12-18", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, joint ventures (FYE 31 Oct 2025)"}, {"k": "MFBBCCRM", "n": "MFBBCC Retail Mall Sdn. Bhd.", "r": "201601018896 (1189832-W)", "t": "Associate", "p": "EWDGB", "pct": 11, "lv": "1 - Direct", "note": "Development and operation of retail mall (BBCC). Associate, FYE 31 Dec", "st": "Active", "c": "Malaysia", "inc": "2016-05-15", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, associates (FYE 31 Oct 2025)"}, {"k": "EBP9", "n": "Eco Business Park 9 Sdn. Bhd.", "r": "202501056276 (1657682-M)", "t": "Subsidiary", "p": "ASCENSION", "pct": 100, "lv": "2 - Indirect", "note": "New since FYE (structure only)", "st": "Active", "c": "Malaysia", "inc": "2025-10-06", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "VNODE", "n": "Versione Node Sdn. Bhd.", "r": "202501059242 (1660648-T)", "t": "Subsidiary", "p": "ASCENSION", "pct": 100, "lv": "2 - Indirect", "note": "New since FYE (structure only)", "st": "Active", "c": "Malaysia", "inc": "2025-01-12", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "VWKND", "n": "Versione WKND Sdn. Bhd.", "r": "202501056248 (1657654-X)", "t": "Subsidiary", "p": "ASCENSION", "pct": 100, "lv": "2 - Indirect", "note": "New since FYE (structure only)", "st": "Active", "c": "Malaysia", "inc": "2025-12-24", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "ARDENCE", "n": "Eco Ardence Sdn. Bhd.", "r": "199701012416 (427912-X)", "t": "JV", "p": "GRANDEUR", "pct": 50, "lv": "2 - Indirect", "note": "Property development and investment holding. Joint venture held through Eco Grandeur", "st": "Active", "c": "Malaysia", "inc": "1997-03-21", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, joint ventures (FYE 31 Oct 2025)"}, {"k": "EWICAP", "n": "EWI Capital Berhad", "r": "201301030020 (1059850-A)", "t": "Other investment", "p": "EWCI", "pct": 30, "lv": "2 - Indirect", "note": "Formerly Eco World International Berhad. Ceased to be an associate on 30 Apr 2025, reclassified as other investment (FS). 30% per 20 Jan 2026 structure; 29% in FS 2024 column and 13 May 2025 chart", "st": "Active", "c": "Malaysia", "inc": "2013-07-16", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, associates (FYE 31 Oct 2025); Group Structure PDF as at 13 May 2025"}, {"k": "TROPICS", "n": "Eco Tropics Development Sdn. Bhd.", "r": "199401030842 (316524-U)", "t": "Subsidiary", "p": "FAP", "pct": 100, "lv": "2 - Indirect", "note": "Property development. Held through Focal Aims Properties", "st": "Active", "c": "Malaysia", "inc": "1994-07-25", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "DMS", "n": "Eco World DM Services Sdn. Bhd.", "r": "201401019982 (1096068-V)", "t": "Service co", "p": "EWPM", "pct": 100, "lv": "2 - Indirect", "note": "Consultancy and project management services, investment holding. Held through EWPM", "st": "Active", "c": "Malaysia", "inc": "2014-06-22", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "MGB", "n": "MGB Global Sdn. Bhd.", "r": "202101026497 (1426797-H)", "t": "Held via JV", "p": "BBCC", "pct": 70, "lv": "2 - Indirect", "note": "Held 70% by BBCC Development (JV)", "st": "Members' voluntary winding up", "c": "Malaysia", "inc": "2021-11-15", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "MFBBCCSS", "n": "MFBBCC Serviced Suites Sdn. Bhd.", "r": "202001011803 (1368123-P)", "t": "Held via JV", "p": "BBCC", "pct": 49, "lv": "2 - Indirect", "note": "Held 49% by BBCC Development (JV)", "st": "Active", "c": "Malaysia", "inc": "2020-08-27", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026"}, {"k": "MAJESTIC", "n": "Eco Majestic Development Sdn. Bhd.", "r": "201401003012 (1079086-W)", "t": "Subsidiary", "p": "RENTAS", "pct": 98, "lv": "2 - Indirect", "note": "Property development and investment holding. Effectively 100%: 98% via Rentas Prestasi + 2% direct by EWDGB (FS note 8(a) footnote)", "st": "Active", "c": "Malaysia", "inc": "2014-03-26", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS 8(a) (FYE 31 Oct 2025)"}, {"k": "NPM", "n": "Neighbourhood Property Management Sdn. Bhd.", "r": "201501010259 (1135594-U)", "t": "Associate", "p": "DMS", "pct": 49, "lv": "3 - Indirect (2 steps)", "note": "Property management services. Associate held through Eco World DM Services", "st": "Active", "c": "Malaysia", "inc": "2015-01-16", "src": "IAR 2025 p.10-11, Group Structure as at 20 Jan 2026; IAR 2025 Notes to FS, associates (FYE 31 Oct 2025)"}, {"k": "EPF", "n": "Employees Provident Fund Board (EPF)", "r": "", "t": "External shareholder", "p": null, "pct": null, "lv": "External", "note": "Reported in the press (The Edge) as holding 40% of Eco Horizon. Not confirmed in the Annual Report", "st": "Active", "c": "Malaysia", "inc": null, "src": "Press report (The Edge)"}], "links": [{"p": "EWDGB", "c": "ANTURY", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "ASCENSION", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "BALAU", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "BOTANIC", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "BOTANIC3", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "EBP1", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "EBP2", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "EBP6", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "GRANDEUR", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "MACALISTER", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "MEADOWS", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "SANCTUARY", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "SKY", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "SUMMER", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "TERRACES", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "VERDANCE", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "EWCI", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "CAPASSETS", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "CAPBHD", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "CAPSERV", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "DEVS", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "DEVMGMT", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "DIGITAL", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "IBS", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "PERPETUAL", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "EWPM", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "PSCENTRAL", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "PSNORTH", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "PSSOUTH", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "STRATCAP1", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "TRADING", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "UKAY", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "FAL", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "FAP", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "HASRAT", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "JASA", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "MELIA", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "MERIDIAN", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "PARAGON", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "QALPHA", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "QMEGA", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "RENTAS", "pct": 100, "v": "Public source"}, {"p": "EWDGB", "c": "MUTIARA", "pct": 81, "v": "Public source"}, {"p": "EWDGB", "c": "HORIZON", "pct": 60, "v": "Public source"}, {"p": "EWDGB", "c": "EBP7", "pct": 55, "v": "Public source"}, {"p": "EWDGB", "c": "EBP8", "pct": 45, "v": "Public source"}, {"p": "EWDGB", "c": "BBCC", "pct": 40, "v": "Public source"}, {"p": "EWDGB", "c": "IMMERSIFY", "pct": 40, "v": "Public source"}, {"p": "EWDGB", "c": "MFBBCCRM", "pct": 11, "v": "Public source"}, {"p": "ASCENSION", "c": "EBP9", "pct": 100, "v": "Public source"}, {"p": "ASCENSION", "c": "VNODE", "pct": 100, "v": "Public source"}, {"p": "ASCENSION", "c": "VWKND", "pct": 100, "v": "Public source"}, {"p": "GRANDEUR", "c": "ARDENCE", "pct": 50, "v": "Public source"}, {"p": "EWCI", "c": "EWICAP", "pct": 30, "v": "Public source"}, {"p": "FAP", "c": "TROPICS", "pct": 100, "v": "Public source"}, {"p": "EWPM", "c": "DMS", "pct": 100, "v": "Public source"}, {"p": "BBCC", "c": "MGB", "pct": 70, "v": "Public source"}, {"p": "BBCC", "c": "MFBBCCSS", "pct": 49, "v": "Public source"}, {"p": "RENTAS", "c": "MAJESTIC", "pct": 98, "v": "Public source"}, {"p": "DMS", "c": "NPM", "pct": 49, "v": "Public source"}, {"p": "EWDGB", "c": "MAJESTIC", "pct": 2, "v": "Verified from PDF", "note": "2% direct; 98% via Rentas Prestasi"}, {"p": "EPF", "c": "HORIZON", "pct": 40, "v": "Unverified", "note": "Not shown in IAR structure or FS note; confirm with client"}], "people": [{"k": "LKS", "n": "Tan Sri Dato' Sri Liew Kee Sin", "title": "Executive Chairman", "grp": "Board", "comm": "", "roles": [{"e": "EWDGB", "role": "Executive Chairman"}]}, {"k": "CKW", "n": "Dato' Chang Khim Wah", "title": "Executive Director, President & CEO", "grp": "Board", "comm": "", "roles": [{"e": "EWDGB", "role": "Executive Director"}, {"e": "EWDGB", "role": "President & CEO"}]}, {"k": "LTX", "n": "Liew Tian Xiong", "title": "Executive Director, Deputy CEO", "grp": "Board", "comm": "", "roles": [{"e": "EWDGB", "role": "Executive Director"}, {"e": "EWDGB", "role": "Deputy CEO"}]}, {"k": "ARM", "n": "Tan Sri Abdul Rashid Bin Abdul Manaf", "title": "Founder & Non-Independent Non-Executive Director", "grp": "Board", "comm": "", "roles": [{"e": "EWDGB", "role": "NINED"}]}, {"k": "LKW", "n": "Dato' Leong Kok Wah", "title": "Non-Independent Non-Executive Director", "grp": "Board", "comm": "", "roles": [{"e": "EWDGB", "role": "NINED"}]}, {"k": "LML", "n": "Low Mei Ling", "title": "Senior Independent Non-Executive Director", "grp": "Board", "comm": "Audit (Chair); Investment (Chair); Remuneration", "roles": [{"e": "EWDGB", "role": "Senior INED"}]}, {"k": "LHE", "n": "Lim Hiah Eng (Mrs. Lucy Chong)", "title": "Independent Non-Executive Director", "grp": "Board", "comm": "Nomination (Chair); Audit; Whistleblowing", "roles": [{"e": "EWDGB", "role": "INED"}]}, {"k": "SSY", "n": "Sar Sau Yee", "title": "Independent Non-Executive Director", "grp": "Board", "comm": "Whistleblowing (Chair); Investment; Nomination", "roles": [{"e": "EWDGB", "role": "INED"}]}, {"k": "RM", "n": "Dato' Seri Rosman Bin Mohamed", "title": "Independent Non-Executive Director", "grp": "Board", "comm": "Remuneration (Chair); Audit; Whistleblowing", "roles": [{"e": "EWDGB", "role": "INED"}]}, {"k": "NSL", "n": "Ng Soon Lai @ Ng Siek Chuan", "title": "Independent Non-Executive Director", "grp": "Board", "comm": "Audit; Nomination", "roles": [{"e": "EWDGB", "role": "INED"}]}, {"k": "NRA", "n": "Nor Rejina Binti Abdul Rahim", "title": "Independent Non-Executive Director", "grp": "Board", "comm": "Remuneration", "roles": [{"e": "EWDGB", "role": "INED"}]}, {"k": "HKB", "n": "Datuk Heah Kok Boon", "title": "Chief Financial Officer; Alternate Director to Tan Sri Dato' Sri Liew Kee Sin", "grp": "Board (alternate) / Management", "comm": "Risk Management (Chair); Investment", "roles": [{"e": "EWDGB", "role": "Alternate director"}, {"e": "EWDGB", "role": "CFO"}]}, {"k": "CSC", "n": "Chua Siew Chuan", "title": "Company Secretary (MAICSA)", "grp": "Company secretary", "comm": "", "roles": [{"e": "EWDGB", "role": "Company secretary"}]}, {"k": "TLT", "n": "Tan Ley Theng", "title": "Company Secretary (MAICSA)", "grp": "Company secretary", "comm": "", "roles": [{"e": "EWDGB", "role": "Company secretary"}]}], "obligations": [["Quarterly financial reports", "Bursa Main Market LR 9.22", "Within 2 months after each quarter end"], ["Immediate announcements: material transactions, JVs", "Bursa Main Market LR Ch 9 and Ch 10", "Immediately (promptly, ahead of trading where possible)"], ["Director dealings announcements", "Bursa Main Market LR Ch 14; Companies Act 2016 s219", "Director notifies company within 3 market days; company announces promptly after"], ["Related-party transactions", "Bursa Main Market LR Ch 10 (10.08)", "Announce once the percentage ratio is 0.25% or more; circular and shareholder approval at 5% or more; recurrent RPT mandate renewed yearly at the AGM"], ["Circulars to shareholders", "Bursa Main Market LR Ch 8 and 9; reviewed by Bursa", "Issued ahead of the EGM/AGM, with at least 14 days' notice (21 days for special resolutions)"], ["Annual report (incl. MD&A, sustainability statement)", "Bursa Main Market LR 9.23", "Within 4 months of FYE. FY2026 closed 31 Oct 2026, so due by end Feb 2027"], ["Corporate Governance (CG) Report and CG Overview Statement", "Bursa Main Market LR 15.25; MCCG", "Published with the annual report, within 4 months of FYE"], ["Board and committee evaluations", "MCCG Practice 6.1; Bursa LR 15.08A", "Annually, before the annual report and CG Report are finalised"], ["Board charter and committee terms of reference", "MCCG Practices 2.1 and 1.x", "Reviewed periodically (at least every few years) and published on the website"], ["Audited financial statements circulated to members", "Companies Act 2016 s258 and s259", "Circulated within 6 months of FYE for a public company; lodged with SSM within 30 days of circulation"], ["AGM of the listed company", "Companies Act 2016 s340; Bursa LR 7.15", "Within 6 months of FYE (so by 30 Apr 2027); notice at least 21 days by law, 28 days under MCCG"], ["AGMs or circular resolutions for every subsidiary", "Companies Act 2016 s340 (public subs); s290 (circular resolutions for private subs)", "Public subsidiaries hold an AGM within 6 months of FYE; private subsidiaries pass written resolutions and circulate accounts within 6 months"], ["Annual return per entity", "Companies Act 2016 s68", "Within 30 days of the anniversary of incorporation (not the AGM date under the 2016 Act)"], ["Register of members", "Companies Act 2016 s50", "Kept up to date at all times; updated when shares change hands"], ["Register of directors, managers and secretaries", "Companies Act 2016 s57", "Kept up to date at all times"], ["Register of charges", "Companies Act 2016 s352 and s362", "Charges lodged with SSM within 30 days of creation; register kept current"], ["Change notifications: directors and secretaries", "Companies Act 2016 s58", "Lodged with SSM within 14 days of the change"], ["Change of registered office or business address", "Companies Act 2016 s46", "Lodged with SSM within 14 days of the change"], ["Beneficial ownership register and SSM lodgement", "Companies Act 2016 s60A to s60G (2024 amendment); SSM BO Guideline", "Kept current; changes lodged with SSM within 14 days; annual confirmation of beneficial owners"], ["Board and committee meeting packs", "MCCG Practice 1.x; board charter", "Circulated at least 5 business days before each meeting"], ["Agenda and minutes for board and committee meetings", "Companies Act 2016 s222", "Minutes recorded within 14 days of the meeting and signed by the chair"], ["Circular resolutions and signing workflows", "Companies Act 2016 s290 (members); constitution (directors)", "Ad hoc; resolution lapses if not passed within 28 days of circulation (members)"], ["Director onboarding for new SPVs and JVs", "Companies Act 2016 s201 (consent), s14 (incorporation); Bursa LR 15.08 (induction programme)", "Consent before appointment; s58 lodgement within 14 days; induction and MAP training within 4 months for new listed-company directors"], ["Overseas filings: Singapore entities", "Companies Act 1967 (Singapore), ACRA", "AGM within 6 months of FYE; annual return within 7 months of FYE; changes within 14 days"], ["Overseas filings: Australian entities", "Corporations Act 2001 (Australia), ASIC", "Annual review and solvency statement each review date; officer changes within 28 days; financial reports for large or public entities within 3 to 4 months of FYE"], ["Company seal and statutory registers kept at the registered office", "Companies Act 2016 s61 (seal now optional), s46", "Ongoing; seal use logged; registers open for inspection"], ["Lodgement of forms with SSM via MBRS / ezBiz", "Companies Act 2016; SSM practice", "Each lodgement within its own statutory window, usually 14 or 30 days"], ["Share transfers", "Companies Act 2016 s105 and s106; Bursa Depository (CDS) for listed shares", "Unlisted subsidiaries register within 30 days of lodging the transfer; listed shares settle through Bursa Depository"], ["Share allotments and return of allotment", "Companies Act 2016 s75 and s78; Bursa LR Ch 6 (new issues)", "Return of allotment lodged within 14 days; Bursa listing application for any new listed shares"], ["Director service agreements and appointment letters", "Companies Act 2016 s230 (remuneration); Bursa LR 7.24; MCCG", "Prepared at appointment; fees and benefits approved by shareholders at each AGM"], ["Share scheme (ESOS/ESGP) administration, if applicable", "Bursa Main Market LR Ch 6 (6.36 to 6.44)", "By-laws kept current; offers, allotments and listings announced as they happen; disclosed in the annual report"], ["Unclaimed monies such as unclaimed dividends", "Unclaimed Moneys Act 1965", "Lodged with the Registrar of Unclaimed Moneys every year (check the current lodgement date)"], ["Dividend entitlement and payment", "Bursa Main Market LR 9.19; Companies Act 2016 s131 (solvency test)", "Announce at least 10 market days before the entitlement date; pay within 3 months of the declaration"], ["Director interest disclosures and conflict register", "Companies Act 2016 s221", "Disclosed at the first board meeting after the director becomes aware"]]};
+</script>
+<script>
+// ===== Utilities =====
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const D=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt=s=>{if(!s)return '—';const d=typeof s==='string'?D(s):s;return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()};
+const TODAY=(()=>{const t=new Date();t.setHours(0,0,0,0);return t})();
+const daysTo=s=>Math.round((D(s)-TODAY)/864e5);
+const nowStamp=()=>{const d=new Date();return iso(d)+' '+pad(d.getHours())+':'+pad(d.getMinutes())};
+const uid=p=>p+'-'+Math.random().toString(36).slice(2,7);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2200)}
+function dueTag(s,done){if(done)return '<span class="pill ok">Done</span>';const n=daysTo(s);if(n<0)return `<span class="pill bad">${-n}d overdue</span>`;if(n<=14)return `<span class="pill warn">in ${n}d</span>`;return `<span class="pill">in ${n}d</span>`}
+
+// ===== Public entity data (from Annual Report 2025) =====
+const ENT={};DATA.entities.forEach(e=>ENT[e.k]=e);
+const GROUP=DATA.entities.filter(e=>e.t!=='External shareholder');
+const LINKS=DATA.links;
+const childrenOf=k=>LINKS.filter(l=>l.p===k&&l.c!==k);
+const holdersOf=k=>LINKS.filter(l=>l.c===k);
+// Effective interest of EWDGB across levels (multiplies % down every path, adds parallel paths)
+const EFF={};
+function eff(k,seen={}){if(k==='EWDGB')return 100;if(k in EFF)return EFF[k];if(seen[k])return 0;seen[k]=1;
+ let s=0;holdersOf(k).forEach(l=>{if(!ENT[l.p]||ENT[l.p].t==='External shareholder')return;s+=eff(l.p,seen)*(l.pct/100)});return EFF[k]=Math.round(s*100)/100}
+GROUP.forEach(e=>eff(e.k));
+const shortName=n=>n.replace(/ Sdn\. Bhd\.| Berhad| Pte\. Ltd\./g,'');
+const entLink=k=>ENT[k]?`<a href="javascript:void 0" onclick="Ent.open('${k}')">${esc(shortName(ENT[k].n))}</a>`:esc(k);
+
+// ===== Sample state (persisted in localStorage) =====
+const LS='ewcosec_mock_v1';
+function seed(){
+ const d=n=>iso(addDays(TODAY,n));
+ const sig=(names,st)=>names.map((n,i)=>({n,s:Array.isArray(st)?st[i]:st}));
+ const cards=[
+  {id:'AP-101',title:'Disposal of company motor vehicle',kind:'Directors\' circular resolution',ws:'Cosec',ent:'SKY',dept:'Sales (sample)',stage:'Pending signature',due:d(4),
+   src:{ch:'Email',ref:'RE: Need board approval to sell company car (sample)',at:d(-6)},sign:sig(['Director A (sample)','Director B (sample)'],['Signed','Pending']),
+   log:[[d(-6)+' 10:12','Request received by email and linked'],[d(-5)+' 15:40','Draft resolution generated from the "Disposal of motor vehicle" skill'],[d(-4)+' 09:05','Checked by cosec. Sent for e-signature'],[d(-3)+' 18:22','Director A signed']]},
+  {id:'AP-102',title:'Acceptance of banking facility (term loan)',kind:'Directors\' circular resolution',ws:'Cosec',ent:'EBP1',dept:'Group Treasury (sample)',stage:'Draft',due:d(9),
+   src:{ch:'Email',ref:'Bank letter of offer, 14 pages (sample PDF)',at:d(-2)},sign:sig(['Director A (sample)','Director C (sample)'],'Not sent'),
+   log:[[d(-2)+' 11:30','Request received with the bank\'s letter of offer'],[d(-1)+' 16:02','AI pulled out 7 key terms. Waiting for cosec to check them']]},
+  {id:'AP-103',title:'Online banking (e-banking) application',kind:'Directors\' circular resolution',ws:'Cosec',ent:'BOTANIC',dept:'Finance (sample)',stage:'Signed',due:d(2),
+   src:{ch:'WhatsApp',ref:'Forwarded chat: "need reso for online banking by Fri" (sample)',at:d(-9)},sign:sig(['Director A (sample)','Director B (sample)'],'Signed'),
+   log:[[d(-9)+' 08:47','Chat request captured into the inbox'],[d(-8)+' 14:10','Draft generated and checked'],[d(-7)+' 10:00','Sent for e-signature'],[d(-5)+' 17:31','All signatures received. Audit stamp applied']]},
+  {id:'AP-104',title:'Change of registered office: notice to SSM (s46)',kind:'SSM lodgement',ws:'Cosec',ent:'TERRACES',dept:'Cosec',stage:'Filed',due:d(-3),
+   src:{ch:'Notion',ref:'Entity register: address change (sample)',at:d(-16)},sign:sig(['Director B (sample)'],'Signed'),
+   log:[[d(-16)+' 09:00','Address change recorded. Old address kept in History'],[d(-15)+' 12:00','Resolution signed'],[d(-6)+' 16:45','Lodged with SSM. Receipt saved to the e-library']]},
+  {id:'AP-105',title:'Land acquisition: approval to enter into an SPA',kind:'Directors\' circular resolution',ws:'Cosec',ent:'MEADOWS',dept:'Land Acquisition (sample)',stage:'Draft',due:d(12),
+   src:{ch:'Email',ref:'Draft SPA and valuation summary (sample)',at:d(-1)},sign:sig(['Director A (sample)','Director B (sample)','Director C (sample)'],'Not sent'),
+   log:[[d(-1)+' 17:20','Request received. Threshold check queued (Bursa LR Ch 10)']]},
+  {id:'AP-106',title:'Appointment of director',kind:'Directors\' circular resolution + s58 notice',ws:'Cosec',ent:'EBP9',dept:'Cosec',stage:'Pending signature',due:d(6),
+   src:{ch:'Teams',ref:'Chat thread: new SPV board (sample)',at:d(-4)},sign:sig(['Director A (sample)','Director D (sample)'],['Pending','Pending']),
+   log:[[d(-4)+' 13:13','Request captured'],[d(-3)+' 11:00','Consent to act (s201) attached'],[d(-2)+' 10:30','Sent for e-signature']]},
+  {id:'AP-107',title:'Board paper: Q4 sustainability update',kind:'Board paper sign-off',ws:'Board papers',ent:'EWDGB',dept:'Sustainability (sample)',stage:'Draft',due:d(20),
+   src:{ch:'Notion',ref:'Board Dec meeting: agenda item 6 (sample)',at:d(-1)},sign:sig(['Head of department (sample)'],'Not sent'),
+   log:[[d(-1)+' 09:40','Agenda item created by cosec']]},
+  {id:'AP-108',title:'Marketing campaign budget sign-off',kind:'Department approval',ws:'Marketing (future)',ent:'EWDGB',dept:'Marketing (sample)',stage:'Pending signature',due:d(3),
+   src:{ch:'Email',ref:'Campaign budget for Q1 (sample)',at:d(-3)},sign:sig(['CFO office (sample)','CEO office (sample)'],['Signed','Pending']),
+   log:[[d(-3)+' 15:15','Request received'],[d(-2)+' 10:00','Sent for approval']]},
+  {id:'AP-109',title:'Vendor contract above approval limit',kind:'Department approval',ws:'Procurement (future)',ent:'DEVMGMT',dept:'Procurement (sample)',stage:'Signed',due:d(1),
+   src:{ch:'WhatsApp',ref:'Forwarded chat with contract PDF (sample)',at:d(-7)},sign:sig(['COO office (sample)'],'Signed'),
+   log:[[d(-7)+' 12:00','Chat request captured'],[d(-4)+' 09:12','Signed']]},
+ ];
+ const requests=[
+  {id:'RQ-201',ch:'Email',from:'Sales dept (sample)',subj:'Need a copy of the latest s58 notice for Eco Summer to submit to the authority',at:d(-1),ent:'SUMMER',st:'New',body:'Hi cosec, can you send the latest Section 58 notice for Eco Summer? The authority needs it this week. Thanks. (sample)'},
+  {id:'RQ-202',ch:'WhatsApp',from:'Treasury (sample)',subj:'Bank wants a board resolution to open a new current account, Eco Sanctuary',at:d(0),ent:'SANCTUARY',st:'New',body:'Bank asked for a certified board resolution to open a current account for Eco Sanctuary. Can we do it by next Wed? (sample)'},
+  {id:'RQ-203',ch:'Email',from:'Legal (sample)',subj:'Solicitors need data-room access for a corporate exercise (time-limited)',at:d(-2),ent:'EWDGB',st:'New',body:'External solicitors need read access to the registers and minutes of 3 entities for 2 weeks. (sample)'},
+  {id:'RQ-204',ch:'Teams',from:'Finance (sample)',subj:'Disposal of 2 company motorcycles, Eco Business Park 2',at:d(-3),ent:'EBP2',st:'Converted',card:'AP-101',body:'Please prepare the resolution to dispose of 2 motorcycles. (sample)'},
+ ];
+ const papers=[
+  {no:'1',t:'Confirmation of minutes of the previous meeting',dept:'Cosec',st:'Uploaded',v:'1.0'},
+  {no:'2',t:'Matters arising',dept:'Cosec',st:'Uploaded',v:'1.0'},
+  {no:'3',t:'Quarterly financial results (Q4 FY2026)',dept:'Finance',st:'Revised',v:'3.1'},
+  {no:'4',t:'Group sales and launches update',dept:'Sales & Marketing',st:'Uploaded',v:'1.0'},
+  {no:'5',t:'Risk management report',dept:'Risk',st:'Awaiting',v:''},
+  {no:'6',t:'Sustainability update',dept:'Sustainability',st:'Awaiting',v:''},
+  {no:'7',t:'Customer service / call centre report',dept:'Call Centre',st:'Awaiting',v:''},
+  {no:'8',t:'Circular resolutions passed since the last meeting',dept:'Cosec',st:'Uploaded',v:'1.0'},
+  {no:'9',t:'Any other business',dept:'Cosec',st:'Awaiting',v:''},
+ ];
+ const docs=[
+  {id:'DC-1',t:'Section 58 notice: change in particulars of directors',ent:'SUMMER',type:'SSM lodgement',date:d(-40),elib:true},
+  {id:'DC-2',t:'Annual return 2026 (MBRS receipt)',ent:'BOTANIC',type:'SSM lodgement',date:d(-120),elib:true},
+  {id:'DC-3',t:'Directors\' circular resolution: online banking',ent:'BOTANIC',type:'Resolution',date:d(-5),elib:false},
+  {id:'DC-4',t:'Minutes of board meeting (Sep 2026)',ent:'EWDGB',type:'Minutes',date:'2026-09-24',elib:false},
+  {id:'DC-5',t:'Section 46 notice: change of registered office',ent:'TERRACES',type:'SSM lodgement',date:d(-6),elib:true},
+  {id:'DC-6',t:'Register of directors (extract)',ent:'EBP1',type:'Register',date:d(-30),elib:true},
+  {id:'DC-7',t:'Certified true copy: constitution',ent:'SKY',type:'Constitution',date:'2025-03-12',elib:true},
+  {id:'DC-8',t:'Audited financial statements FY2025',ent:'MEADOWS',type:'Financials',date:'2026-03-30',elib:false},
+ ];
+ const skills=['Disposal of motor vehicle','Online banking / e-banking facility','Acceptance of banking facility','Opening of bank account','Sale or purchase of land','Change of registered office','Appointment of director','Allotment of shares'];
+ const history={DEVMGMT:[{f:'Name',old:'Eco World Development Management (BBCC) Sdn. Bhd.',from:'—',to:'(per 13 May 2025 chart)',src:'Public: group structure chart'}],
+  EWICAP:[{f:'Name',old:'Eco World International Berhad',from:'—',to:'—',src:'Public: IAR 2025'},{f:'Classification',old:'Associate',from:'—',to:'30 Apr 2025',src:'Public: IAR 2025 notes'}]};
+ return {cards,requests,papers,docs,skills,history,filed:{},holders:[
+   {n:'Holder A (sample)',dir:20.1,ind:3.2},{n:'Holder B (sample)',dir:12.4,ind:0},{n:'Holder C (sample)',dir:5.3,ind:0},{n:'Holder D (sample)',dir:4.6,ind:0.6}],publicSpread:31.8,resoCount:{month:23,avgDays:3.4}};
+}
+let S=JSON.parse(localStorage.getItem(LS)||'null')||seed();
+const save=()=>localStorage.setItem(LS,JSON.stringify(S));
+
+// ===== Compliance items (derived) =====
+const FYE='2026-10-31';
+function complianceItems(){
+ const out=[];const add=(id,ent,title,cat,due,basis,note)=>out.push({id,ent,title,cat,due,basis,note,done:!!S.filed[id]});
+ // group level, listed parent
+ add('G-Q4','EWDGB','Quarterly report: Q4 FY2026 (to Bursa)','Bursa','2026-12-31','Bursa MMLR 9.22','Within 2 months after quarter end');
+ add('G-AR','EWDGB','Annual report FY2026 incl. CG Report and sustainability statement','Bursa','2027-02-28','Bursa MMLR 9.23, 15.25','Within 4 months of FYE (31 Oct 2026)');
+ add('G-EVAL','EWDGB','Board and committee evaluation for FY2026','Governance','2027-01-31','MCCG Practice 6.1','Before the annual report is final (target date is a sample)');
+ add('G-AGMN','EWDGB','AGM notice to shareholders (28 days under MCCG)','Bursa','2027-04-02','CA2016 s316; MCCG','Notice ahead of an AGM held by 30 Apr 2027 (sample AGM date)');
+ add('G-AGM','EWDGB','AGM of the listed company','SSM','2027-04-30','CA2016 s340','Within 6 months of FYE');
+ add('G-Q1','EWDGB','Quarterly report: Q1 FY2027','Bursa','2027-03-31','Bursa MMLR 9.22','Quarter ending 31 Jan 2027');
+ add('G-ROT','EWDGB','Directors retiring by rotation: confirm the list for AGM 2027','Governance','2027-02-15','Constitution; MMLR 7.26','Each director retires at least once every 3 years (date is a sample)');
+ add('G-SPREAD','EWDGB','Public shareholding spread check (25% minimum)','Bursa','2026-12-15','Bursa MMLR 8.02','Check against each Record of Depositors (date is a sample)');
+ add('G-POL','EWDGB','Board charter and committee TOR review','Governance','2027-01-15','MCCG Practice 2.1','Periodic review (date is a sample)');
+ // per entity
+ GROUP.forEach(e=>{
+  if(e.k==='EWDGB'||!e.inc)return;
+  const listedSub=e.t;const wind=e.st!=='Active';
+  if(e.c==='Singapore'){add('AR-'+e.k,e.k,'Annual return (ACRA)','Overseas','2027-05-31','Singapore Companies Act 1967','Within 7 months of FYE (assumes an Oct FYE)');return}
+  const inc=D(e.inc);let ann=new Date(TODAY.getFullYear(),inc.getMonth(),inc.getDate());if(addDays(ann,30)<addDays(TODAY,-20))ann=new Date(TODAY.getFullYear()+1,inc.getMonth(),inc.getDate());
+  add('AR-'+e.k,e.k,'Annual return (SSM, MBRS)','SSM',iso(addDays(ann,30)),'CA2016 s68','Within 30 days of the incorporation anniversary ('+fmt(ann)+', sample date)'+(wind?'. Entity is in winding up, so check whether this still applies':''));
+  if(['Subsidiary','SPV','Service co'].includes(e.t)){
+   const pub=/Berhad$/.test(e.n);
+   add('FS-'+e.k,e.k,pub?'AGM and audited accounts (public company)':'Circulate audited accounts to members (written resolution)','SSM','2027-04-30',pub?'CA2016 s340, s258':'CA2016 s258, s290','Within 6 months of FYE 31 Oct 2026');
+   add('FL-'+e.k,e.k,'Lodge financial statements with SSM','SSM','2027-05-30','CA2016 s259','Within 30 days of circulation');
+  }
+ });
+ // event-based samples
+ add('EV-1','SUMMER','s58 notice: change in a director\'s particulars (sample event)','Event',iso(addDays(TODAY,9)),'CA2016 s58','Within 14 days of the change');
+ add('EV-2','EBP9','s58 notice: appointment of director (sample event)','Event',iso(addDays(TODAY,12)),'CA2016 s58','Within 14 days of appointment');
+ add('EV-3','EBP1','Register a charge for the new facility (sample event)','Event',iso(addDays(TODAY,25)),'CA2016 s352','Within 30 days of creating the charge');
+ add('EV-4','SKY','Return of allotment of shares (sample event)','Event',iso(addDays(TODAY,-2)),'CA2016 s78','Within 14 days of the allotment');
+ return out.sort((a,b)=>a.due<b.due?-1:1);
+}
+
+// ===== Router & nav =====
+const VIEWS=[
+ ['sec','Overview'],['dashboard','Dashboard','◧'],
+ ['sec','Pillar: Entity management'],['entities','Entity portal','🏢'],['people','Directors & officers','👤'],['monitor','Shareholding monitor','📈'],['calendar','Compliance calendar','📅'],
+ ['sec','Workflows'],['requests','Requests inbox','📥'],['approvals','Approval Board','✅'],['resolutions','Resolution drafting','✍️'],['board','Board meeting papers','🗂️'],['library','Documents & e-library','📚'],
+ ['sec','About'],['about','What to try','ℹ️']];
+function navCounts(){const items=complianceItems();return{approvals:S.cards.filter(c=>c.stage==='Pending signature').length,requests:S.requests.filter(r=>r.st==='New').length,calendar:items.filter(i=>!i.done&&daysTo(i.due)<0).length,board:S.papers.filter(p=>p.st==='Awaiting').length}}
+function renderNav(cur){const c=navCounts();$('#nav').innerHTML=VIEWS.map(v=>v[0]==='sec'?`<div class="sec">${v[1]}</div>`:`<a href="#${v[0]}" class="${cur===v[0]?'on':''}"><span class="ic">${v[2]}</span>${v[1]}${c[v[0]]?`<span class="ct ${v[0]==='calendar'?'hot':''}">${c[v[0]]}</span>`:''}</a>`).join('')}
+const R={};
+function route(){const v=(location.hash||'#dashboard').slice(1).split('/')[0];const fn=R[v]||R.dashboard;renderNav(R[v]?v:'dashboard');$('#main').innerHTML='';fn($('#main'));$('#side').classList.remove('on');window.scrollTo(0,0)}
+window.addEventListener('hashchange',route);
+function header(title,sub,right=''){return `<div class="top"><button class="burger" onclick="$('#side').classList.toggle('on')">☰</button><div><h1>${title}</h1><div class="sub">${sub}</div></div><span class="sp"></span>${right}</div>`}
+const App={
+ reset(){if(confirm('Reset all sample data to the starting state?')){localStorage.removeItem(LS);S=seed();route();toast('Sample data reset')}},
+ closeAll(){$('#drawer').classList.remove('on');$('#modal').classList.remove('on');$('#scrim').classList.remove('on')},
+ drawer(hd,bd){$('#dhd').innerHTML=hd+'<button class="x" onclick="App.closeAll()">×</button>';$('#dbd').innerHTML=bd;$('#drawer').classList.add('on');$('#scrim').classList.add('on')},
+ modal(title,body,foot){$('#modal').innerHTML=`<div class="hd"><h2>${title}</h2><button class="x" onclick="App.closeAll()">×</button></div><div class="bd">${body}</div><div class="ft">${foot||''}</div>`;$('#modal').classList.add('on');$('#scrim').classList.add('on')},
+};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')App.closeAll()});
+
+// ===== Dashboard =====
+R.dashboard=el=>{
+ const items=complianceItems();const open=items.filter(i=>!i.done);
+ const overdue=open.filter(i=>daysTo(i.due)<0),soon=open.filter(i=>daysTo(i.due)>=0&&daysTo(i.due)<=30);
+ const pend=S.cards.filter(c=>c.stage==='Pending signature');const up=S.papers.filter(p=>p.st!=='Awaiting').length;
+ const arMonth=open.filter(i=>i.id.startsWith('AR-')&&D(i.due).getMonth()===TODAY.getMonth()&&D(i.due).getFullYear()===TODAY.getFullYear());
+ const alerts=[];S.holders.forEach(h=>{const t=h.dir+h.ind;if(t>=4.5&&t<5.5)alerts.push(`${esc(h.n)} is at ${t.toFixed(2)}%, close to the 5% substantial-shareholder line`)});
+ if(S.publicSpread<27)alerts.push(`Public spread is ${S.publicSpread}%, close to the 25% minimum`);
+ el.innerHTML=header('Good day, Cosec team','Group view for '+fmt(TODAY)+'. FY2026 closed on 31 Oct 2026.')+`
+ <div class="grid g4">
+  <div class="card kpi"><div class="l">Group entities in the register</div><div class="v">${GROUP.length}</div><div class="d muted">from the public group structure</div></div>
+  <div class="card kpi" style="cursor:pointer" onclick="location.hash='calendar'"><div class="l">Statutory deadlines due in 30 days</div><div class="v">${soon.length}</div><div class="d">${overdue.length?`<span class="pill bad">${overdue.length} overdue</span>`:'<span class="pill ok">none overdue</span>'}</div></div>
+  <div class="card kpi" style="cursor:pointer" onclick="location.hash='approvals'"><div class="l">Waiting for signature</div><div class="v">${pend.length}</div><div class="d muted">across all workstreams</div></div>
+  <div class="card kpi" style="cursor:pointer" onclick="location.hash='board'"><div class="l">December board papers in</div><div class="v">${up}/${S.papers.length}</div><div class="prog" style="margin-top:8px"><i style="width:${Math.round(up/S.papers.length*100)}%"></i></div></div>
+ </div>
+ <div class="grid g3" style="margin-top:14px">
+  <div class="card" style="grid-column:span 2"><h3>📅 Next deadlines<span class="sp"></span><a href="#calendar" class="small">Open calendar →</a></h3><div class="list">
+   ${[...overdue,...soon].slice(0,8).map(i=>`<div class="it"><span class="dot ${daysTo(i.due)<0?'bad':daysTo(i.due)<=14?'warn':''}"></span><div class="grow"><b>${esc(i.title)}</b><div class="small muted">${entLink(i.ent)} · ${esc(i.basis)} · due ${fmt(i.due)}</div></div>${dueTag(i.due)}</div>`).join('')||'<div class="empty">Nothing due in the next 30 days</div>'}
+  </div></div>
+  <div class="card"><h3>🔔 Alerts</h3><div class="list">
+   ${arMonth.length?`<div class="it"><span class="dot warn"></span><div class="grow">${arMonth.length} annual returns due this month</div></div>`:''}
+   ${alerts.map(a=>`<div class="it"><span class="dot bad"></span><div class="grow">${a}</div></div>`).join('')}
+   ${S.requests.filter(r=>r.st==='New').length?`<div class="it"><span class="dot"></span><div class="grow">${S.requests.filter(r=>r.st==='New').length} new requests in the inbox <a href="#requests">Open</a></div></div>`:''}
+   <div class="it"><span class="dot"></span><div class="grow small muted">Entity EBP8: the public sources disagree on the % held (45% vs 100%). Check it before migration.</div></div>
+  </div></div>
+ </div>
+ <div class="grid g3" style="margin-top:14px">
+  <div class="card"><h3>✅ Waiting for signature</h3><div class="list">${pend.map(c=>`<div class="it"><div class="grow"><a href="javascript:void 0" onclick="AB.open('${c.id}')"><b>${esc(c.title)}</b></a><div class="small muted">${entLink(c.ent)} · ${c.sign.filter(s=>s.s==='Signed').length}/${c.sign.length} signed</div></div>${dueTag(c.due)}</div>`).join('')||'<div class="empty">None</div>'}</div></div>
+  <div class="card"><h3>✍️ Resolutions: measured</h3>
+   <div class="grid g2"><div class="kpi"><div class="v">${S.resoCount.month}</div><div class="l">drafted this month (sample)</div></div><div class="kpi"><div class="v">${S.resoCount.avgDays}d</div><div class="l">from request to signed (sample)</div></div></div>
+   <div class="small muted" style="margin-top:8px">Every request, draft, signature and filing is timestamped, so turnaround and AI usage can be reported to management instead of estimated.</div></div>
+  <div class="card"><h3>🏢 Group by type</h3>${Object.entries(GROUP.reduce((a,e)=>(a[e.t]=(a[e.t]||0)+1,a),{})).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<div style="display:flex;justify-content:space-between;padding:3px 0"><span>${esc(t)}</span><b>${n}</b></div>`).join('')}</div>
+ </div>`;
+};
+
+// ===== Entity portal =====
+const Ent={f:{q:'',t:'',lv:'',view:'table'},collapsed:{},
+ open(k,tab='profile'){const e=ENT[k];if(!e)return;const hold=holdersOf(k),held=childrenOf(k);const hist=S.history[k]||[];
+  const items=complianceItems().filter(i=>i.ent===k);const docs=S.docs.filter(d=>d.ent===k);
+  const ppl=DATA.people.filter(p=>p.roles.some(r=>r.e===k));
+  const tabs=[['profile','Profile'],['own','Ownership'],['off','Officers'],['reg','Registers'],['comp','Compliance ('+items.length+')'],['docs','Documents ('+docs.length+')'],['hist','History ('+hist.length+')']];
+  const body={
+   profile:`<div class="kv"><div>Registration no.</div><div>${esc(e.r)||'—'}</div><div>Entity type</div><div>${esc(e.t)}</div><div>Status</div><div>${e.st==='Active'?'<span class="pill ok">Active</span>':`<span class="pill warn">${esc(e.st)}</span>`}</div><div>Country</div><div>${esc(e.c)}</div><div>Level in group</div><div>${esc(e.lv)}</div><div>Group effective interest</div><div><b>${e.t==='External shareholder'?'—':eff(k)+'%'}</b></div><div>Principal activity</div><div>${esc(e.note)}</div><div>Incorporation date</div><div>${fmt(e.inc)} <span class="pill warn">sample: check with SSM</span></div><div>Financial year end</div><div>${/BBCC Development|MFBBCC Retail/.test(e.n)?'31 Dec (per FS notes)':'31 Oct'}</div><div>MSIC code</div><div class="muted">to be migrated</div><div>Source</div><div class="small muted">${esc(e.src)}</div></div>
+     <div style="margin-top:14px" class="callout info">✎ Edits never overwrite. The old value moves to History with its start and end dates.</div>
+     <div class="row2"><div class="fld"><label>Field</label><select id="hf"><option>Name</option><option>Registered office</option><option>Principal activity</option><option>Status</option></select></div><div class="fld"><label>New value</label><input id="hv" placeholder="e.g. new name (sample)"></div></div>
+     <button class="btn pri sm" onclick="Ent.change('${k}')">Record change</button>`,
+   own:`<h4 style="margin:4px 0 6px">Held by</h4>${hold.length?`<table><tr><th>Holder</th><th>% held</th><th>Note</th></tr>${hold.map(l=>`<tr><td>${entLink(l.p)}</td><td><b>${l.pct}%</b></td><td class="small muted">${esc(l.v)}${l.note?' · '+esc(l.note):''}</td></tr>`).join('')}</table>`:'<div class="muted">Top of the group</div>'}
+     <h4 style="margin:14px 0 6px">Holds</h4>${held.length?`<table><tr><th>Entity</th><th>% held</th><th>Type</th></tr>${held.map(l=>`<tr><td>${entLink(l.c)}</td><td><b>${l.pct}%</b></td><td>${esc(ENT[l.c]?.t)}</td></tr>`).join('')}</table>`:'<div class="muted">No holdings recorded</div>'}`,
+   off:ppl.length?`<table><tr><th>Name</th><th>Role</th></tr>${ppl.map(p=>`<tr><td><a href="javascript:void 0" onclick="Ppl.open('${p.k}')">${esc(p.n)}</a></td><td>${p.roles.filter(r=>r.e===k).map(r=>esc(r.role)).join(', ')}</td></tr>`).join('')}</table>`:'<div class="empty">Subsidiary boards aren\'t in the public sources.<br>They would come over from your registers during migration.</div>',
+   reg:`<table><tr><th>Register</th><th>Basis</th><th>Status in mockup</th></tr>
+     ${[['Register of members','CA2016 s50'],['Register of directors, managers & secretaries','CA2016 s57'],['Register of directors\' shareholdings','CA2016 s59'],['Register of beneficial owners','CA2016 s60A–60G'],['Register of charges','CA2016 s362'],['Register of share transfers','CA2016 s105']].map(r=>`<tr><td>${r[0]}</td><td class="small">${r[1]}</td><td><span class="pill">to be migrated</span></td></tr>`).join('')}</table>
+     <div class="small muted" style="margin-top:8px">A share transfer leaves total share capital unchanged and an allotment increases it. Both are logged as movements, so the register always rebuilds from history.</div>`,
+   comp:items.length?`<table><tr><th>Obligation</th><th>Due</th><th></th></tr>${items.map(i=>`<tr><td>${esc(i.title)}<div class="tiny muted">${esc(i.basis)}</div></td><td>${fmt(i.due)}</td><td>${dueTag(i.due,i.done)}</td></tr>`).join('')}</table>`:'<div class="empty">No items</div>',
+   docs:docs.length?`<table><tr><th>Document</th><th>Date</th><th>E-library</th></tr>${docs.map(d=>`<tr><td>${esc(d.t)}</td><td>${fmt(d.date)}</td><td>${d.elib?'<span class="pill ok">published</span>':'<span class="pill">internal</span>'}</td></tr>`).join('')}</table>`:'<div class="empty">No documents yet</div>',
+   hist:hist.length?`<table><tr><th>Field</th><th>Previous value</th><th>Until</th><th>Source</th></tr>${hist.map(h=>`<tr><td>${esc(h.f)}</td><td>${esc(h.old)}</td><td>${esc(h.to)}</td><td class="small muted">${esc(h.src)}</td></tr>`).join('')}</table>`:'<div class="empty">No changes recorded yet. Try "Record change" on Profile.</div>'};
+  App.drawer(`<div><div class="tiny muted">${esc(e.t)} · ${esc(e.lv)}</div><h2>${esc(e.n)}</h2></div>`,
+   `<div class="tabs">${tabs.map(t=>`<button class="${t[0]===tab?'on':''}" onclick="Ent.open('${k}','${t[0]}')">${t[1]}</button>`).join('')}</div>${body[tab]}`)},
+ change(k){const f=$('#hf').value,v=$('#hv').value.trim();if(!v)return toast('Enter a new value');const e=ENT[k];
+  const old=f==='Name'?e.n:f==='Principal activity'?e.note:f==='Status'?e.st:'(previous address, sample)';
+  (S.history[k]=S.history[k]||[]).unshift({f,old,from:'—',to:fmt(TODAY),src:'Changed in mockup '+nowStamp()});
+  const fld={Name:'n','Principal activity':'note',Status:'st'}[f];if(fld){e[fld]=v;S.entEdits=S.entEdits||{};(S.entEdits[k]=S.entEdits[k]||{})[fld]=v}
+  if(f==='Registered office'){S.cards.unshift({id:'AP-'+Math.floor(Math.random()*900+300),title:'Change of registered office: s46 notice',kind:'SSM lodgement',ws:'Cosec',ent:k,dept:'Cosec',stage:'Draft',due:iso(addDays(TODAY,14)),src:{ch:'Notion',ref:'Entity register change',at:iso(TODAY)},sign:[{n:'Director A (sample)',s:'Not sent'}],log:[[nowStamp(),'Created automatically from an address change (14-day window)']]})}
+  save();toast(f==='Registered office'?'Recorded. A draft s46 card was added to the Approval Board':'Change recorded. The old value is kept in History');Ent.open(k,'hist')},
+ rows(){const q=this.f.q.toLowerCase();return GROUP.filter(e=>(!q||e.n.toLowerCase().includes(q)||e.r.toLowerCase().includes(q))&&(!this.f.t||e.t===this.f.t)&&(!this.f.lv||e.lv===this.f.lv))},
+ tree(k,depth=0){const kids=childrenOf(k).filter(l=>ENT[l.c]);const c=this.collapsed[k];const e=ENT[k];
+  return `<li><span class="tg" onclick="Ent.collapsed['${k}']=!Ent.collapsed['${k}'];Ent.draw()">${kids.length?(c?'▸':'▾'):'·'}</span><span class="node" onclick="Ent.open('${k}')">${depth?`<span class="pc">${holdersOf(k).find(l=>childrenOf(k)&&l.p)?.pct??''}%</span>`:''}${esc(shortName(e.n))}<span class="pill ${e.t==='JV'||e.t==='Associate'?'purple':e.t==='SPV'?'blue':''}">${esc(e.t)}</span>${e.st!=='Active'?'<span class="pill warn">winding up</span>':''}</span>
+  ${kids.length&&!c?`<ul>${kids.map(l=>this.treeChild(l,depth+1)).join('')}</ul>`:''}</li>`},
+ treeChild(l,depth){const k=l.c,e=ENT[k];const kids=childrenOf(k).filter(x=>ENT[x.c]);const c=this.collapsed[k]??(depth>=1&&kids.length>0?false:false);
+  return `<li><span class="tg" onclick="Ent.collapsed['${k}']=!Ent.collapsed['${k}'];Ent.draw()">${kids.length?(c?'▸':'▾'):'·'}</span><span class="node" onclick="Ent.open('${k}')"><span class="pc">${l.pct}%</span>${esc(shortName(e.n))}<span class="pill ${e.t==='JV'||e.t==='Associate'?'purple':e.t==='SPV'?'blue':''}">${esc(e.t)}</span>${e.st!=='Active'?'<span class="pill warn">winding up</span>':''}${eff(k)!==l.pct&&ENT[l.p]?.t!=='External shareholder'?`<span class="tiny muted">eff. ${eff(k)}%</span>`:''}</span>
+  ${kids.length&&!c?`<ul>${kids.map(x=>this.treeChild(x,depth+1)).join('')}</ul>`:''}</li>`},
+ draw(){const b=$('#entbody');if(!b)return;const rows=this.rows();
+  if(this.f.view==='tree'){const ext=DATA.entities.filter(e=>e.t==='External shareholder');
+   b.innerHTML=`<div class="card tree"><ul><li><span class="node" onclick="Ent.open('EWDGB')"><b>${esc(ENT.EWDGB.n)}</b><span class="pill green">Listed parent</span></span><ul>${childrenOf('EWDGB').map(l=>this.treeChild(l,1)).join('')}</ul></li></ul>
+   ${ext.map(x=>`<div class="small muted" style="margin-top:10px">External holder: ${esc(x.n)}, ${childrenOf(x.k).map(l=>l.pct+'% of '+entLink(l.c)).join(', ')} <span class="pill warn">unverified</span></div>`).join('')}
+   <div class="small muted" style="margin-top:6px">"eff." is EWDGB's effective interest, multiplied down each level. Eco Majestic adds up two paths: 98% via Rentas Prestasi plus 2% held directly.</div></div>`;return}
+  b.innerHTML=`<div class="tw"><table><tr><th>Entity</th><th>Reg. no.</th><th>Type</th><th>Level</th><th>Main holder</th><th>% held</th><th>Effective</th><th>Status</th></tr>
+  ${rows.map(e=>`<tr class="click" onclick="Ent.open('${e.k}')"><td><b>${esc(e.n)}</b></td><td class="small">${esc(e.r)}</td><td>${esc(e.t)}</td><td class="small">${esc(e.lv)}</td><td class="small">${e.p?esc(shortName(ENT[e.p].n)):'—'}</td><td>${e.pct!=null?e.pct+'%':'—'}</td><td>${eff(e.k)}%</td><td>${e.st==='Active'?'<span class="pill ok">Active</span>':'<span class="pill warn">Winding up</span>'}</td></tr>`).join('')}</table></div><div class="small muted" style="margin-top:6px">${rows.length} of ${GROUP.length} entities</div>`}};
+R.entities=el=>{const types=[...new Set(GROUP.map(e=>e.t))],lvs=[...new Set(GROUP.map(e=>e.lv))];
+ el.innerHTML=header('Entity portal','One record per company, with registers, officers, filings and history in one place.',`<div class="tabs" style="margin:0;border:none"><button class="${Ent.f.view==='table'?'on':''}" onclick="Ent.f.view='table';route()">Table</button><button class="${Ent.f.view==='tree'?'on':''}" onclick="Ent.f.view='tree';route()">Group structure</button></div>`)+
+ (Ent.f.view==='table'?`<div class="bar"><input placeholder="Search name or reg. no." value="${esc(Ent.f.q)}" oninput="Ent.f.q=this.value;Ent.draw()"><select onchange="Ent.f.t=this.value;Ent.draw()"><option value="">All types</option>${types.map(t=>`<option ${Ent.f.t===t?'selected':''}>${esc(t)}</option>`).join('')}</select><select onchange="Ent.f.lv=this.value;Ent.draw()"><option value="">All levels</option>${lvs.map(t=>`<option ${Ent.f.lv===t?'selected':''}>${esc(t)}</option>`).join('')}</select></div>`:'')+`<div id="entbody"></div>`;Ent.draw()};
+
+// ===== Directors & officers =====
+const SAMPLE_DIR=[{k:'SDA',n:'Director A (sample)',title:'Group executive director (sample)',grp:'Sample officer',comm:'',roles:GROUP.filter((e,i)=>['Subsidiary','Service co','SPV'].includes(e.t)&&i%3===0).map(e=>({e:e.k,role:'Director'}))},
+ {k:'SDB',n:'Director B (sample)',title:'Subsidiary director (sample)',grp:'Sample officer',comm:'',roles:GROUP.filter((e,i)=>['Subsidiary','SPV'].includes(e.t)&&i%4===1).map(e=>({e:e.k,role:'Director'}))}];
+const allPeople=()=>[...DATA.people,...SAMPLE_DIR];
+const Ppl={open(k){const p=allPeople().find(x=>x.k===k);
+  App.drawer(`<div><div class="tiny muted">${esc(p.grp)}</div><h2>${esc(p.n)}</h2><div class="small muted">${esc(p.title)}</div></div>`,
+  `${p.comm?`<div class="callout info">Committees: ${esc(p.comm)}</div>`:''}
+  <h4 style="margin:0 0 6px">Director listing: ${p.roles.length} appointments</h4><table><tr><th>Entity</th><th>Role</th></tr>${p.roles.map(r=>`<tr><td>${entLink(r.e)}</td><td>${esc(r.role)}</td></tr>`).join('')}</table>
+  <h4 style="margin:16px 0 6px">Change of particulars</h4>
+  <div class="small muted" style="margin-bottom:8px">Update it once and every company this person sits on gets an s58 notice task (14 days). The old value stays in history.</div>
+  <div class="row2"><div class="fld"><label>Field</label><select id="pf"><option>Residential address</option><option>Title / honorific</option><option>Nationality</option><option>Name</option></select></div><div class="fld"><label>New value</label><input id="pv" placeholder="sample value"></div></div>
+  <button class="btn pri sm" onclick="Ppl.change('${k}')">Apply to all ${p.roles.length} companies</button>`)},
+ change(k){const p=allPeople().find(x=>x.k===k);const v=$('#pv').value.trim();if(!v)return toast('Enter a new value');const f=$('#pf').value;
+  const ents=[...new Set(p.roles.map(r=>r.e))];
+  S.cards.unshift({id:'AP-'+Math.floor(Math.random()*900+300),title:`s58 notices: ${p.n}, ${f.toLowerCase()} change (${ents.length} companies)`,kind:'SSM lodgement (batch)',ws:'Cosec',ent:ents[0],ents,dept:'Cosec',stage:'Draft',due:iso(addDays(TODAY,14)),
+   src:{ch:'Notion',ref:'Directors & officers: change of particulars',at:iso(TODAY)},sign:[{n:'Company secretary',s:'Not sent'}],log:[[nowStamp(),`${f} changed. ${ents.length} s58 notices prepared. Old value kept in history`]]});
+  save();App.closeAll();toast(`${ents.length} s58 tasks created as one card on the Approval Board`);location.hash='approvals'}};
+R.people=el=>{const P=allPeople();
+ el.innerHTML=header('Directors & officers','Company data and personal data are linked. Change a director once and every affected company shows it.')+`
+ <div class="callout info">ℹ️ The board and company secretaries are from the public Annual Report 2025. "Director A/B (sample)" show how a director listing across subsidiaries works.</div>
+ <div class="tw"><table><tr><th>Name</th><th>Designation</th><th>Committees</th><th># appointments</th></tr>${P.map(p=>`<tr class="click" onclick="Ppl.open('${p.k}')"><td><b>${esc(p.n)}</b>${p.grp==='Sample officer'?' <span class="pill warn">sample</span>':''}</td><td class="small">${esc(p.title)}</td><td class="small">${esc(p.comm)||'—'}</td><td>${p.roles.length}</td></tr>`).join('')}</table></div>`};
+
+// ===== Shareholding monitor =====
+const Mon={bo:{target:'MAJESTIC',pct:25},
+ calcPath(k){const paths=[];const walk=(c,acc,chain)=>{if(c==='EWDGB'){paths.push({chain:['EWDGB',...chain],v:acc});return}holdersOf(c).forEach(l=>{if(ENT[l.p]&&ENT[l.p].t!=='External shareholder')walk(l.p,acc*l.pct/100,[c,...chain].filter((x,i,a)=>a.indexOf(x)===i))})};
+  walk(k,1,[]);return paths},
+ draw(){const b=$('#bo');if(!b)return;const t=this.bo.target;const paths=this.calcPath(t);const effP=eff(t);const ind=this.bo.pct*effP/100;
+  b.innerHTML=`<div class="row2"><div class="fld"><label>Target entity</label><select onchange="Mon.bo.target=this.value;Mon.draw()">${GROUP.filter(e=>e.k!=='EWDGB').map(e=>`<option value="${e.k}" ${e.k===t?'selected':''}>${esc(shortName(e.n))}</option>`).join('')}</select></div>
+  <div class="fld"><label>A person's total interest in EWDGB (%, sample)</label><input type="number" step="0.1" value="${this.bo.pct}" oninput="Mon.bo.pct=+this.value||0;Mon.draw()"></div></div>
+  <table><tr><th>Path from EWDGB</th><th>Effective</th></tr>${paths.map(p=>`<tr><td class="small">${p.chain.map(k=>esc(shortName(ENT[k].n))).join(' → ')}</td><td>${(p.v*100).toFixed(2)}%</td></tr>`).join('')}<tr><td><b>EWDGB effective interest</b></td><td><b>${effP}%</b></td></tr>
+  <tr><td><b>That person's effective interest in the target</b> = ${this.bo.pct}% × ${effP}%</td><td><b>${ind.toFixed(2)}%</b></td></tr></table>
+  <div class="callout ${ind>=20?'warn':'ok'}" style="margin-top:10px">${ind>=20?'⚠️ At or above 20%: record as a beneficial owner and lodge any change with SSM within 14 days':'✓ Below the 20% beneficial-owner line through this route. Direct holdings and other routes still need adding.'}</div>
+  <div class="tiny muted">Indicative only. Beneficial ownership also covers control (voting rights, the power to appoint directors), not just % held. Check against the SSM BO guideline.</div>`},
+ setH(i,f,v){S.holders[i][f]=+v||0;save();R.monitor($('#main'))}};
+R.monitor=el=>{const below=GROUP.filter(e=>e.k!=='EWDGB'&&eff(e.k)<50);
+ el.innerHTML=header('Shareholding monitor','The same ownership data feeds two formulas: substantial shareholders at 5% and beneficial owners at 20%.')+`
+ <div class="grid g2">
+ <div class="card"><h3>Substantial shareholders of EWDGB <span class="pill warn">sample holders</span></h3>
+  <table><tr><th>Holder</th><th>Direct %</th><th>Indirect %</th><th>Total</th><th></th></tr>${S.holders.map((h,i)=>{const t=h.dir+h.ind;return `<tr><td>${esc(h.n)}</td><td><input type="number" step="0.01" value="${h.dir}" style="width:80px" onchange="Mon.setH(${i},'dir',this.value)"></td><td><input type="number" step="0.01" value="${h.ind}" style="width:80px" onchange="Mon.setH(${i},'ind',this.value)"></td><td><b>${t.toFixed(2)}%</b></td><td>${t>=5?'<span class="pill blue">substantial</span>':'<span class="pill">below 5%</span>'}</td></tr>`}).join('')}</table>
+  <div class="small muted" style="margin-top:8px">Try moving Holder C below 5% or Holder D above it. Crossing the line means a notice from the holder and a Bursa announcement (CA2016 s137–139, MMLR). Timelines need checking with the team.</div>
+  ${S.holders.some(h=>h.dir+h.ind>=4.5&&h.dir+h.ind<5.5)?'<div class="callout warn" style="margin-top:8px">⚠️ A holder is within 0.5% of the 5% line</div>':''}
+  <h4 style="margin:14px 0 6px">Public shareholding spread</h4>
+  <div style="display:flex;gap:10px;align-items:center"><input type="range" min="15" max="50" step="0.1" value="${S.publicSpread}" oninput="this.nextElementSibling.textContent=this.value+'%'" onchange="S.publicSpread=+this.value;save();R.monitor($('#main'))" style="flex:1"><b>${S.publicSpread}%</b></div>
+  <div class="small ${S.publicSpread<25?'':'muted'}">${S.publicSpread<25?'<span class="pill bad">Below the 25% minimum (MMLR 8.02)</span>':'Minimum is 25% public (MMLR 8.02). Sample figure.'}</div>
+ </div>
+ <div class="card"><h3>Beneficial owner calculator (20%)</h3><div id="bo"></div></div>
+ </div>
+ <div class="card" style="margin-top:14px"><h3>Entities where the group's effective interest is below 50% (${below.length})</h3><div class="tw" style="max-height:320px"><table><tr><th>Entity</th><th>Type</th><th>Effective</th></tr>${below.map(e=>`<tr class="click" onclick="Ent.open('${e.k}')"><td>${esc(e.n)}</td><td>${esc(e.t)}</td><td>${eff(e.k)}%</td></tr>`).join('')}</table></div></div>`;Mon.draw()};
+
+Mon.calcPath=function(k){const paths=[];const walk=(c,acc,chain,depth)=>{if(depth>8)return;if(c==='EWDGB'){paths.push({chain,v:acc});return}
+ holdersOf(c).forEach(l=>{if(ENT[l.p]&&ENT[l.p].t!=='External shareholder')walk(l.p,acc*l.pct/100,[l.p,...chain],depth+1)})};walk(k,1,[k],0);return paths};
+
+// ===== Compliance calendar =====
+const Cal={f:{q:'',cat:'',st:'open',view:'list'},m:new Date(TODAY.getFullYear(),TODAY.getMonth(),1),
+ toggle(id){S.filed[id]=S.filed[id]?undefined:nowStamp();if(!S.filed[id])delete S.filed[id];save();this.draw();renderNav('calendar');toast(S.filed[id]?'Marked as filed and timestamped':'Marked as open again')},
+ rows(){const q=this.f.q.toLowerCase();return complianceItems().filter(i=>(!q||(ENT[i.ent]?.n||'').toLowerCase().includes(q)||i.title.toLowerCase().includes(q))&&(!this.f.cat||i.cat===this.f.cat)&&(this.f.st==='all'||(this.f.st==='open'?!i.done:this.f.st==='overdue'?!i.done&&daysTo(i.due)<0:i.done)))},
+ draw(){const b=$('#calbody');if(!b)return;const rows=this.rows();
+  if(this.f.view==='month'){const m=this.m,first=new Date(m),start=addDays(first,-((first.getDay()+6)%7));const cells=[];for(let i=0;i<42;i++)cells.push(addDays(start,i));
+   const by={};rows.forEach(r=>(by[r.due]=by[r.due]||[]).push(r));
+   b.innerHTML=`<div class="bar"><button class="btn sm" onclick="Cal.m=new Date(Cal.m.getFullYear(),Cal.m.getMonth()-1,1);Cal.draw()">‹</button><b style="min-width:130px;text-align:center">${MON[m.getMonth()]} ${m.getFullYear()}</b><button class="btn sm" onclick="Cal.m=new Date(Cal.m.getFullYear(),Cal.m.getMonth()+1,1);Cal.draw()">›</button><button class="btn sm" onclick="Cal.m=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);Cal.draw()">Today</button></div>
+   <div class="cal">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div class="h">${d}</div>`).join('')}${cells.map(d=>{const evs=by[iso(d)]||[];return `<div class="d ${d.getMonth()!==m.getMonth()?'o':''} ${iso(d)===iso(TODAY)?'today':''}"><div class="n">${d.getDate()}</div>${evs.slice(0,3).map(e=>`<span class="ev ${e.done?'ok':daysTo(e.due)<0?'bad':''}" title="${esc(e.title+' · '+(ENT[e.ent]?.n||''))}" onclick="Ent.open('${e.ent}','comp')">${esc(shortName(ENT[e.ent]?.n||''))}: ${esc(e.title)}</span>`).join('')}${evs.length>3?`<span class="tiny muted">+${evs.length-3} more</span>`:''}</div>`}).join('')}</div>`;return}
+  b.innerHTML=`<div class="tw"><table><tr><th>Due</th><th>Obligation</th><th>Entity</th><th>Basis</th><th>Status</th><th></th></tr>${rows.map(i=>`<tr><td style="white-space:nowrap">${fmt(i.due)}</td><td><b>${esc(i.title)}</b><div class="tiny muted">${esc(i.note)}</div></td><td>${entLink(i.ent)}</td><td class="small">${esc(i.basis)}<div><span class="pill">${esc(i.cat)}</span></div></td><td>${dueTag(i.due,i.done)}${i.done?`<div class="tiny muted">${esc(S.filed[i.id])}</div>`:''}</td><td><button class="btn sm" onclick="Cal.toggle('${i.id}')">${i.done?'Reopen':'Mark filed'}</button></td></tr>`).join('')||'<tr><td colspan="6"><div class="empty">Nothing matches</div></td></tr>'}</table></div><div class="small muted" style="margin-top:6px">${rows.length} items</div>`}};
+R.calendar=el=>{el.innerHTML=header('Compliance calendar','Deadlines for every entity, worked out from FYE 31 Oct 2026, each incorporation anniversary and event-based filings.',`<div class="tabs" style="margin:0;border:none"><button class="${Cal.f.view==='list'?'on':''}" onclick="Cal.f.view='list';route()">List</button><button class="${Cal.f.view==='month'?'on':''}" onclick="Cal.f.view='month';route()">Month</button><button onclick="Cal.showRules()">Rules</button></div>`)+`
+ <div class="callout warn">⚠️ Incorporation dates are samples: the year comes from the registration number, the day and month are made up. Annual returns are due within 30 days of the anniversary, and reminders go out 30, 14 and 3 days before.</div>
+ <div class="bar"><input placeholder="Search entity or obligation" value="${esc(Cal.f.q)}" oninput="Cal.f.q=this.value;Cal.draw()"><select onchange="Cal.f.cat=this.value;Cal.draw()"><option value="">All categories</option>${['SSM','Bursa','Governance','Event','Overseas'].map(c=>`<option ${Cal.f.cat===c?'selected':''}>${c}</option>`).join('')}</select><select onchange="Cal.f.st=this.value;Cal.draw()">${[['open','Open'],['overdue','Overdue'],['done','Filed'],['all','All']].map(([v,l])=>`<option value="${v}" ${Cal.f.st===v?'selected':''}>${l}</option>`).join('')}</select></div><div id="calbody"></div>`;Cal.draw()};
+Cal.showRules=()=>App.modal('Obligation rules (general Malaysian practice)',`<div class="small muted" style="margin-bottom:8px">There are ${DATA.obligations.length} rules. The calendar turns the dated ones into tasks for each entity. Timelines are general practice, so check them with the company secretaries.</div><div class="tw" style="max-height:60vh"><table><tr><th>Obligation</th><th>Basis</th><th>Timeline</th></tr>${DATA.obligations.map(o=>`<tr><td>${esc(o[0])}</td><td class="small">${esc(o[1])}</td><td class="small">${esc(o[2])}</td></tr>`).join('')}</table></div>`,'<button class="btn" onclick="App.closeAll()">Close</button>');
+
+// ===== Requests inbox =====
+const CH_IC={Email:'✉️',WhatsApp:'💬',Teams:'🟪',Notion:'◻️'};
+const Req={
+ open(id){const r=S.requests.find(x=>x.id===id);
+  App.drawer(`<div><div class="tiny muted">${CH_IC[r.ch]||''} ${esc(r.ch)} · ${esc(r.from)} · ${fmt(r.at)}</div><h2>${esc(r.subj)}</h2></div>`,
+  `<div class="doc" style="font-family:inherit">${esc(r.body)}</div>
+  <div class="kv" style="margin-top:12px"><div>Entity</div><div>${entLink(r.ent)}</div><div>Status</div><div>${r.st==='New'?'<span class="pill warn">New</span>':`<span class="pill ok">${esc(r.st)}</span>`}</div>${r.card?`<div>Card</div><div><a href="javascript:void 0" onclick="AB.open('${r.card}')">${r.card}</a></div>`:''}</div>
+  ${r.st==='New'?`<h4 style="margin:16px 0 6px">Turn into a card</h4><div class="row2"><div class="fld"><label>Type</label><select id="rqk"><option>Directors' circular resolution</option><option>SSM lodgement</option><option>Document request (send copy)</option><option>Access request (time-limited)</option><option>Department approval</option></select></div><div class="fld"><label>Due</label><input type="date" id="rqd" value="${iso(addDays(TODAY,7))}"></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" onclick="Req.convert('${id}')">Create card on Approval Board</button><button class="btn" onclick="Req.draft('${id}')">✍️ Draft resolution with AI</button>${/copy|s58/i.test(r.subj)?`<button class="btn" onclick="Req.sendCopy('${id}')">📚 Send the e-library link</button>`:''}</div>`:''}`)},
+ convert(id,kind){const r=S.requests.find(x=>x.id===id);kind=kind||$('#rqk')?.value||"Directors' circular resolution";const due=$('#rqd')?.value||iso(addDays(TODAY,7));
+  const c={id:'AP-'+Math.floor(Math.random()*900+300),title:r.subj,kind,ws:/approval/i.test(kind)?'Department (future)':'Cosec',ent:r.ent,dept:r.from,stage:'Draft',due,src:{ch:r.ch,ref:r.subj,at:r.at,req:r.id},sign:[{n:'Director A (sample)',s:'Not sent'},{n:'Director B (sample)',s:'Not sent'}],log:[[nowStamp(),`Created from ${r.ch} request ${r.id}. Source linked`]]};
+  S.cards.unshift(c);r.st='Converted';r.card=c.id;save();App.closeAll();toast('Card '+c.id+' created in Draft, linked back to the request');route();return c},
+ draft(id){const r=S.requests.find(x=>x.id===id);Res.pre={ent:r.ent,type:/account/i.test(r.subj)?'Opening of bank account':/motor|car|motorcycle/i.test(r.subj)?'Disposal of motor vehicle':'Acceptance of banking facility',req:id};App.closeAll();location.hash='resolutions'},
+ sendCopy(id){const r=S.requests.find(x=>x.id===id);r.st='Answered';save();App.closeAll();toast('E-library link sent (simulated). No new upload needed');route()},
+ add(){App.modal('Log a request',`<div class="callout info">This isn't a ticketing system. Forward an email or paste a chat message and it lands here with its source.</div>
+  <div class="row2"><div class="fld"><label>Channel</label><select id="nch"><option>Email</option><option>WhatsApp</option><option>Teams</option></select></div><div class="fld"><label>From (department)</label><input id="nfr" placeholder="e.g. Finance"></div></div>
+  <div class="fld"><label>Entity</label><select id="nen">${GROUP.map(e=>`<option value="${e.k}">${esc(shortName(e.n))}</option>`).join('')}</select></div>
+  <div class="fld"><label>Subject</label><input id="nsu" placeholder="What do they need?"></div><div class="fld"><label>Message (pasted)</label><textarea id="nbo" placeholder="Paste the email or chat text"></textarea></div>`,
+  `<button class="btn" onclick="App.closeAll()">Cancel</button><button class="btn pri" onclick="Req.save()">Add to inbox</button>`)},
+ save(){const s=$('#nsu').value.trim();if(!s)return toast('Add a subject');S.requests.unshift({id:'RQ-'+Math.floor(Math.random()*900+300),ch:$('#nch').value,from:$('#nfr').value||'Unknown',subj:s,at:iso(TODAY),ent:$('#nen').value,st:'New',body:$('#nbo').value||'(no text)'});save();App.closeAll();toast('Request added');route()}};
+R.requests=el=>{const f=Req.f||'New';
+ el.innerHTML=header('Requests inbox','Asks from departments by email, chat or Teams are kept in one place, each with its source.',`<button class="btn pri" onclick="Req.add()">＋ Log a request</button>`)+`
+ <div class="tabs">${['New','Converted','Answered','All'].map(t=>`<button class="${f===t?'on':''}" onclick="Req.f='${t}';route()">${t} (${t==='All'?S.requests.length:S.requests.filter(r=>r.st===t).length})</button>`).join('')}</div>
+ <div class="card"><div class="list">${S.requests.filter(r=>f==='All'||r.st===f).map(r=>`<div class="it" style="cursor:pointer" onclick="Req.open('${r.id}')"><span style="font-size:18px">${CH_IC[r.ch]||'•'}</span><div class="grow"><b>${esc(r.subj)}</b><div class="small muted">${esc(r.from)} · ${entLink(r.ent)} · ${fmt(r.at)} · ${r.id}</div></div>${r.st==='New'?'<span class="pill warn">New</span>':`<span class="pill ok">${esc(r.st)}</span>`}</div>`).join('')||'<div class="empty">Inbox clear</div>'}</div></div>`};
+
+// ===== Universal Approval Board =====
+const STAGES=['Draft','Pending signature','Signed','Filed'];
+const AB={f:{ws:'',q:''},
+ move(id,to,why){const c=S.cards.find(x=>x.id===id);if(!c||c.stage===to)return;
+  if(to==='Signed'&&c.sign.some(s=>s.s!=='Signed')){if(!confirm('Not every signatory has signed. Mark them all as signed (simulates the e-signature tool)?'))return;c.sign.forEach(s=>s.s='Signed');c.log.push([nowStamp(),'All signatures received from the e-signature tool (simulated). Audit stamp applied'])}
+  if(to==='Pending signature'){c.sign.forEach(s=>{if(s.s==='Not sent')s.s='Pending'});}
+  c.log.push([nowStamp(),`Moved ${c.stage} → ${to}${why?' ('+why+')':''}`]);c.stage=to;
+  if(to==='Filed'){S.docs.unshift({id:uid('DC'),t:c.title+' (signed)',ent:c.ent,type:/SSM/.test(c.kind)?'SSM lodgement':'Resolution',date:iso(TODAY),elib:false});c.log.push([nowStamp(),'Filed to the entity record and the documents library'])}
+  save();this.draw();renderNav('approvals');toast(`${id} → ${to}`)},
+ next(id){const c=S.cards.find(x=>x.id===id);const i=STAGES.indexOf(c.stage);if(i<3)this.move(id,STAGES[i+1])},
+ sign(id,i){const c=S.cards.find(x=>x.id===id);c.sign[i].s='Signed';c.log.push([nowStamp(),c.sign[i].n+' signed']);if(c.sign.every(s=>s.s==='Signed')&&c.stage==='Pending signature'){c.stage='Signed';c.log.push([nowStamp(),'All signed. Moved automatically to Signed'])}save();this.open(id);this.draw()},
+ open(id){const c=S.cards.find(x=>x.id===id);if(!c)return;const req=c.src.req&&S.requests.find(r=>r.id===c.src.req);
+  App.drawer(`<div><div class="tiny muted">${c.id} · ${esc(c.kind)} · ${esc(c.ws)}</div><h2>${esc(c.title)}</h2><div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">${STAGES.map(s=>`<button class="btn sm ${s===c.stage?'pri':''}" onclick="AB.move('${c.id}','${s}');AB.open('${c.id}')">${s}</button>`).join('')}</div></div>`,
+  `<div class="kv"><div>Entity</div><div>${c.ents?c.ents.map(entLink).join(', '):entLink(c.ent)}</div><div>Requested by</div><div>${esc(c.dept)}</div><div>Due</div><div>${fmt(c.due)} ${dueTag(c.due,c.stage==='Filed')}</div>
+   <div>Source</div><div>${CH_IC[c.src.ch]||''} <b>${esc(c.src.ch)}</b>: ${req?`<a href="javascript:void 0" onclick="Req.open('${req.id}')">${esc(c.src.ref)}</a>`:`<a href="javascript:void 0" onclick="toast('In production this opens the original email, chat or Notion page')">${esc(c.src.ref)}</a>`}<div class="tiny muted">received ${fmt(c.src.at)}</div></div></div>
+  <h4 style="margin:16px 0 6px">Signatories</h4><table>${c.sign.map((s,i)=>`<tr><td>${esc(s.n)}</td><td>${s.s==='Signed'?'<span class="pill ok">Signed</span>':s.s==='Pending'?'<span class="pill warn">Pending</span>':'<span class="pill">Not sent</span>'}</td><td style="text-align:right">${s.s==='Pending'?`<button class="btn sm" onclick="AB.sign('${c.id}',${i})">Simulate signature</button>`:''}</td></tr>`).join('')}</table>
+  <div class="tiny muted" style="margin-top:4px">Signing stays in your existing e-signature tool. The card only tracks status, and the integration depends on that tool's API.</div>
+  <h4 style="margin:16px 0 6px">Audit trail</h4><div class="audit">${c.log.slice().reverse().map(a=>`<div class="a"><b>${esc(a[0])}</b><br>${esc(a[1])}</div>`).join('')}</div>`)},
+ draw(){const b=$('#kb');if(!b)return;const q=this.f.q.toLowerCase();const cards=S.cards.filter(c=>(!this.f.ws||c.ws===this.f.ws)&&(!q||c.title.toLowerCase().includes(q)||(ENT[c.ent]?.n||'').toLowerCase().includes(q)));
+  b.innerHTML=STAGES.map(s=>{const cs=cards.filter(c=>c.stage===s);return `<div class="col" data-s="${s}" ondragover="event.preventDefault();this.classList.add('over')" ondragleave="this.classList.remove('over')" ondrop="this.classList.remove('over');AB.move(event.dataTransfer.getData('text'),'${s}')"><h4>${s}<span class="n">${cs.length}</span></h4>
+  ${cs.map(c=>`<div class="kc" draggable="true" ondragstart="event.dataTransfer.setData('text','${c.id}')" onclick="AB.open('${c.id}')"><div class="t">${esc(c.title)}</div><div class="small muted">${entLink(c.ent)}${c.ents?` +${c.ents.length-1}`:''}</div>
+   <div class="m"><span class="pill ${c.ws==='Cosec'?'green':c.ws==='Board papers'?'blue':'purple'}">${esc(c.ws)}</span>${dueTag(c.due,s==='Filed')}${s==='Pending signature'?`<span class="pill">${c.sign.filter(x=>x.s==='Signed').length}/${c.sign.length} signed</span>`:''}</div>
+   <div class="src">${CH_IC[c.src.ch]||''} from ${esc(c.src.ch)} · ${esc(c.dept)}</div>
+   ${s!=='Filed'?`<div class="acts"><button class="btn sm" onclick="event.stopPropagation();AB.next('${c.id}')">Move to ${STAGES[STAGES.indexOf(s)+1]} →</button></div>`:''}</div>`).join('')||'<div class="empty small">Drop cards here</div>'}</div>`}).join('')}};
+R.approvals=el=>{const ws=[...new Set(S.cards.map(c=>c.ws))];
+ el.innerHTML=header('Universal Approval Board','One board for every approval: cosec first, other departments and C-levels next. Each card links back to the request it came from.',`<button class="btn pri" onclick="Req.add()">＋ New request</button>`)+`
+ <div class="bar"><input placeholder="Search title or entity" value="${esc(AB.f.q)}" oninput="AB.f.q=this.value;AB.draw()"><select onchange="AB.f.ws=this.value;AB.draw()"><option value="">All workstreams</option>${ws.map(w=>`<option ${AB.f.ws===w?'selected':''}>${esc(w)}</option>`).join('')}</select><span class="small muted">Drag a card or use its button. Click a card for signatories and the audit trail.</span></div>
+ <div class="kb" id="kb"></div>`;AB.draw()};
+
+// ===== Board meeting papers =====
+const MEETINGS=[{id:'M1',t:'Board meeting, Mar 2026',d:'2026-03-18'},{id:'M2',t:'Board meeting, Jun 2026',d:'2026-06-17'},{id:'M3',t:'Board meeting, Sep 2026',d:'2026-09-24'},{id:'M4',t:'Board meeting, Dec 2026',d:'2026-12-09'}];
+const VIEWERS=[{n:'Long-serving director (sample, appointed 2018)',from:'2018-01-01'},{n:'New director (sample, appointed Jun 2026)',from:'2026-06-01'},{n:'New director (sample, appointed Sep 2026)',from:'2026-09-01'}];
+const BP={as:'Cosec',viewer:0,
+ upload(i){const p=S.papers[i];p.st='Uploaded';p.v='1.0';p.at=nowStamp();p.by=this.as;save();R.board($('#main'));toast('Uploaded. The paper is now read-only for the department')},
+ revise(i){const p=S.papers[i];const base=p.v?parseInt(p.v):1;const minor=p.v&&p.v.includes('.')?+p.v.split('.')[1]+1:1;p.v=base+'.'+minor;p.st='Revised';p.at=nowStamp();save();R.board($('#main'));toast('Revision saved as a new version v'+p.v+'. The original is kept')},
+ add(){const t=prompt('Agenda item title');if(!t)return;S.papers.push({no:String(S.papers.length+1),t,dept:'Finance',st:'Awaiting',v:''});save();R.board($('#main'))}};
+R.board=el=>{const m=MEETINGS[3];const up=S.papers.filter(p=>p.st!=='Awaiting').length;const due=iso(addDays(D(m.d),-7));const v=VIEWERS[BP.viewer];
+ const depts=['Cosec',...new Set(S.papers.map(p=>p.dept).filter(d=>d!=='Cosec'))];
+ el.innerHTML=header('Board meeting papers','Departments upload once into a shared data source. Directors see papers from their appointment date onward.',`<span class="pill bad">Priority: live before ${fmt('2026-12-12')}</span>`)+`
+ <div class="grid g3">
+  <div class="card kpi"><div class="l">${m.t} <span class="pill warn">sample date ${fmt(m.d)}</span></div><div class="v">${up}/${S.papers.length} papers in</div><div class="prog" style="margin-top:8px"><i style="width:${Math.round(up/S.papers.length*100)}%"></i></div><div class="d muted">Pack circulates by ${fmt(due)} (5 business days before)</div></div>
+  <div class="card"><h3>Viewing as</h3><select onchange="BP.as=this.value;R.board($('#main'))">${depts.map(d=>`<option ${BP.as===d?'selected':''}>${esc(d)}</option>`).join('')}</select><div class="small muted" style="margin-top:6px">A department can only upload its own items. Once uploaded, it can't edit or delete them, and a change becomes a new version (e.g. 3.1).</div></div>
+  <div class="card"><h3>Waiting on</h3>${S.papers.filter(p=>p.st==='Awaiting').map(p=>`<span class="pill warn" style="margin:2px">${esc(p.dept)}</span>`).join('')||'<span class="pill ok">All papers in</span>'}<div class="small muted" style="margin-top:6px">Live status, so no more chasing papers late at night.</div></div>
+ </div>
+ <div class="card" style="margin-top:14px"><h3>Agenda: ${m.t}<span class="sp"></span>${BP.as==='Cosec'?'<button class="btn sm" onclick="BP.add()">＋ Agenda item</button>':''}</h3>
+ <div class="tw"><table><tr><th>#</th><th>Item</th><th>Owner dept</th><th>Status</th><th>Version</th><th></th></tr>${S.papers.map((p,i)=>{const mine=BP.as==='Cosec'||BP.as===p.dept;return `<tr><td>${esc(p.no)}</td><td><b>${esc(p.t)}</b>${p.at?`<div class="tiny muted">${esc(p.at)}</div>`:''}</td><td>${esc(p.dept)}</td><td>${p.st==='Awaiting'?'<span class="pill warn">Awaiting</span>':p.st==='Revised'?'<span class="pill blue">Revised</span>':'<span class="pill ok">Uploaded</span>'}</td><td>${p.v?'v'+esc(p.v)+' <span class="lock">🔒</span>':'—'}</td>
+  <td style="text-align:right">${!mine?'<span class="tiny muted">no access</span>':p.st==='Awaiting'?`<button class="btn sm pri" onclick="BP.upload(${i})">Upload paper</button>`:`<button class="btn sm" onclick="BP.revise(${i})">Submit revision</button>`}</td></tr>`}).join('')}</table></div></div>
+ <div class="card" style="margin-top:14px"><h3>Director access preview</h3>
+  <select onchange="BP.viewer=+this.value;R.board($('#main'))" style="max-width:420px">${VIEWERS.map((x,i)=>`<option value="${i}" ${i===BP.viewer?'selected':''}>${esc(x.n)}</option>`).join('')}</select>
+  <div class="grid g3" style="margin-top:10px">
+   <div><h4 style="margin:4px 0">📘 Resource Centre</h4><div class="small muted">No date limit</div><div class="list small"><div class="it">Board charter</div><div class="it">Committee terms of reference</div><div class="it">Director induction pack</div></div></div>
+   <div><h4 style="margin:4px 0">🗂️ Meeting papers</h4><div class="small muted">From ${fmt(v.from)}</div><div class="list small">${MEETINGS.map(x=>`<div class="it">${x.d>=v.from?'✅':'🚫'} ${x.t}</div>`).join('')}</div></div>
+   <div><h4 style="margin:4px 0">🖋️ Resolutions & minutes</h4><div class="small muted">From ${fmt(v.from)}</div><div class="list small">${MEETINGS.slice(0,3).map(x=>`<div class="it">${x.d>=v.from?'✅':'🚫'} Minutes: ${x.t}</div>`).join('')}</div></div>
+  </div><div class="small muted" style="margin-top:8px">One data source with views filtered by permission, so pages don't have to be copied with their own page-level access.</div></div>`};
+
+// ===== Resolution drafting =====
+const SAMPLE_LETTER=`LETTER OF OFFER (SAMPLE, FICTIONAL)
+Bank: Sample Bank Berhad
+Facility: Term Loan of RM 45,000,000
+Tenure: 7 years from first drawdown
+Interest: Cost of Funds + 1.25% p.a.
+Security: Legal charge over the land held under title no. XXXX (sample)
+Guarantee: Corporate guarantee by the holding company
+Purpose: Part-finance development costs of Phase 2 (sample)
+Validity: Acceptance within 14 days from the date of this letter`;
+const Res={pre:null,ex:null,
+ fields(){const t=$('#rt').value;return t},
+ extract(){const s=$('#rl').value;const g=re=>(s.match(re)||[])[1]?.trim();
+  this.ex={Bank:g(/Bank:\s*(.+)/i),Facility:g(/Facility:\s*(.+)/i),Tenure:g(/Tenure:\s*(.+)/i),Pricing:g(/Interest:\s*(.+)/i),Security:g(/Security:\s*(.+)/i),Guarantee:g(/Guarantee:\s*(.+)/i),Purpose:g(/Purpose:\s*(.+)/i),Acceptance:g(/Validity:\s*(.+)/i)};
+  $('#rex').innerHTML=`<table>${Object.entries(this.ex).map(([k,v])=>`<tr><td class="small muted" style="width:120px">${k}</td><td>${v?esc(v):'<span class="pill warn">not found: check manually</span>'}</td></tr>`).join('')}</table><div class="tiny muted" style="margin-top:4px">Pulled out by AI (mock). Cosec checks every term before drafting.</div>`;toast('Key terms extracted')},
+ gen(){const t=$('#rt').value,k=$('#re').value,e=ENT[k];const ex=this.ex||{};
+  const body={
+   'Disposal of motor vehicle':`THAT approval be and is hereby given for the Company to dispose of the motor vehicle bearing registration no. ${$('#rx').value||'[•]'} at a consideration of RM${$('#ry').value||'[•]'} to [purchaser], on such terms as the Directors may approve.`,
+   'Acceptance of banking facility':`THAT the Company accept the ${ex.Facility||'[facility]'} offered by ${ex.Bank||'[bank]'} for a tenure of ${ex.Tenure||'[tenure]'} at ${ex.Pricing||'[pricing]'}, secured by ${ex.Security||'[security]'}${ex.Guarantee?' and supported by a '+ex.Guarantee.toLowerCase():''}, for the purpose of ${ex.Purpose||'[purpose]'}, on the terms of the letter of offer.\n\nTHAT any one Director be authorised to sign the letter of offer, the security documents and all related documents.`,
+   'Online banking / e-banking facility':`THAT the Company apply for an electronic banking facility with ${$('#rx').value||'[bank]'} and that the authorised users and approval limits be as set out in the Appendix.`,
+   'Opening of bank account':`THAT a current account be opened in the name of the Company with ${$('#rx').value||'[bank]'} and that the authorised signatories and mandate be as set out in the Appendix.`,
+  }[t]||`THAT approval be and is hereby given for the Company to ${$('#rx').value||'[describe the matter]'}${$('#ry').value?', for a value of RM'+$('#ry').value:''}, on such terms as the Directors may approve.`;
+  this.last={t,k,text:`${e.n.toUpperCase()}\nRegistration No. ${e.r}\n(Incorporated in ${e.c})\n\nDIRECTORS' CIRCULAR RESOLUTION IN WRITING\npursuant to the Constitution of the Company\n\n${t.toUpperCase()}\n\n${body}\n\n\n________________________          ________________________\nDirector A (sample)                    Director B (sample)\n\nDate: ________________\n\n[Draft generated by AI: to be checked and approved by the Company Secretary]`};
+  $('#rout').innerHTML=`<div class="doc">${esc(this.last.text)}</div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn pri" onclick="Res.send()">Send to Approval Board (Draft)</button><button class="btn" onclick="navigator.clipboard&&navigator.clipboard.writeText(Res.last.text);toast('Copied')">Copy text</button></div>`},
+ send(){const l=this.last;const req=this.pre?.req;const c={id:'AP-'+Math.floor(Math.random()*900+300),title:l.t+': '+shortName(ENT[l.k].n),kind:"Directors' circular resolution",ws:'Cosec',ent:l.k,dept:'Cosec',stage:'Draft',due:iso(addDays(TODAY,7)),src:req?{ch:S.requests.find(r=>r.id===req).ch,ref:S.requests.find(r=>r.id===req).subj,at:S.requests.find(r=>r.id===req).at,req}:{ch:'Notion',ref:'Resolution drafting',at:iso(TODAY)},sign:[{n:'Director A (sample)',s:'Not sent'},{n:'Director B (sample)',s:'Not sent'}],log:[[nowStamp(),`Drafted with the "${l.t}" skill`]]};
+  S.cards.unshift(c);if(req){const r=S.requests.find(x=>x.id===req);r.st='Converted';r.card=c.id}S.resoCount.month++;save();this.pre=null;toast(c.id+' created in Draft');location.hash='approvals'},
+ addSkill(){const n=prompt('New resolution type (it gets added to the skill library)');if(!n)return;S.skills.push(n);save();R.resolutions($('#main'));toast('Skill "'+n+'" added. It grows over time')},
+ thr(){const v=+$('#tv').value||0,na=+$('#tn').value||1,rp=$('#trp').checked;const pr=v/na*100;let out;
+  if(rp)out=pr>=25?'Related party, 25% or more: announce, circular, shareholder approval and an independent adviser':pr>=5?'Related party, 5% or more: announce, circular and shareholder approval':pr>=0.25?'Related party, 0.25% or more: announce to Bursa':'Below 0.25%: board approval only';
+  else out=pr>=25?'25% or more: major transaction. Announce, circular and shareholder approval':pr>=5?'5% or more: announce to Bursa':'Below 5%: board approval only, no announcement needed';
+  $('#tout').innerHTML=`<div class="callout ${pr>=5||(rp&&pr>=0.25)?'warn':'ok'}"><div>Percentage ratio ≈ <b>${pr.toFixed(2)}%</b>. ${out}</div></div><div class="tiny muted">Indicative only (Bursa MMLR Ch 10 uses several ratios). This is the kind of rule check an AI skill could cover for about 90% of cases, with cosec confirming.</div>`}};
+R.resolutions=el=>{const p=Res.pre||{};const types=S.skills;const t0=p.type||types[0];
+ el.innerHTML=header('Resolution drafting','Choose a type and the entity, and the AI drafts from that type\'s skill. A person always checks before anything is sent.',`<button class="btn" onclick="Res.addSkill()">＋ Add resolution type</button>`)+`
+ <div class="grid g2">
+  <div class="card"><h3>1 · Set up</h3>
+   <div class="row2"><div class="fld"><label>Resolution type (skill)</label><select id="rt" onchange="R.resolutions.toggle()">${types.map(t=>`<option ${t===t0?'selected':''}>${esc(t)}</option>`).join('')}</select></div>
+   <div class="fld"><label>Entity</label><select id="re">${GROUP.filter(e=>e.t!=='External shareholder').map(e=>`<option value="${e.k}" ${e.k===(p.ent||'SKY')?'selected':''}>${esc(shortName(e.n))}</option>`).join('')}</select></div></div>
+   <div class="row2"><div class="fld"><label id="rxl">Detail</label><input id="rx" placeholder="e.g. vehicle reg. no. / bank / matter"></div><div class="fld"><label>Value (RM, optional)</label><input id="ry" placeholder="e.g. 85,000"></div></div>
+   <div id="rlwrap"><div class="fld"><label>Long document (e.g. a bank letter of offer). Paste it and extract the key terms</label><textarea id="rl">${esc(SAMPLE_LETTER)}</textarea></div><button class="btn sm" onclick="Res.extract()">✦ Extract key terms</button><div id="rex" style="margin-top:8px"></div></div>
+   <div style="margin-top:12px"><button class="btn pri" onclick="Res.gen()">✦ Generate draft</button></div>
+   ${p.req?`<div class="small muted" style="margin-top:8px">Linked to request ${esc(p.req)}</div>`:''}
+  </div>
+  <div class="card"><h3>2 · Draft</h3><div id="rout"><div class="empty">The draft will show here</div></div></div>
+ </div>
+ <div class="grid g2" style="margin-top:14px">
+  <div class="card"><h3>Skill library (${types.length} types)</h3><div>${types.map(t=>`<span class="pill green" style="margin:3px">${esc(t)}</span>`).join('')}</div><div class="small muted" style="margin-top:8px">One drafting assistant with a type picker. Each new resolution type is added as a small skill, so it doesn't take a whole new build.</div></div>
+  <div class="card"><h3>Transaction threshold check (Bursa)</h3><div class="row2"><div class="fld"><label>Transaction value (RM m)</label><input id="tv" type="number" value="120"></div><div class="fld"><label>Group net assets (RM m, sample)</label><input id="tn" type="number" value="4000"></div></div><label class="small"><input type="checkbox" id="trp" style="width:auto"> Related-party transaction</label><div style="margin-top:8px"><button class="btn sm" onclick="Res.thr()">Check</button></div><div id="tout" style="margin-top:8px"></div></div>
+ </div>`;R.resolutions.toggle();if(p.ent)toast('Prefilled from the request')};
+R.resolutions.toggle=()=>{const t=$('#rt').value;$('#rlwrap').style.display=t==='Acceptance of banking facility'?'':'none';$('#rxl').textContent=t==='Disposal of motor vehicle'?'Vehicle registration no.':/bank/i.test(t)?'Bank':'Matter'};
+
+// ===== Documents & e-library =====
+const Lib={f:{q:'',type:'',aud:'Cosec (full)'},
+ toggle(id){const d=S.docs.find(x=>x.id===id);d.elib=!d.elib;save();this.draw();toast(d.elib?'Published to the e-library (synced, no second upload)':'Removed from the e-library')},
+ up(){const t=prompt('Document title (simulated upload)','Section 58 notice (sample)');if(!t)return;S.docs.unshift({id:uid('DC'),t,ent:'EWDGB',type:'SSM lodgement',date:iso(TODAY),elib:true});save();this.draw();toast('Uploaded once and synced to the e-library')},
+ draw(){const b=$('#libbody');if(!b)return;const a=this.f.aud,q=this.f.q.toLowerCase();
+  let docs=S.docs.filter(d=>(!q||d.t.toLowerCase().includes(q)||(ENT[d.ent]?.n||'').toLowerCase().includes(q))&&(!this.f.type||d.type===this.f.type));
+  if(a==='Business units (e-library)')docs=docs.filter(d=>d.elib);
+  if(a.startsWith('Auditors'))docs=docs.filter(d=>d.date>='2025-11-01'&&d.date<='2026-10-31');
+  b.innerHTML=`<div class="tw"><table><tr><th>Document</th><th>Entity</th><th>Type</th><th>Date</th><th>E-library</th></tr>${docs.map(d=>`<tr><td><b>${esc(d.t)}</b></td><td>${entLink(d.ent)}</td><td>${esc(d.type)}</td><td>${fmt(d.date)}</td><td>${a==='Cosec (full)'?`<label class="small"><input type="checkbox" style="width:auto" ${d.elib?'checked':''} onchange="Lib.toggle('${d.id}')"> published</label>`:d.elib?'<span class="pill ok">yes</span>':'<span class="pill">no</span>'}</td></tr>`).join('')||'<tr><td colspan="5"><div class="empty">No documents visible to this audience</div></td></tr>'}</table></div>`}};
+R.library=el=>{const types=[...new Set(S.docs.map(d=>d.type))];const auds=['Cosec (full)','Business units (e-library)','Auditors: FY2026 (1 Nov 2025 to 31 Oct 2026)','Solicitors (time-limited)'];
+ el.innerHTML=header('Documents & e-library','Upload once. Anything ticked "published" shows up in the business units\' e-library automatically.',`<button class="btn pri" onclick="Lib.up()">⬆ Upload</button>`)+`
+ <div class="bar"><select onchange="Lib.f.aud=this.value;Lib.draw()" style="min-width:300px">${auds.map(x=>`<option ${Lib.f.aud===x?'selected':''}>${x}</option>`).join('')}</select><input placeholder="Search" value="${esc(Lib.f.q)}" oninput="Lib.f.q=this.value;Lib.draw()"><select onchange="Lib.f.type=this.value;Lib.draw()"><option value="">All types</option>${types.map(t=>`<option ${Lib.f.type===t?'selected':''}>${esc(t)}</option>`).join('')}</select></div>
+ <div class="callout info">👁 "Viewing as" previews each audience. Auditors get one shared mailbox (not named users) scoped to the financial year. Solicitors get time-limited access for a corporate exercise.</div><div id="libbody"></div>`;Lib.draw()};
+
+// ===== About =====
+R.about=el=>{el.innerHTML=header('What to try','A clickable draft for play-testing. Nothing here is connected to Notion yet.')+`
+ <div class="grid g2">
+ <div class="card"><h3>Try these</h3><ol class="small" style="padding-left:18px;margin:0">
+  <li><b>Requests inbox</b>: open the WhatsApp request about a bank account and choose <i>Draft resolution with AI</i>, then <i>Send to Approval Board</i>.</li>
+  <li><b>Approval Board</b>: drag a card from Draft to Pending signature, simulate signatures, then file it. Check the audit trail and the source link.</li>
+  <li><b>Resolution drafting</b>: choose <i>Acceptance of banking facility</i>, extract the key terms from the sample letter, then generate.</li>
+  <li><b>Directors & officers</b>: open Director A (sample), change the address and see the s58 tasks created for every company.</li>
+  <li><b>Board meeting papers</b>: switch "Viewing as" to Risk, upload, then try a revision (it becomes v1.1). Preview what a new director can see.</li>
+  <li><b>Shareholding monitor</b>: push Holder D over 5% and use the 20% beneficial-owner calculator on Eco Majestic (two ownership paths).</li>
+  <li><b>Entity portal</b>: open Group structure, click a company, record a name change and check History.</li>
+  <li><b>Ask Cosec AI</b> (bottom right): "annual returns due this month".</li></ol></div>
+ <div class="card"><h3>How this maps to a Notion build</h3><table class="small"><tr><th>Mockup screen</th><th>Notion building block</th></tr>
+  <tr><td>Entity portal, Directors</td><td>Entities, People and Appointments databases with relations. Edits go to a History database</td></tr>
+  <tr><td>Shareholding monitor</td><td>Ownership links database plus formulas and rollups (5% and 20%)</td></tr>
+  <tr><td>Compliance calendar</td><td>Obligations database, auto-created by automation from the incorporation date and FYE</td></tr>
+  <tr><td>Requests and Approval Board</td><td>One Approvals database with a status board, a source URL and an audit log</td></tr>
+  <tr><td>Resolution drafting</td><td>Notion AI skills, one per type, with a type picker</td></tr>
+  <tr><td>Board papers</td><td>One papers data source, with views filtered by permission and the director's appointment date</td></tr>
+  <tr><td>E-library</td><td>A "Published" checkbox feeding linked views for each audience</td></tr></table>
+  <div class="small muted" style="margin-top:8px">Data: names, registration numbers and % holdings come from the public Annual Report 2025. Everything else is a sample. It's stored only in your browser, and "Reset sample data" restores it.</div></div>
+ </div>`};
+
+// ===== AI assistant (mock) =====
+const AI={open:false,
+ toggle(){this.open=!this.open;$('#ai').classList.toggle('on',this.open);if(this.open&&!$('#aimsgs').children.length){this.say('b','Hi, I\'m the Cosec AI (mock). I answer from the data on this page. Try one of these:');this.chips()}},
+ chips(){$('#aichips').innerHTML=['Annual returns due this month','What is pending signature?','What is overdue?','Draft a circular resolution for disposal of a motor vehicle','Who is on the Audit Committee?','Entities below 50% effective interest'].map(c=>`<button onclick="AI.ask('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('')},
+ say(w,t){const d=document.createElement('div');d.className='m '+w;d.innerHTML=t;$('#aimsgs').appendChild(d);$('#aimsgs').scrollTop=1e9},
+ ask(q){q=(q||'').trim();if(!q)return;this.say('u',esc(q));const l=q.toLowerCase();let a;const items=complianceItems().filter(i=>!i.done);
+  if(/annual return/.test(l)){const mo=/next month/.test(l)?TODAY.getMonth()+1:TODAY.getMonth();const ar=items.filter(i=>i.id.startsWith('AR-')&&D(i.due).getMonth()===mo%12);a=ar.length?`${ar.length} annual returns are due in ${MON[mo%12]} (sample anniversary dates):\n`+ar.map(i=>`• ${entLink(i.ent)}, due ${fmt(i.due)}`).join('\n'):'No annual returns are due in that month.'}
+  else if(/pending|signature/.test(l)){const p=S.cards.filter(c=>c.stage==='Pending signature');a=p.length+' cards are waiting for signature:\n'+p.map(c=>`• <a href="javascript:void 0" onclick="AB.open('${c.id}')">${esc(c.title)}</a> (${c.sign.filter(s=>s.s==='Signed').length}/${c.sign.length} signed)`).join('\n')}
+  else if(/overdue/.test(l)){const o=items.filter(i=>daysTo(i.due)<0);a=o.length?o.length+' overdue:\n'+o.map(i=>`• ${esc(i.title)}: ${entLink(i.ent)}`).join('\n'):'Nothing is overdue.'}
+  else if(/draft|resolution/.test(l)){Res.pre={ent:'SKY',type:/bank/.test(l)?'Acceptance of banking facility':'Disposal of motor vehicle'};setTimeout(()=>location.hash='resolutions',50);if(location.hash==='#resolutions')setTimeout(route,60);a='I\'ve opened Resolution drafting with the type prefilled. Pick the entity, add the details and press Generate. A person checks every draft before it\'s sent.'}
+  else if(/committee|audit|nomination|remuneration|risk/.test(l)){const c=(l.match(/audit|nomination|remuneration|risk|investment|whistleblowing/)||['audit'])[0];const ps=DATA.people.filter(p=>p.comm.toLowerCase().includes(c));a=`${c[0].toUpperCase()+c.slice(1)} Committee (public Annual Report 2025):\n`+ps.map(p=>`• ${esc(p.n)}${new RegExp(c+'[^;]*\\(chair\\)','i').test(p.comm)?' (Chair)':''}`).join('\n')}
+  else if(/50%|effective|below/.test(l)){const b=GROUP.filter(e=>e.k!=='EWDGB'&&eff(e.k)<50);a=b.length+' entities are below 50% effective interest:\n'+b.map(e=>`• ${entLink(e.k)}: ${eff(e.k)}%`).join('\n')}
+  else{const hits=GROUP.filter(e=>l.split(/\s+/).filter(w=>w.length>3).some(w=>e.n.toLowerCase().includes(w))).slice(0,6);a=hits.length?'These entities match:\n'+hits.map(e=>`• ${entLink(e.k)} (${esc(e.t)}, ${eff(e.k)}%)`).join('\n'):'This mockup only answers a few question types. The real version would be Notion AI working only on the cosec databases.'}
+  setTimeout(()=>this.say('b',a),250)}};
+
+// first run: older overdue annual returns count as already filed (keeps 2 overdue for the demo)
+if(!S.init){let n=0;complianceItems().filter(i=>i.id.startsWith('AR-')&&daysTo(i.due)<0).forEach(i=>{if(n++>=2)S.filed[i.id]='filed before go-live (sample)'});S.init=1;save()}
+Object.entries(S.entEdits||{}).forEach(([k,o])=>{if(ENT[k])Object.assign(ENT[k],o)});
+route();
+
+
+</script>
+</body>
+</html>
