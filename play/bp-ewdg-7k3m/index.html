@@ -113,6 +113,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .btn:hover{background:var(--brand2)}
 .btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn.pri:hover{background:var(--brand-2)}
+.btn.create{width:100%;flex:1 0 100%;min-height:54px;padding:0 18px;border:none;border-radius:16px;background:linear-gradient(100deg,#5b21b6 0%,#9d174d 100%);color:#fff;font-weight:800;font-size:16.5px;letter-spacing:.01em;box-shadow:0 8px 22px rgba(91,33,182,.28)}
+.btn.create:hover{background:linear-gradient(100deg,#4c1d95 0%,#831843 100%);color:#fff}
+.btn.create .bico{stroke:#fff}
 .bico{width:16px;height:16px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .btn.sm{padding:4px 10px;min-height:34px;font-size:13.5px}
 .btn.warn{background:var(--warnbg);border-color:#fdba74;color:var(--warn)}
@@ -216,13 +219,8 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .linkcard{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);border-radius:var(--r);padding:12px}
 .pagefoot{margin-top:28px;color:var(--muted);font-size:12.5px}
 button.card{display:block;width:100%;text-align:left;color:inherit;cursor:pointer}
-body.role-director{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7f6fb 0%,#f3f2f7 100%)}
-body.role-director .rolebar{background:rgba(255,255,255,.9);border-bottom:1px solid #e7e4f0}
-body.role-director .side{background:rgba(255,255,255,.92);border-right:1px solid #e7e4f0}
-body.role-director .main{font-size:16px}
-body.role-director .card{background:#fff;border:1px solid #e6e4ef;box-shadow:0 1px 2px rgba(28,25,40,.04);backdrop-filter:none;-webkit-backdrop-filter:none}
-body.role-director .btn{font-weight:650;border-radius:8px;letter-spacing:.01em}
-.dirhello{padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid #e6e3ee}
+body.role-director .main{font-size:17px}
+.dirhello{padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,.72)}
 .dirhello h1{margin:0;font-size:28px;line-height:1.15;font-weight:650;letter-spacing:-.03em}
 .dirhello .sub{margin:8px 0 0;color:#534e66;font-size:14.5px;line-height:1.5;max-width:42rem}
 .dirboard{display:flex;flex-direction:column;gap:26px;margin-top:22px}
@@ -230,22 +228,22 @@ body.role-director .btn{font-weight:650;border-radius:8px;letter-spacing:.01em}
 .dsec svg{width:18px;height:18px;flex:0 0 auto;stroke:#4338ca;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .dbadge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:#4338ca;color:#fff;font-size:12px;font-weight:700;letter-spacing:0}
 .dpanel.quiet .dbadge{background:#eceaf4;color:#3730a3}
-.dpanel{background:#f5f4fb;border:1px solid #ddd9ef;border-radius:12px;padding:16px 16px 6px;box-shadow:0 1px 2px rgba(67,56,202,.05)}
-.dpanel.quiet{background:#fff;border-color:#e6e4ef;box-shadow:none}
-.dfeat{background:#fff;border:1px solid #e6e4ef;border-left:3px solid #4338ca;border-radius:12px;padding:18px 18px 16px;box-shadow:0 8px 24px rgba(36,28,64,.05)}
+.dpanel{background:rgba(236,230,255,.62);border:1px solid rgba(255,255,255,.8);border-radius:16px;padding:16px 16px 6px;box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.dpanel.quiet{background:rgba(255,255,255,.55)}
+.dfeat{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-left:3px solid #4338ca;border-radius:16px;padding:18px 18px 16px;box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .dfeat h3{margin:0 0 6px;font-size:22px;line-height:1.25;font-weight:650;letter-spacing:-.02em}
 .dfeat .meta,.dres .meta{color:#534e66;font-size:14.5px;line-height:1.45;margin:0 0 14px}
-.dlist{background:#fff;border:1px solid #e6e4ef;border-radius:12px;overflow:hidden}
-.drow{display:flex;justify-content:space-between;gap:10px 16px;align-items:center;padding:13px 0;border-top:1px solid #eceaf3;flex-wrap:wrap}
+.dlist{background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.85);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.drow{display:flex;justify-content:space-between;gap:10px 16px;align-items:center;padding:13px 0;border-top:1px solid rgba(255,255,255,.7);flex-wrap:wrap}
 .dpanel .drow:first-of-type,.dlist .drow:first-child{border-top:none}
 .dlist .drow{padding:12px 14px}
 .drow .grow{min-width:min(100%,200px);flex:1 1 200px}
 .drow b{font-weight:650}
-.dstat,.dres{background:#fff;border:1px solid #e6e4ef;border-radius:12px;padding:16px 16px 14px;box-shadow:0 1px 2px rgba(28,25,40,.04)}
+.dstat,.dres{background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.85);border-radius:16px;padding:16px 16px 14px;box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .dstat .v{font-size:34px;font-weight:650;letter-spacing:-.03em;line-height:1;margin-top:2px}
 .dstat .l{margin-top:6px;font-weight:650}
 .dquiet{margin:0 0 10px;color:#534e66;font-size:14.5px;line-height:1.45}
-.dnote{background:#fff;border:1px solid #e6e4ef;border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45;color:#3f3a52}
+.dnote{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.8);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45;color:#3f3a52;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 @media (min-width:901px){
  .dirhello h1{font-size:34px}
  .dirboard{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.68fr);column-gap:36px;row-gap:28px;align-items:start}
@@ -975,7 +973,7 @@ function screenHome(){
  const co=companyBy(state.companyId);
  const focus=focusMeeting(state.companyId);
  if(!focus){
-  return '<div class="top"><div><h1>'+esc(co.short)+'</h1><div class="sub">'+esc(co.legalName)+'</div></div><span class="sp"></span><button class="btn pri" type="button" data-act="create-meeting">New meeting</button></div>'
+  return '<div class="top"><div><h1>'+esc(co.short)+'</h1><div class="sub">'+esc(co.legalName)+'</div></div><span class="sp"></span><button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button></div>'
    +'<div class="empty"><b>No pack this month</b><div>COSEC has not opened a meeting pack for '+esc(co.legalName)+'. When a meeting is added, papers and submission links will show here.</div></div>';
  }
  const m=focus.meeting;
@@ -985,8 +983,8 @@ function screenHome(){
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).filter(id=>(r.sentTo||[]).includes(id)).length,0);
  const others=state.meetings.filter(x=>x.companyId===state.companyId && x.id!==m.id).sort((a,b)=>b.date.localeCompare(a.date));
  return '<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
-  +'<button class="btn" type="button" data-act="create-meeting">New meeting</button>'
-  +'<button class="btn pri" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'">Create submission link</button></div>'
+  +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
+  +'<button class="btn create" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
   +'<div class="callout '+(focus.upcoming?'warn':'info')+'"><b>'+(focus.upcoming?duePhrase(m.packDue):'This meeting date has passed')+'.</b> Pack due '+esc(fmt(m.packDue))+' · 5 business days before the meeting. Demo clock: '+esc(fmt(DEMO_TODAY))+'.'+(focus.upcoming?'':' Showing the latest pack for this company.')+'</div>'
   +'<div class="card" style="margin-bottom:14px"><h2>Papers by step</h2><p class="small muted" style="margin-top:0">One card is one paper. The number on each column is how many papers are there. Choose a card to open it.</p>'+kanban(m)+'</div>'
   +papersTable(m, true)
@@ -1064,7 +1062,7 @@ function screenMeetings(){
   const t=tally(m);
   return '<div class="pack"><div><b>'+esc(meetingTitle(m))+'</b><div class="small muted">'+esc(fmt(m.date))+' · pack due '+esc(fmt(m.packDue))+' · '+t.published+' of '+t.total+' published</div></div><button class="btn sm" type="button" data-go="#/cosec/meeting/'+m.id+'">Open pack</button></div>';
  }).join('')+'</div></div>').join('');
- return '<div class="top"><div><h1>Meetings & papers</h1><div class="sub">'+esc(co.legalName)+'</div></div><span class="sp"></span><button class="btn pri" type="button" data-act="create-meeting">New meeting</button></div>'+body;
+ return '<div class="top"><div><h1>Meetings & papers</h1><div class="sub">'+esc(co.legalName)+'</div></div><span class="sp"></span><button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button></div>'+body;
 }
 function screenMeeting(id){
  const m=meeting(id);
@@ -1073,7 +1071,7 @@ function screenMeeting(id){
  return '<div class="crumb"><button type="button" data-go="#/cosec/meetings">Meetings</button> · '+esc(folderTitle(m))+'</div>'
   +'<div class="top"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(fmt(m.date))+' · due '+esc(fmt(m.packDue))+' · '+esc(duePhrase(m.packDue))+' · '+t.withFile+' of '+t.total+' submitted</div></div><span class="sp"></span>'
   +'<button class="btn" type="button" data-go="#/cosec/check">Check a director</button>'
-  +'<button class="btn pri" type="button" data-act="create-link" data-meeting="'+m.id+'">Add paper</button></div>'
+  +'<button class="btn create" type="button" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add paper</button></div>'
   +papersTable(m);
 }
 
@@ -1127,7 +1125,7 @@ function screenLinks(){
   const url=linkFor(v.linkToken);
   return '<article class="lcard"><b>'+esc(meetingTitle(m))+'</b><div>'+esc(p.agendaCode+' '+p.title)+'</div><div class="small muted">'+esc(person(p.picId).name)+' · v'+esc(v.version)+'</div><div style="margin:6px 0">'+statusPill(displayStatus(p))+'</div><span class="urlclip" title="'+esc(url)+'">'+esc(url)+'</span><div class="acts"><button class="btn sm pri" type="button" data-act="copy-link" data-id="'+v.id+'">Copy link</button>'+(open?'<button class="btn sm" type="button" data-act="copy-msg" data-id="'+v.id+'">Copy message</button>':'<button class="btn sm" type="button" data-go="#/upload/'+v.linkToken+'">Open</button>')+'</div></article>';
  }).join('');
- return '<div class="top"><div><h1>Submission links</h1><div class="sub">Each paper has its own link. Departments do not name the file.</div></div><span class="sp"></span><button class="btn pri" type="button" data-act="create-link">Create submission link</button></div>'
+ return '<div class="top"><div><h1>Submission links</h1><div class="sub">Each paper has its own link. Departments do not name the file.</div></div><span class="sp"></span><button class="btn create" type="button" data-act="create-link"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
   +'<div class="links">'+(rows||'<div class="empty"><b>No links for this company yet</b></div>')+'</div>';
 }
 
@@ -1141,7 +1139,7 @@ function screenResolutions(admin){
  const sentN=month.length;
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).length,0);
  let head='<div class="top"><div><h1>Resolutions & minutes</h1><div class="sub">'+esc(companyBy(co).legalName)+'</div></div>';
- if(admin) head+='<span class="sp"></span><button class="btn pri" type="button" data-act="circulate">Circulate a resolution</button></div>';
+ if(admin) head+='<span class="sp"></span><button class="btn create" type="button" data-act="circulate"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Circulate a resolution</button></div>';
  else head+='</div>';
  const counts=admin? '<div class="grid g2" style="margin-bottom:14px">'+kpi(String(sentN),'Sent this month','Circular resolutions in December 2026')+kpi(String(recvN),'Received this month','Acknowledgements on those circulars')+'</div>' : directorResSummary(me);
  if(!admin && me.cessation) return head+'<div class="ended" data-testid="access-ended"><b>Access ended on '+esc(fmt(me.cessation))+'.</b><div>Resolutions and minutes are not available.</div></div>';
@@ -1185,7 +1183,7 @@ function screenResources(admin){
  const groups=new Map();
  state.resources.forEach(r=>{ if(!groups.has(r.group)) groups.set(r.group, []); groups.get(r.group).push(r); });
  const body=[...groups.entries()].map(([g, items])=>'<div class="folder"><h2>'+esc(g)+'</h2><div class="card">'+items.map(it=>'<div class="pack"><div><b>'+esc(it.title)+'</b><div class="tiny muted">'+esc(it.fileName)+'</div></div><button class="btn sm" type="button" data-act="resource" data-id="'+it.id+'">Open</button></div>').join('')+'</div></div>').join('');
- const add=admin?'<button class="btn" type="button" data-act="add-resource">Add a resource</button>':'';
+ const add=admin?'<button class="btn create" type="button" data-act="add-resource"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add a resource</button>':'';
  const note=admin?'':'<div class="dnote" style="margin-bottom:16px">Charters, policies and reports for current directors. This library is not limited by appointment date or by committee.</div>';
  return '<div class="top"><div><h1>Resource Centre</h1><div class="sub">Reference material for directors.</div></div><span class="sp"></span>'+add+'</div>'+note+body;
 }
@@ -1423,7 +1421,7 @@ function openCreateMeeting(){
   +'<div class="fld"><label for="m-due">Pack due</label><input id="m-due" name="due" type="date" value="'+businessDaysBefore('2027-03-10',5)+'"></div></div>'
   +'<div class="fld"><label for="m-venue">Venue (optional)</label><input id="m-venue" name="venue" placeholder="Boardroom"></div>'
   +'<div class="linkcard"><div class="tiny muted">Folder and meeting name</div><div id="meetPrev" class="official" style="font-size:16px"></div></div>'
-  +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Create meeting</button></div></form>');
+  +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn create" type="submit"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create meeting</button></div></form>');
  const form=$('#f-meet');
  const upd=()=>{
   const date=form.date.value; const body=form.body.value; let num=String(form.number.value||'1').replace(/\D/g,'')||'1'; num=pad(Math.min(99,+num));
@@ -1461,7 +1459,7 @@ function openCreateLink(meetingId){
   +'<div class="fld"><label for="f-pic">Person who will upload</label><select id="f-pic" name="pic"></select></div></div>'
   +'<div class="fld"><label for="f-due">Due date</label><input id="f-due" name="due" type="date" value="'+m0.packDue+'"></div>'
   +'<div class="linkcard"><div class="tiny muted">Official file name</div><div id="namePrev" class="official" style="font-size:16px"></div></div>'
-  +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Create link</button></div></form>');
+  +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn create" type="submit"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create link</button></div></form>');
  const form=$('#f-paper');
  const refill=()=>{
   const dept=form.dept.value;
@@ -1513,7 +1511,7 @@ function showLinkReady(m,p,v){
   +'<div class="official">'+esc(v.fileName)+'</div>'
   +'<div class="fld" style="margin-top:12px"><label>Submission link</label><div class="copyline"><input id="linkOut" readonly value="'+esc(url)+'"><button class="btn" type="button" data-act="copy-link" data-id="'+v.id+'">Copy link</button></div></div>'
   +'<button class="btn" type="button" data-act="copy-msg" data-id="'+v.id+'">Copy message to PIC</button>'
-  +'</div><div class="ft"><button class="btn" type="button" data-act="create-link" data-meeting="'+m.id+'">Create another</button><button class="btn" type="button" data-go="#/upload/'+v.linkToken+'">Open submission page</button><button class="btn pri" type="button" data-go="#/cosec/paper/'+p.id+'">Open paper</button></div>');
+  +'</div><div class="ft"><button class="btn create" type="button" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create another</button><button class="btn" type="button" data-go="#/upload/'+v.linkToken+'">Open submission page</button><button class="btn pri" type="button" data-go="#/cosec/paper/'+p.id+'">Open paper</button></div>');
  toast('Link ready to copy');
 }
 
