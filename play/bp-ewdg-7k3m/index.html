@@ -89,7 +89,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .top h1{font-size:26px;line-height:1.2;margin:0;letter-spacing:-.02em}
 .top .sub{color:var(--muted);font-size:14.5px;margin-top:4px}
 .top .sp{flex:1}
-.burger{display:none;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px;min-height:42px}
+.mobbar{display:none}
+.burger{display:none;background:#fff;border:2px solid var(--brand);color:var(--brand);border-radius:999px;padding:8px 12px;min-height:42px;font-weight:800;align-items:center;gap:6px}
+.btn.sideclose{display:none}
 .grid{display:grid;gap:14px}
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -107,10 +109,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .pill.blue{background:#e8e7ff;color:#312e81}
 .pill.green{background:var(--brand2);color:var(--brand)}
 .pill.indigo{background:#ece9ff;color:#3730a3}
-.btn{border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.72);border-radius:999px;padding:8px 14px;min-height:40px;font-size:14.5px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700}
-.btn:hover{background:#fff}
-.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:800}
+.btn{border:2px solid var(--brand);background:#fff;color:var(--brand);border-radius:999px;padding:8px 14px;min-height:40px;font-size:14.5px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:800}
+.btn:hover{background:var(--brand2)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
 .btn.pri:hover{background:var(--brand-2)}
+.bico{width:16px;height:16px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .btn.sm{padding:4px 10px;min-height:34px;font-size:13.5px}
 .btn.warn{background:var(--warnbg);border-color:#fdba74;color:var(--warn)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -158,6 +161,14 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .kcard .due.late{color:var(--bad)}
 .kcard .due.ok{color:var(--ok)}
 .kempty{color:var(--muted);font-size:13.5px;padding:8px 4px 12px}
+.links{display:flex;flex-direction:column;gap:10px}
+.lcard{background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
+.urlclip{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--muted);margin:6px 0}
+.picfile{font-size:13px;color:var(--muted);overflow-wrap:anywhere;word-break:break-word;margin:6px 0 10px}
+.picstate{font-weight:800;margin-top:6px}
+.picstate.done{color:var(--ok)}
+.picstate.todo{color:var(--ink);font-weight:650}
+.pichead{font-size:15px;margin:14px 0 8px}
 .folder{margin:0 0 16px}
 .folder h2{font-size:15px;margin:0 0 8px;color:var(--brand)}
 .pack{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -210,16 +221,39 @@ body.role-director .top h1{font-size:30px}
 body.upload-mode .side{display:none}
 body.upload-mode .app{display:block}
 body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
-body.upload-mode .burger{display:none !important}
 @media (max-width:900px){
+ .mobbar{display:flex;position:sticky;top:0;z-index:60;align-items:center;gap:10px;padding:8px 16px;background:#f7f3ff;border-bottom:1px solid #e4dcf8}
+ .moblogo{width:40px;height:40px;border-radius:10px;object-fit:cover;flex:0 0 auto}
+ .mobname{font-weight:800;min-width:0}
+ .burger{display:inline-flex}
+ .btn.sideclose{display:inline-flex;margin:0 8px 8px}
+ .app{display:block;width:100%}
+ .side{display:none;position:fixed;inset:0 auto 0 0;width:min(100%,320px);height:100dvh;flex:none;z-index:80;transform:none;background:#f6f1ff;backdrop-filter:none;-webkit-backdrop-filter:none;border-right:none;box-shadow:8px 0 28px rgba(40,20,80,.22);overflow:auto}
+ .side.on{display:block}
+ body.upload-mode .side.on{display:block}
+ .scrim{z-index:70}
+ .main{width:100%;max-width:100%;padding:16px;box-sizing:border-box}
  .rolebar select{min-width:0;width:100%}
  .seg{width:100%}
  .seg button{flex:1}
- .side{position:fixed;left:0;top:0;height:100%;z-index:55;transform:translateX(-105%);transition:transform .2s}
- .side.on{transform:none}
- .burger{display:inline-flex}
  .g4,.g3,.g2,.row2,.kb{grid-template-columns:1fr}
- .main{padding:14px 12px 48px}
+ .card,.kcard,.kcol,.tw,.pack,.grid{max-width:100%;min-width:0}
+ .kcard{overflow:hidden}
+ .kcard .paper{white-space:normal;overflow:visible;text-overflow:unset;overflow-wrap:anywhere}
+ .sheet{border:none;background:transparent;overflow:visible;backdrop-filter:none}
+ .sheet table,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}
+ .sheet thead{display:none}
+ .sheet tr{background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);border-radius:14px;margin:0 0 10px;padding:10px 12px;box-shadow:var(--shadow)}
+ .sheet td{border:none;padding:3px 0}
+ .sheet td[data-l]::before{content:attr(data-l);display:block;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.03em;text-transform:uppercase}
+ .sheet .fname{overflow-wrap:anywhere;word-break:break-word}
+ .links{display:flex;flex-direction:column;gap:10px}
+ .lcard{background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
+ .urlclip{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--muted);margin:6px 0}
+ .picfile{font-size:13px;color:var(--muted);overflow-wrap:anywhere;word-break:break-word;margin:6px 0 10px}
+ .picstate{font-weight:800;margin-top:6px}
+ .picstate.done{color:var(--ok)}
+ .picstate.todo{color:var(--ink);font-weight:650}
 }
 </style>
 </head>
@@ -232,8 +266,14 @@ body.upload-mode .burger{display:none !important}
  <button type="button" id="resetBtn">Reset demo data</button>
 </div>
 <div class="rolebar" id="rolebar"></div>
+<header class="mobbar">
+ <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="side">Menu</button>
+ <img class="moblogo" src="ecoworld-logo.png" alt="">
+ <span class="mobname">Meeting papers</span>
+</header>
 <div class="app">
  <aside class="side" id="side">
+  <button type="button" class="btn sideclose" id="sideClose">Close menu</button>
   <div class="logo"><img class="logoimg" src="ecoworld-logo.png" alt="EcoWorld"><div><div class="t1">COSEC Meeting Papers</div><div class="t2">Eco World Development Group</div></div></div>
   <nav class="nav" id="nav"></nav>
   <div class="foot">Corporate Secretariat demo for board and committee papers. Not connected to a live workspace.</div>
@@ -826,8 +866,7 @@ function rolebar(){
    company='<label class="lbl" for="companySel">Company</label><select id="companySel" aria-label="Company">'+cos.map(c=>'<option value="'+c.id+'"'+(c.id===state.companyId?' selected':'')+'>'+esc(c.short)+'</option>').join('')+'</select>';
   }
  }
- return '<button type="button" class="burger" id="burger" aria-label="Open menu">Menu</button>'
-  +'<span class="lbl switchlbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3"/></svg> Viewing as</span><div class="seg" role="group" aria-label="Role">'+seg+'</div>'
+ return '<span class="lbl switchlbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3"/></svg> Viewing as</span><div class="seg" role="group" aria-label="Role">'+seg+'</div>'
   +'<label class="lbl" for="personSel">Person</label><select id="personSel" aria-label="Person">'+sel+'</select>'
   +company
   +'<div class="hint">'+esc(personHint(p))+'</div>';
@@ -942,9 +981,9 @@ function papersTable(m){
   let note='';
   if(pub && st!=='published') note='<div class="tiny muted">Directors still see v'+esc(pub.version)+'</div>';
   const acts=rowActions(p, st);
-  return '<tr data-testid="paper-row-'+p.id+'"><td><b>'+esc(p.agendaCode)+'</b></td><td><div>'+esc(p.title)+'</div><div class="tiny muted">'+esc(v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0'))+'</div>'+note+'</td><td>'+deptMark(p.department)+'</td><td>'+esc(pic.name)+'</td><td data-testid="status-'+p.id+'">'+statusPill(st)+'</td><td>'+(v?'v'+esc(v.version):'—')+'</td><td>'+esc((st==='requested'||st==='revision')?duePhrase(p.due):fmt(p.due))+'</td><td class="small">'+esc(activity(p))+'</td><td><div class="acts">'+acts+'</div></td></tr>';
+  return '<tr data-testid="paper-row-'+p.id+'"><td data-l="Number"><b>'+esc(p.agendaCode)+'</b></td><td data-l="Paper"><div>'+esc(p.title)+'</div><div class="tiny muted fname">'+esc(v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0'))+'</div>'+note+'</td><td data-l="Department">'+deptMark(p.department)+'</td><td data-l="PIC">'+esc(pic.name)+'</td><td data-l="Status" data-testid="status-'+p.id+'">'+statusPill(st)+'</td><td data-l="Version">'+(v?'v'+esc(v.version):'—')+'</td><td data-l="Due">'+esc((st==='requested'||st==='revision')?duePhrase(p.due):fmt(p.due))+'</td><td data-l="Last activity" class="small">'+esc(activity(p))+'</td><td data-l="Actions"><div class="acts">'+acts+'</div></td></tr>';
  }).join('');
- return '<div class="tw"><table><thead><tr><th>#</th><th>Paper</th><th>Department</th><th>PIC</th><th>Status</th><th>Version</th><th>Due</th><th>Last activity</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+ return '<div class="tw sheet"><table><thead><tr><th>#</th><th>Paper</th><th>Department</th><th>PIC</th><th>Status</th><th>Version</th><th>Due</th><th>Last activity</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
 function activity(p){
  const v=currentVersion(p);
@@ -1032,10 +1071,11 @@ function screenLinks(){
   const p=paper(v.paperId); const m=p&&meeting(p.meetingId);
   if(!m || m.companyId!==state.companyId) return '';
   const open=v.status==='requested' && !v.uploadedAt;
-  return '<tr><td><b>'+esc(meetingTitle(m))+'</b><div class="tiny muted">'+esc(p.agendaCode+' '+p.title)+'</div></td><td>'+esc(person(p.picId).name)+'</td><td>v'+esc(v.version)+'</td><td>'+statusPill(displayStatus(p))+'</td><td class="small" style="word-break:break-all">'+esc(linkFor(v.linkToken))+'</td><td class="acts">'+(open?'<button class="btn sm pri" type="button" data-act="copy-link" data-id="'+v.id+'">Copy link</button><button class="btn sm" type="button" data-act="copy-msg" data-id="'+v.id+'">Copy message</button>':'<button class="btn sm" type="button" data-go="#/upload/'+v.linkToken+'">Open</button>')+'</td></tr>';
+  const url=linkFor(v.linkToken);
+  return '<article class="lcard"><b>'+esc(meetingTitle(m))+'</b><div>'+esc(p.agendaCode+' '+p.title)+'</div><div class="small muted">'+esc(person(p.picId).name)+' · v'+esc(v.version)+'</div><div style="margin:6px 0">'+statusPill(displayStatus(p))+'</div><span class="urlclip" title="'+esc(url)+'">'+esc(url)+'</span><div class="acts"><button class="btn sm pri" type="button" data-act="copy-link" data-id="'+v.id+'">Copy link</button>'+(open?'<button class="btn sm" type="button" data-act="copy-msg" data-id="'+v.id+'">Copy message</button>':'<button class="btn sm" type="button" data-go="#/upload/'+v.linkToken+'">Open</button>')+'</div></article>';
  }).join('');
  return '<div class="top"><div><h1>Submission links</h1><div class="sub">Each paper has its own link. Departments do not name the file.</div></div><span class="sp"></span><button class="btn pri" type="button" data-act="create-link">Create submission link</button></div>'
-  +'<div class="tw"><table><thead><tr><th>Paper</th><th>PIC</th><th>Version</th><th>Status</th><th>Link</th><th></th></tr></thead><tbody>'+(rows||'<tr><td colspan="6">No links for this company yet.</td></tr>')+'</tbody></table></div>';
+  +'<div class="links">'+(rows||'<div class="empty"><b>No links for this company yet</b></div>')+'</div>';
 }
 
 function screenResolutions(admin){
@@ -1149,15 +1189,28 @@ function screenPic(){
  const me=currentPerson();
  const mine=state.papers.filter(p=>p.picId===me.id);
  if(!mine.length) return '<div class="top"><div><h1>My submissions</h1><div class="sub">'+esc(me.name)+'</div></div></div><div class="empty"><b>No papers assigned</b><div>When COSEC sends you a link, the paper will appear here. You can also open the link they send.</div></div>';
- const cards=mine.map(p=>{
-  const m=meeting(p.meetingId); const v=currentVersion(p); const st=displayStatus(p);
-  const open=v && v.status==='requested' && !v.uploadedAt;
-  return '<div class="card" style="margin-bottom:12px"><div class="small muted">'+esc(companyBy(m.companyId).short)+' · '+esc(meetingTitle(m))+'</div><h2 style="margin-top:4px">'+esc(p.agendaCode+' '+p.title)+'</h2><div style="margin:6px 0">'+statusPill(st)+(v?' <span class="pill">v'+esc(v.version)+'</span>':'')+'</div><div class="small">Due '+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="official" style="font-size:16px;margin:8px 0">'+esc(v?v.fileName:officialName(m,p,'1.0'))+'</div>'
-   +(open?'<button class="btn pri" type="button" data-go="#/upload/'+v.linkToken+'">Upload paper</button>':'<button class="btn" type="button" data-go="#/upload/'+(v?v.linkToken:'')+'">View receipt</button>')
-   +'</div>';
- }).join('');
+ const open=[]; const sent=[];
+ mine.forEach(p=>{ const v=currentVersion(p); if(v && !v.uploadedAt) open.push(p); else sent.push(p); });
+ open.sort((a,b)=>(a.due||'').localeCompare(b.due||''));
+ sent.sort((a,b)=>((currentVersion(b)||{}).uploadedAt||'').localeCompare((currentVersion(a)||{}).uploadedAt||''));
+ const card=p=>{
+  const m=meeting(p.meetingId); const v=currentVersion(p);
+  const waiting=v && !v.uploadedAt;
+  const file=v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0');
+  const ver=v&&v.version&&v.version!=='1.0'?' <span class="pill">v'+esc(v.version)+'</span>':'';
+  const late=waiting && businessDaysFromTo(DEMO_TODAY, p.due)<0;
+  const line=waiting
+   ? '<div class="picstate todo">To submit · Due '+esc(fmt(p.due))+(late?' <span class="pill bad">Overdue</span>':'')+'</div>'
+   : '<div class="picstate done">Submitted ✓ <span class="tiny" style="font-weight:650">'+esc(v&&v.uploadedAtLabel?v.uploadedAtLabel:'')+'</span></div>';
+  const btn=waiting
+   ? '<button class="btn pri" type="button" data-go="#/upload/'+v.linkToken+'">Upload paper</button>'
+   : '<button class="btn pri" type="button" data-go="#/upload/'+(v?v.linkToken:'')+'">'+BOOK+' View receipt</button>';
+  return '<article class="card" style="margin-bottom:12px"><div class="small muted">'+esc(meetingTitle(m))+'</div><h2 style="margin-top:4px">'+esc(p.agendaCode+' '+p.title)+ver+'</h2>'+line+'<div class="picfile">'+esc(file)+'</div>'+btn+'</article>';
+ };
+ const block=(title,list)=>list.length?'<h3 class="pichead">'+title+' ('+list.length+')</h3>'+list.map(card).join(''):'';
  return '<div class="top"><div><h1>My submissions</h1><div class="sub" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(me.name)+' · '+deptMark(me.department||'cosec')+'</div></div></div>'
-  +'<div class="callout info">You cannot rename a paper or change it after you submit. If something needs to change, contact COSEC and they will send a new link.</div>'+cards;
+  +'<div class="callout info">You cannot rename a paper or change it after you submit. If something needs to change, contact COSEC and they will send a new link.</div>'
+  +block('To submit', open)+block('Submitted', sent);
 }
 
 function screenUpload(tk){
@@ -1224,9 +1277,10 @@ function screenDirHome(){
   +directorResSummary(me)+'</div>'
   +'<div class="card"><h2>Resource Centre</h2><p>Charters, policies and reports. Open to you with no date limit.</p><button class="btn pri" type="button" data-go="#/director/resources">Open Resource Centre</button></div></div>';
 }
+const BOOK='<svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V4z"/><path d="M9 8h6M9 12h6"/></svg>';
 function packCard(dir, m){
  const n=papersFor(m.id).filter(p=>gate(dir,m,p).see).length;
- return '<div class="pack"><div><b>'+esc(meetingTitle(m))+'</b><div class="small muted">'+esc(folderTitle(m))+' · '+n+' paper'+(n===1?'':'s')+'</div></div><button class="btn" type="button" data-go="#/director/meeting/'+m.id+'">Read</button></div>';
+ return '<div class="pack"><div><b>'+esc(meetingTitle(m))+'</b><div class="small muted">'+esc(folderTitle(m))+' · '+n+' paper'+(n===1?'':'s')+'</div></div><button class="btn pri" type="button" data-go="#/director/meeting/'+m.id+'">'+BOOK+' Read</button></div>';
 }
 function screenDirMeetings(){
  const me=currentPerson();
@@ -1258,7 +1312,7 @@ function screenDirMeeting(id){
   +'<div class="top"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+'</div></div></div>'
   +'<div class="card">'+papers.map(p=>{
    const v=latestPublished(p);
-   return '<div class="pack"><div><b>'+esc(p.agendaCode+' '+p.title)+'</b><div class="tiny muted">'+esc(v.fileName)+'</div></div><button class="btn" type="button" data-act="read" data-id="'+v.id+'">Read</button></div>';
+   return '<div class="pack"><div><b>'+esc(p.agendaCode+' '+p.title)+'</b><div class="tiny muted fname">'+esc(v.fileName)+'</div></div><button class="btn pri" type="button" data-act="read" data-id="'+v.id+'">'+BOOK+' Read</button></div>';
   }).join('')+'</div>';
 }
 
@@ -1616,7 +1670,10 @@ function bindOnce(){
  $('#assumptionsBtn').addEventListener('click', openAssumptions);
  $('#scrim').addEventListener('click', closeOverlays);
  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeOverlays(); });
- document.body.addEventListener('click', e=>{ if(e.target.id==='burger'){ $('#side').classList.add('on'); $('#scrim').classList.add('on'); } });
+ document.body.addEventListener('click', e=>{
+  if(e.target.closest('#burger')){ $('#side').classList.add('on'); $('#scrim').classList.add('on'); $('#burger').setAttribute('aria-expanded','true'); }
+  if(e.target.closest('#sideClose')) closeOverlays();
+ });
  document.body.addEventListener('click', e=>{ const t=e.target.closest('[data-act="toast-dl"]'); if(t) toast('Demo: the file would download.'); });
 }
 window.addEventListener('hashchange', ()=>{ closeOverlays(); render(); window.scrollTo(0,0); });
