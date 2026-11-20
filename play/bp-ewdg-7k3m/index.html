@@ -216,8 +216,45 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .linkcard{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);border-radius:var(--r);padding:12px}
 .pagefoot{margin-top:28px;color:var(--muted);font-size:12.5px}
 button.card{display:block;width:100%;text-align:left;color:inherit;cursor:pointer}
-body.role-director .main{font-size:17px}
-body.role-director .top h1{font-size:30px}
+body.role-director{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7f6fb 0%,#f3f2f7 100%)}
+body.role-director .rolebar{background:rgba(255,255,255,.9);border-bottom:1px solid #e7e4f0}
+body.role-director .side{background:rgba(255,255,255,.92);border-right:1px solid #e7e4f0}
+body.role-director .main{font-size:16px}
+body.role-director .card{background:#fff;border:1px solid #e6e4ef;box-shadow:0 1px 2px rgba(28,25,40,.04);backdrop-filter:none;-webkit-backdrop-filter:none}
+body.role-director .btn{font-weight:650;border-radius:8px;letter-spacing:.01em}
+.dirhello{padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid #e6e3ee}
+.dirhello h1{margin:0;font-size:28px;line-height:1.15;font-weight:650;letter-spacing:-.03em}
+.dirhello .sub{margin:8px 0 0;color:#534e66;font-size:14.5px;line-height:1.5;max-width:42rem}
+.dirboard{display:flex;flex-direction:column;gap:26px;margin-top:22px}
+.dsec{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:15px;font-weight:650;letter-spacing:-.01em;color:#241f33}
+.dsec svg{width:18px;height:18px;flex:0 0 auto;stroke:#4338ca;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.dbadge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:#4338ca;color:#fff;font-size:12px;font-weight:700;letter-spacing:0}
+.dpanel.quiet .dbadge{background:#eceaf4;color:#3730a3}
+.dpanel{background:#f5f4fb;border:1px solid #ddd9ef;border-radius:12px;padding:16px 16px 6px;box-shadow:0 1px 2px rgba(67,56,202,.05)}
+.dpanel.quiet{background:#fff;border-color:#e6e4ef;box-shadow:none}
+.dfeat{background:#fff;border:1px solid #e6e4ef;border-left:3px solid #4338ca;border-radius:12px;padding:18px 18px 16px;box-shadow:0 8px 24px rgba(36,28,64,.05)}
+.dfeat h3{margin:0 0 6px;font-size:22px;line-height:1.25;font-weight:650;letter-spacing:-.02em}
+.dfeat .meta,.dres .meta{color:#534e66;font-size:14.5px;line-height:1.45;margin:0 0 14px}
+.dlist{background:#fff;border:1px solid #e6e4ef;border-radius:12px;overflow:hidden}
+.drow{display:flex;justify-content:space-between;gap:10px 16px;align-items:center;padding:13px 0;border-top:1px solid #eceaf3;flex-wrap:wrap}
+.dpanel .drow:first-of-type,.dlist .drow:first-child{border-top:none}
+.dlist .drow{padding:12px 14px}
+.drow .grow{min-width:min(100%,200px);flex:1 1 200px}
+.drow b{font-weight:650}
+.dstat,.dres{background:#fff;border:1px solid #e6e4ef;border-radius:12px;padding:16px 16px 14px;box-shadow:0 1px 2px rgba(28,25,40,.04)}
+.dstat .v{font-size:34px;font-weight:650;letter-spacing:-.03em;line-height:1;margin-top:2px}
+.dstat .l{margin-top:6px;font-weight:650}
+.dquiet{margin:0 0 10px;color:#534e66;font-size:14.5px;line-height:1.45}
+.dnote{background:#fff;border:1px solid #e6e4ef;border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.45;color:#3f3a52}
+@media (min-width:901px){
+ .dirhello h1{font-size:34px}
+ .dirboard{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.68fr);column-gap:36px;row-gap:28px;align-items:start}
+ .d-action{grid-column:1;grid-row:1}
+ .d-up{grid-column:1;grid-row:2}
+ .d-past{grid-column:1;grid-row:3}
+ .d-stat{grid-column:2;grid-row:1}
+ .d-res{grid-column:2;grid-row:2}
+}
 body.upload-mode .side{display:none}
 body.upload-mode .app{display:block}
 body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
@@ -316,6 +353,19 @@ function parseISO(s){const [y,m,d]=s.split('-').map(Number); return new Date(y,m
 function isoOf(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
 function addDays(d,n){const x=new Date(d); x.setDate(x.getDate()+n); return x}
 function fmt(s){if(!s) return '—'; const [y,m,d]=s.split('-'); return (+d)+' '+MONTHS[+m-1]+' '+y}
+function fmtLong(s){if(!s) return '—'; const [y,m,d]=s.split('-'); const full=['January','February','March','April','May','June','July','August','September','October','November','December']; return (+d)+' '+full[+m-1]+' '+y}
+function salutation(){
+ let h=15;
+ try{ h=Number(new Intl.DateTimeFormat('en-GB',{hour:'numeric',hourCycle:'h23',timeZone:'Asia/Kuala_Lumpur'}).format(new Date())); }
+ catch(e){ h=new Date().getHours(); }
+ if(h<12) return 'Good morning';
+ if(h<18) return 'Good afternoon';
+ return 'Good evening';
+}
+function resolutionHead(r){
+ const m=String(r.title||'').match(/^(\d{4}\.\d{2}\.\d{2}-[A-Z]+)-(.+)$/);
+ return m?{title:m[2], ref:m[1]}:{title:r.title, ref:''};
+}
 function dmy(s){const [y,m,d]=s.split('-'); return d+'.'+m+'.'+y}
 function fyOf(iso){const [y,m]=iso.split('-').map(Number); const startYear = m>=11 ? y : y-1; return {y1:startYear,y2:startYear+1,start:startYear+'-11-01',end:(startYear+1)+'-10-31'}}
 function businessDaysBefore(iso, n){let d=parseISO(iso); let left=n; while(left>0){d=addDays(d,-1); const day=d.getDay(); if(day!==0 && day!==6) left--} return isoOf(d)}
@@ -426,7 +476,7 @@ function gate(p, m, paperObj){
  if(p.cessation) return {see:false, reason:cessationReason(p)};
  if(m && !(p.companies||[]).includes(m.companyId)) return {see:false, reason:p.name+' is not a director of '+companyBy(m.companyId).legalName+'.'};
  if(m && m.date < p.appointment) return {see:false, reason:'This meeting is dated '+fmt(m.date)+', which is before '+p.name+' was appointed on '+fmt(p.appointment)+'. Nothing earlier than the appointment date is shown.'};
- if(m && !seesBody(p, m.body)) return {see:false, reason:p.name+' does not sit on the '+BODIES[m.body]+'. Directors see Board packs, and only the committees they sit on.'};
+ if(m && !seesBody(p, m.body)) return {see:false, reason:p.name+' does not serve on the '+BODIES[m.body]+'. Board papers are shown, together with the committees on which the director serves.'};
  if(paperObj && !latestPublished(paperObj)) return {see:false, reason:'COSEC has not published this paper. Directors only see a paper after it is published. Current status: '+(STATUS_LABEL[displayStatus(paperObj)]||'')+'.'};
  return {see:true, reason:''};
 }
@@ -438,7 +488,7 @@ function resolutionGate(p, r){
  return {see:true, reason:''};
 }
 function libraryGate(p){
- if(p.cessation) return {see:false, reason:'Access ended on '+fmt(p.cessation)+'. The Resource Centre is closed after a director resigns in this demo.'};
+ if(p.cessation) return {see:false, reason:'Access ended on '+fmt(p.cessation)+'. The Resource Centre closed when the directorship ended.'};
  return {see:true, reason:''};
 }
 function eligiblePeople(companyId, date, body){
@@ -559,11 +609,11 @@ function personHint(p){
  if(!p) return '';
  if(p.kind==='cosec') return 'You create each submission link, review the file, and decide when directors can see it.';
  if(p.kind==='pic') return 'You only see papers assigned to you. After you submit, the file is locked.';
- if(p.id==='low') return 'Sees the Board, Audit, Investment and Remuneration, from 29 Mar 2018.';
- if(p.id==='ng') return 'Sees the Board, Audit and Nomination, from 22 Jun 2023. Remuneration and Investment stay hidden.';
- if(p.id==='rejina') return 'Sees the Board and Remuneration only, from 20 Jun 2024. Nothing earlier, and no Audit pack.';
- if(p.id==='leong') return 'Resigned 31 Mar 2026. No access to papers or the Resource Centre.';
- if(p.id==='heah') return 'As alternate director he can read Board packs, plus Investment Committee papers.';
+ if(p.id==='low') return 'Board, Audit Committee (Chair), Investment Committee (Chair) and Remuneration Committee. Appointed 29 March 2018.';
+ if(p.id==='ng') return 'Board, Audit Committee and Nomination Committee. Appointed 22 June 2023.';
+ if(p.id==='rejina') return 'Board and Remuneration Committee. Appointed 20 June 2024.';
+ if(p.id==='leong') return 'Resigned 31 March 2026. Meeting papers and the Resource Centre are closed.';
+ if(p.id==='heah') return 'Alternate Director. Board papers, and Investment Committee papers as the management representative.';
  if(p.cessation) return 'Access ended on '+fmt(p.cessation)+'.';
  return 'Appointment '+fmt(p.appointment)+'. '+committeeLine(p)+'.';
 }
@@ -833,7 +883,7 @@ function nav(){
   html+='<div class="sec">Your papers</div>';
   html+=item('#/pic','My submissions', true);
  } else {
-  html+='<div class="sec">Reading</div>';
+  html+='<div class="sec">Board</div>';
   html+=item('#/director','Home', here==='director');
   html+=item('#/director/meetings','Meeting papers', here.startsWith('director/meeting'));
   html+=item('#/director/resolutions','Resolutions & minutes', here==='director/resolutions');
@@ -874,7 +924,7 @@ function rolebar(){
 
 function docHtml(m, p, v){
  const co=companyBy(m.companyId);
- return '<article class="docpage"><div class="co">'+esc(co.legalName.toUpperCase())+'</div><div class="reg">Registration no. '+esc(co.regNo)+'</div><div class="meta" style="margin-top:10px">'+esc(meetingTitle(m))+'</div><h2>'+esc(p.agendaCode+' '+p.title)+'</h2><div class="meta">Version '+esc(v.version)+' · '+esc(v.pages||4)+' pages · not a real paper</div><p>This first page is for the demo. It is not a Board paper and it does not contain real figures.</p><p>The page stands in for “'+esc(p.title)+'”, so you can see the name COSEC set and the version that was submitted.</p><div class="foot">Not for circulation</div></article>';
+ return '<article class="docpage"><div class="co">'+esc(co.legalName.toUpperCase())+'</div><div class="reg">Registration no. '+esc(co.regNo)+'</div><div class="meta" style="margin-top:10px">'+esc(meetingTitle(m))+'</div><h2>'+esc(p.agendaCode+' '+p.title)+'</h2><div class="meta">Version '+esc(v.version)+' · '+esc(v.pages||4)+' pages · not a real paper</div><p>This first page is illustrative. It is not a Board paper and it does not contain figures.</p><p>The page stands in for “'+esc(p.title)+'”. It shows the file name and the version on record.</p><div class="foot">Not for circulation</div></article>';
 }
 function previewBlock(m,p,v){
  if(!v) return '<div class="empty"><b>No file yet</b><div>The department has not uploaded this version.</div></div>';
@@ -897,7 +947,10 @@ function render(){
  else if(state.role==='cosec') html=screenCosec(vp);
  else if(state.role==='pic') html=screenPic();
  else html=screenDirector(vp);
- main.innerHTML=html+'<div class="pagefoot">Outlook stays the master calendar. Meeting dates here are for the pack only. More COSEC tools (not in this demo): entity register, shareholding, compliance calendar, approvals, and lodgements.</div>';
+ const foot=state.role==='director'
+  ? 'Meeting dates are shown for reference. This view holds published papers, resolutions and the Resource Centre.'
+  : 'Outlook stays the master calendar. Meeting dates here are for the pack only. More COSEC tools (not in this demo): entity register, shareholding, compliance calendar, approvals, and lodgements.';
+ main.innerHTML=html+'<div class="pagefoot">'+foot+'</div>';
  bindDynamic();
  const titles={cosec:'COSEC', pic:'My submissions', director:'Director', upload:'Upload a paper'};
  document.title=(titles[vp[0]]||'COSEC')+' · COSEC Meeting Papers (demo)';
@@ -1092,18 +1145,28 @@ function screenResolutions(admin){
  else head+='</div>';
  const counts=admin? '<div class="grid g2" style="margin-bottom:14px">'+kpi(String(sentN),'Sent this month','Circular resolutions in December 2026')+kpi(String(recvN),'Received this month','Acknowledgements on those circulars')+'</div>' : directorResSummary(me);
  if(!admin && me.cessation) return head+'<div class="ended" data-testid="access-ended"><b>Access ended on '+esc(fmt(me.cessation))+'.</b><div>Resolutions and minutes are not available.</div></div>';
- if(!list.length) return head+counts+'<div class="empty"><b>Nothing to show</b><div>'+(admin?'Circulate a resolution, or switch company.':'Nothing in your committees falls on or after your appointment date.')+'</div></div>';
+ if(!list.length) return head+counts+'<div class="empty"><b>Nothing to show</b><div>'+(admin?'Circulate a resolution, or switch company.':'No resolutions or minutes are available from the appointment date, for the Board and committees served.')+'</div></div>';
  const rows=list.map(r=>{
   const typeLab={DCR:'Directors’ circular', ACCR:'Audit Committee circular', minutes:'Minutes', members:'Members’ meeting'}[r.type]||r.type;
   const mine=!admin && (r.type==='DCR'||r.type==='ACCR');
   const got=(r.receivedFrom||[]).includes(me.id);
   let action='';
   if(mine && r.status!=='filed'){
-   action=got?'<span class="pill ok">Acknowledged</span>':'<button class="btn sm pri" type="button" data-act="ack" data-id="'+r.id+'">I have received this</button>';
+   action=got?'<span class="pill ok">Acknowledged</span>':'<button class="btn sm pri" type="button" data-act="ack" data-id="'+r.id+'">Acknowledge receipt</button>';
   } else if(admin){
    action='<span class="small muted">'+(r.receivedFrom||[]).length+' of '+(r.sentTo||[]).length+' acknowledged</span>';
   }
-  return '<div class="pack"><div><b>'+esc(r.title)+'</b><div class="small muted">'+esc(fmt(r.date))+' · '+esc(BODIES[r.body]||'')+' · '+esc(typeLab)+' · '+esc(r.status)+'</div></div><div>'+action+'</div></div>';
+  const shown=admin?{title:r.title, ref:''}:resolutionHead(r);
+  let word=r.status;
+  if(!admin){
+   if(r.type==='minutes'||r.type==='members') word=r.status==='filed'?'Filed':'On file';
+   else if(got) word='Acknowledged';
+   else if(r.status==='filed') word='Filed';
+   else word='Awaiting acknowledgement';
+  }
+  const meta=[fmt(r.date), BODIES[r.body]||'', typeLab, word].filter(Boolean);
+  if(!admin && shown.ref) meta.unshift(shown.ref);
+  return '<div class="pack"><div><b>'+esc(shown.title)+'</b><div class="small muted">'+esc(meta.join(' · '))+'</div></div><div>'+action+'</div></div>';
  }).join('');
  return head+counts+'<div class="card">'+rows+'</div>';
 }
@@ -1111,7 +1174,7 @@ function directorResSummary(p){
  const all=circularsFor(p);
  const got=all.filter(r=>(r.receivedFrom||[]).includes(p.id));
  const q=quarterRange();
- return '<div class="card" style="margin-bottom:14px"><b>Circular resolutions sent to you this quarter: '+all.length+'.</b> Acknowledged: '+got.length+'.<div class="small muted">'+esc(q.label)+'.</div></div>';
+ return '<section class="dstat d-stat"><h2 class="dsec"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h8M8 12h8M8 17h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>Circular resolutions</h2><div class="v">'+all.length+'</div><div class="l">Sent this quarter</div><p class="small muted" style="margin:6px 0 0">Acknowledged '+got.length+' of '+all.length+' · '+esc(q.label)+'</p></section>';
 }
 function screenResources(admin){
  const me=currentPerson();
@@ -1123,7 +1186,7 @@ function screenResources(admin){
  state.resources.forEach(r=>{ if(!groups.has(r.group)) groups.set(r.group, []); groups.get(r.group).push(r); });
  const body=[...groups.entries()].map(([g, items])=>'<div class="folder"><h2>'+esc(g)+'</h2><div class="card">'+items.map(it=>'<div class="pack"><div><b>'+esc(it.title)+'</b><div class="tiny muted">'+esc(it.fileName)+'</div></div><button class="btn sm" type="button" data-act="resource" data-id="'+it.id+'">Open</button></div>').join('')+'</div></div>').join('');
  const add=admin?'<button class="btn" type="button" data-act="add-resource">Add a resource</button>':'';
- const note=admin?'':'<div class="callout info">The Resource Centre is open to every current director. It is not limited by appointment date or by committee.</div>';
+ const note=admin?'':'<div class="dnote" style="margin-bottom:16px">Charters, policies and reports for current directors. This library is not limited by appointment date or by committee.</div>';
  return '<div class="top"><div><h1>Resource Centre</h1><div class="sub">Reference material for directors.</div></div><span class="sp"></span>'+add+'</div>'+note+body;
 }
 function screenTime(){
@@ -1254,62 +1317,77 @@ function screenDirector(vp){
 function visibleMeetings(dir){
  return state.meetings.filter(m=>m.companyId===state.companyId && gate(dir,m,null).see && papersFor(m.id).some(p=>gate(dir,m,p).see)).sort((a,b)=>b.date.localeCompare(a.date));
 }
+const I_ACK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h8M8 12h8M8 17h5"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>';
+const I_CAL='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3.5v4M16 3.5v4M4 10h16"/></svg>';
+const I_PAST='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>';
+const I_LIB='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h3v16H5zM10.5 4h3v16h-3zM16 4h3v16h-3z"/></svg>';
+function paperCount(dir, m){return papersFor(m.id).filter(p=>gate(dir,m,p).see).length}
+function papersWord(n){return n+' '+(n===1?'paper':'papers')}
+function dirMeetRow(dir, m){
+ const n=paperCount(dir, m);
+ return '<div class="drow"><div class="grow"><b>'+esc(meetingTitle(m))+'</b><div class="small muted">'+esc(fmtLong(m.date)+' · '+(BODIES[m.body]||'')+' · '+papersWord(n))+'</div></div><button class="btn sm" type="button" data-go="#/director/meeting/'+m.id+'">Open</button></div>';
+}
 function screenDirHome(){
  const me=currentPerson();
  const co=companyBy(state.companyId);
- if(me.cessation || !(me.companies||[]).includes(state.companyId)){
-  const reason=me.cessation? cessationReason(me) : me.name+' is not a director of '+co.legalName+' .';
-  return '<div data-testid="director-home"><div class="top"><div><h1>Hello, '+esc(me.name)+'</h1><div class="sub">'+esc(me.roleTitle)+'</div></div></div><div class="ended" data-testid="access-ended"><b>'+(me.cessation?'Access ended on '+esc(fmt(me.cessation))+'.':'No packs for this company.')+'</b><div>'+esc(reason)+'</div></div></div>';
+ const seated=me.cessation || !(me.companies||[]).includes(state.companyId);
+ const hello='<header class="dirhello"><h1>'+esc(salutation())+', '+esc(me.name)+'</h1><p class="sub">'+esc(me.roleTitle)+(seated?'':'<br>'+esc(committeeLine(me))+' · appointed '+esc(fmt(me.appointment)))+'</p></header>';
+ if(seated){
+  const reason=me.cessation? cessationReason(me) : me.name+' is not a director of '+co.legalName+'.';
+  return '<div data-testid="director-home">'+hello+'<div class="ended" data-testid="access-ended" style="margin-top:18px"><b>'+(me.cessation?'Access ended on '+esc(fmt(me.cessation))+'.':'No meeting papers are available for this company.')+'</b><div>'+esc(reason)+'</div></div></div>';
  }
  const ms=visibleMeetings(me);
- const upcoming=ms.filter(m=>m.date>=DEMO_TODAY);
- const recent=ms.filter(m=>m.date<DEMO_TODAY && m.date>=fyOf(DEMO_TODAY).start.replace(String(fyOf(DEMO_TODAY).y1), String(fyOf(DEMO_TODAY).y1-1)));
- const packs=(list)=> list.length? list.map(m=>packCard(me,m)).join('') : '';
- const awaiting=state.resolutions.filter(r=> (r.type==='DCR'||r.type==='ACCR') && r.companyId===state.companyId && resolutionGate(me,r).see && (r.sentTo||[]).includes(me.id) && !(r.receivedFrom||[]).includes(me.id) && r.status!=='filed');
- return '<div data-testid="director-home"><div class="top"><div><h1>Hello, '+esc(me.name)+'</h1><div class="sub">'+esc(me.roleTitle)+'<br>'+esc(committeeLine(me))+' · appointed '+esc(fmt(me.appointment))+'</div></div></div>'
-  +(me.kind==='alternate'?'<div class="callout info">As alternate director you can read Board packs, and Investment Committee papers because you are the management representative on that committee.</div>':'')
-  +'<div class="card" style="margin-bottom:14px"><h2>Packs you can read</h2>'
-  +(upcoming.length?'<div class="tiny muted">Coming up</div>'+packs(upcoming):'<div class="empty"><b>No upcoming pack</b><div>When COSEC publishes papers for a meeting you sit on, they will show here.</div></div>')
-  +(recent.length?'<div class="tiny muted" style="margin-top:10px">Already circulated</div>'+packs(recent):'')
-  +'</div>'
-  +'<div class="card" style="margin-bottom:14px"><h2>Resolutions awaiting your acknowledgement</h2>'
-  +(awaiting.length? awaiting.map(r=>'<div class="pack"><div><b>'+esc(r.title)+'</b><div class="small muted">'+esc(fmt(r.date))+'</div></div><button class="btn pri" type="button" data-act="ack" data-id="'+r.id+'">I have received this</button></div>').join('') : '<div class="empty"><b>You are up to date</b><div>There is no circular waiting for your acknowledgement.</div></div>')
-  +directorResSummary(me)+'</div>'
-  +'<div class="card"><h2>Resource Centre</h2><p>Charters, policies and reports. Open to you with no date limit.</p><button class="btn pri" type="button" data-go="#/director/resources">Open Resource Centre</button></div></div>';
+ const upcoming=ms.filter(m=>m.date>=DEMO_TODAY).sort((a,b)=>a.date.localeCompare(b.date));
+ const past=ms.filter(m=>m.date<DEMO_TODAY);
+ const awaiting=state.resolutions.filter(r=> (r.type==='DCR'||r.type==='ACCR') && r.companyId===state.companyId && resolutionGate(me,r).see && (r.sentTo||[]).includes(me.id) && !(r.receivedFrom||[]).includes(me.id) && r.status!=='filed').sort((a,b)=>a.date.localeCompare(b.date));
+ const ackRows=awaiting.map(r=>{
+  const h=resolutionHead(r);
+  const meta=[h.ref, fmtLong(r.date), BODIES[r.body]||''].filter(Boolean).join(' · ');
+  return '<div class="drow"><div class="grow"><b>'+esc(h.title)+'</b><div class="small muted">'+esc(meta)+'</div></div><button class="btn pri" type="button" data-act="ack" data-id="'+r.id+'">Acknowledge receipt</button></div>';
+ }).join('');
+ const action='<section class="dpanel d-action'+(awaiting.length?'':' quiet')+'" data-testid="ack-panel"><h2 class="dsec">'+I_ACK+'Resolutions awaiting your acknowledgement <span class="dbadge">'+awaiting.length+'</span></h2>'+(ackRows||'<p class="dquiet">No circular is awaiting acknowledgement.</p>')+'</section>';
+ let up;
+ if(!upcoming.length) up='<section class="d-up"><h2 class="dsec">'+I_CAL+'Upcoming meeting</h2><article class="dfeat"><p class="dquiet">There is no upcoming meeting with published papers.</p></article></section>';
+ else {
+  const m=upcoming[0]; const n=paperCount(me, m);
+  const more=upcoming.slice(1).map(x=>dirMeetRow(me,x)).join('');
+  up='<section class="d-up"><h2 class="dsec">'+I_CAL+(upcoming.length>1?'Upcoming meetings':'Upcoming meeting')+'</h2><article class="dfeat"><div class="small" style="color:#4338ca;font-weight:650;margin-bottom:6px">'+esc(BODIES[m.body]||'')+'</div><h3>'+esc(meetingTitle(m))+'</h3><p class="meta">'+esc(fmtLong(m.date)+(m.venue?' · '+m.venue:'')+' · '+papersWord(n))+'</p><button class="btn pri" type="button" data-go="#/director/meeting/'+m.id+'">Open papers</button></article>'+(more?'<div class="dlist" style="margin-top:10px">'+more+'</div>':'')+'</section>';
+ }
+ const pastHtml='<section class="d-past"><h2 class="dsec">'+I_PAST+'Past meetings</h2>'+(past.length?'<div class="dlist">'+past.map(m=>dirMeetRow(me,m)).join('')+'</div>':'<p class="dquiet">There are no earlier meetings in this view.</p>')+'</section>';
+ const res='<section class="dres d-res"><h2 class="dsec">'+I_LIB+'Resource Centre</h2><p class="meta">Charters, policies and reports, available to current directors without a date limit.</p><button class="btn" type="button" data-go="#/director/resources">Open Resource Centre</button></section>';
+ const alt=me.kind==='alternate'?'<div class="dnote" style="margin-top:16px">As Alternate Director, Board papers are available, together with Investment Committee papers held as the management representative.</div>':'';
+ return '<div data-testid="director-home">'+hello+alt+'<div class="dirboard">'+action+up+pastHtml+directorResSummary(me)+res+'</div></div>';
 }
 const BOOK='<svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V4z"/><path d="M9 8h6M9 12h6"/></svg>';
-function packCard(dir, m){
- const n=papersFor(m.id).filter(p=>gate(dir,m,p).see).length;
- return '<div class="pack"><div><b>'+esc(meetingTitle(m))+'</b><div class="small muted">'+esc(folderTitle(m))+' · '+n+' paper'+(n===1?'':'s')+'</div></div><button class="btn pri" type="button" data-go="#/director/meeting/'+m.id+'">'+BOOK+' Read</button></div>';
-}
+function packCard(dir, m){return dirMeetRow(dir, m)}
 function screenDirMeetings(){
  const me=currentPerson();
- if(me.cessation) return '<div class="top"><h1>Meeting papers</h1></div><div class="ended"><b>Access ended on '+esc(fmt(me.cessation))+'.</b><div>There are no packs to open.</div></div>';
+ if(me.cessation) return '<div class="top"><h1>Meeting papers</h1></div><div class="ended"><b>Access ended on '+esc(fmt(me.cessation))+'.</b><div>Meeting papers are no longer available.</div></div>';
  const ms=visibleMeetings(me);
- if(!ms.length) return '<div class="top"><div><h1>Meeting papers</h1><div class="sub">'+esc(companyBy(state.companyId).legalName)+'</div></div></div><div class="empty"><b>No papers for you yet</b><div>Published packs for your committees will appear here, from your appointment date onward.</div></div>';
+ if(!ms.length) return '<div class="top"><div><h1>Meeting papers</h1><div class="sub">'+esc(companyBy(state.companyId).legalName)+'</div></div></div><div class="empty"><b>No meeting papers yet</b><div>Published papers for the Board and committees served appear here, from the appointment date.</div></div>';
  const fyNow=fyOf(DEMO_TODAY).y1;
  const groups=new Map();
  ms.forEach(m=>{ const fy=fyOf(m.date); const key=fy.y1>=fyNow-1 ? folderTitle(m) : 'earlier'; if(!groups.has(key)) groups.set(key,[]); groups.get(key).push(m); });
- let html='<div class="top"><div><h1>Meeting papers</h1><div class="sub">'+esc(companyBy(state.companyId).legalName)+' · only published papers</div></div></div>';
+ let html='<div class="top"><div><h1>Meeting papers</h1><div class="sub">'+esc(companyBy(state.companyId).legalName)+' · published papers only</div></div></div>';
  const mainKeys=[...groups.keys()].filter(k=>k!=='earlier');
- mainKeys.forEach(k=>{ html+='<div class="folder"><h2>'+esc(k)+'</h2><div class="card">'+groups.get(k).map(m=>packCard(me,m)).join('')+'</div></div>'; });
+ mainKeys.forEach(k=>{ html+='<div class="folder"><h2 class="dsec">'+esc(k)+'</h2><div class="dlist">'+groups.get(k).map(m=>packCard(me,m)).join('')+'</div></div>'; });
  const earlier=groups.get('earlier')||[];
  if(earlier.length){
   const by=new Map();
   earlier.forEach(m=>{ const f=folderTitle(m); if(!by.has(f)) by.set(f,[]); by.get(f).push(m); });
-  html+='<details class="card"><summary><b>Earlier years</b></summary>'+[...by.entries()].map(([k,list])=>'<div class="folder"><h2>'+esc(k)+'</h2>'+list.map(m=>packCard(me,m)).join('')+'</div>').join('')+'</details>';
+  html+='<details class="card"><summary><b>Earlier years</b></summary>'+[...by.entries()].map(([k,list])=>'<div class="folder"><h2 class="dsec">'+esc(k)+'</h2><div class="dlist">'+list.map(m=>packCard(me,m)).join('')+'</div></div>').join('')+'</details>';
  }
  return html;
 }
 function screenDirMeeting(id){
  const me=currentPerson(); const m=meeting(id);
- if(!m) return '<div class="empty"><b>Pack not found</b></div>';
+ if(!m) return '<div class="empty"><b>Meeting not found</b></div>';
  const g=gate(me,m,null);
- if(!g.see) return '<div class="ended"><b>This pack is not in your reading view.</b><div>'+esc(g.reason)+'</div></div>';
+ if(!g.see) return '<div class="ended"><b>These papers are not available.</b><div>'+esc(g.reason)+'</div></div>';
  const papers=papersFor(m.id).filter(p=>gate(me,m,p).see);
- if(!papers.length) return '<div class="empty"><b>No published papers</b><div>COSEC has not published a paper in this pack for you yet.</div></div>';
+ if(!papers.length) return '<div class="empty"><b>No published papers</b><div>No paper has been published for this meeting.</div></div>';
  return '<div class="crumb"><button type="button" data-go="#/director/meetings">Meeting papers</button> · '+esc(companyBy(m.companyId).short)+'</div>'
-  +'<div class="top"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+'</div></div></div>'
+  +'<div class="top"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(BODIES[m.body]||'')+' · '+esc(fmtLong(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div></div>'
   +'<div class="card">'+papers.map(p=>{
    const v=latestPublished(p);
    return '<div class="pack"><div><b>'+esc(p.agendaCode+' '+p.title)+'</b><div class="tiny muted fname">'+esc(v.fileName)+'</div></div><button class="btn pri" type="button" data-act="read" data-id="'+v.id+'">'+BOOK+' Read</button></div>';
