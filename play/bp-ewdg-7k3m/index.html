@@ -76,8 +76,13 @@ table{width:100%;border-collapse:collapse}
 th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
 .tw{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
-.prog{height:10px;background:#eef0f3;border-radius:99px;overflow:hidden}
-.prog>i{display:block;height:100%;background:var(--brand)}
+.steps{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:100%}
+.step{width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:2px solid #98a2b3;background:transparent;flex:0 0 auto}
+.step.done{background:#0f6e56;border-color:#0f6e56}
+.step.now{width:12px;height:12px;background:#0f6e56;border-color:#0f6e56;box-shadow:0 0 0 3px #cfe8df}
+.stepwords{font-size:13.5px;font-weight:650;line-height:1.3}
+.stepbit{display:inline-flex;align-items:center;gap:5px;font-size:13.5px}
+.packcount{font-size:18px;margin-bottom:8px}
 .callout{border-radius:10px;padding:12px 14px;font-size:14.5px;margin-bottom:12px}
 .callout.info{background:#eef4ff;color:#1e3a8a}
 .callout.warn{background:var(--warnbg);color:#7a3e00}
@@ -89,12 +94,13 @@ th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
 .empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
 .av{width:36px;height:36px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-size:12px;font-weight:750;flex:0 0 auto;position:relative}
 .av.sm{width:28px;height:28px;font-size:11px}
-.av.pend{box-shadow:0 0 0 2px #fff,0 0 0 4px #b54708}
-.av.quiet{box-shadow:0 0 0 2px #fff,0 0 0 4px #067647}
-.avrow{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
-.avwrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:84px;text-align:center}
-.avwrap .nm{font-size:11.5px;color:var(--muted);line-height:1.25}
-.tip{display:none;position:absolute;z-index:5;top:46px;left:0;width:260px;background:#101828;color:#fff;border-radius:10px;padding:10px 12px;font-size:12.5px;text-align:left;box-shadow:var(--shadow)}
+.avrow{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.avwrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:168px;text-align:center}
+.avwrap .nm{font-size:12px;color:var(--muted);line-height:1.25}
+.avwrap .stepwords{font-size:12px;font-weight:650}
+.tip{display:none;position:absolute;z-index:5;top:calc(100% + 6px);left:0;width:280px;background:#101828;color:#fff;border-radius:10px;padding:10px 12px;font-size:12.5px;text-align:left;box-shadow:var(--shadow)}
+.tip .stepwords,.tip .stepbit{color:#fff}
+.tip .step{border-color:#d0d5dd}
 .avwrap:hover .tip,.avwrap:focus-within .tip{display:block}
 .folder{margin:0 0 16px}
 .folder h2{font-size:15px;margin:0 0 8px;color:var(--brand)}
@@ -200,6 +206,14 @@ const DEPTS = [
  {id:'planning', name:'Corporate Planning', inferred:true}
 ];
 const STATUS_LABEL = {requested:'Requested', submitted:'Submitted & locked', reviewed:'Reviewed', published:'Published', revision:'Revision requested'};
+const STEP_ORDER = ['requested','submitted','reviewed','published'];
+const STEP_WORDS = {
+ requested:'Requested, waiting for the file',
+ submitted:'Submitted, awaiting review',
+ reviewed:'Reviewed, ready to publish',
+ published:'Published',
+ revision:'Revision requested, waiting for the new file'
+};
 
 const $ = (s, r=document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -264,9 +278,23 @@ function officialName(m,p,ver,ext){return meetingTitle(m)+' - '+p.agendaCode+' '
 function linkFor(tk){return location.origin+location.pathname+location.search+'#/upload/'+tk}
 function colorFor(id){const pal=['#0f6e56','#175cd3','#9f1239','#93370d','#4338ca','#0e7490','#3f6212','#9a3412']; let h=0; for(let i=0;i<id.length;i++) h=(h*31+id.charCodeAt(i))>>>0; return pal[h%pal.length]}
 function avatar(p, cls){if(!p) return ''; return '<span class="av '+(cls||'')+'" style="background:'+colorFor(p.id)+'" title="'+esc(p.name)+'">'+esc(p.initials)+'</span>'}
-function statusPill(st){
- const map={requested:'warn', submitted:'blue', reviewed:'indigo', published:'ok', revision:'warn'};
- return '<span class="pill '+(map[st]||'')+'">'+esc(STATUS_LABEL[st]||st)+'</span>';
+function stepIndex(st){if(st==='revision') return 0; const i=STEP_ORDER.indexOf(st); return i<0?0:i}
+function stepWords(st){return STEP_WORDS[st]||STATUS_LABEL[st]||st}
+function stepTracker(st){
+ const idx=stepIndex(st); const words=stepWords(st);
+ const dots=STEP_ORDER.map((name,i)=>{
+  const cls=i<idx?'step done':i===idx?'step now':'step';
+  return '<span class="'+cls+'" title="'+esc(stepWords(name))+'"></span>';
+ }).join('');
+ return '<span class="steps" role="img" aria-label="'+esc(words)+'. Step '+(idx+1)+' of 4. Filled dots are done. The larger dot is the current step.">'+dots+'<span class="stepwords">'+esc(words)+'</span></span>';
+}
+function statusPill(st){return stepTracker(st)}
+function packDots(t){
+ const bits=[['requested',(t.requested||0)+(t.revision||0)],['submitted',t.submitted||0],['reviewed',t.reviewed||0],['published',t.published||0]];
+ const names={requested:'Requested',submitted:'Submitted',reviewed:'Reviewed',published:'Published'};
+ const label=t.published+' of '+t.total+' published. '+bits.map(([k,n])=>n+' '+names[k].toLowerCase()).join(', ');
+ const bitsHtml=bits.map(([k,n])=>'<span class="stepbit"><span class="step'+(n>0?' done':'')+'"></span> '+names[k]+' <b>'+n+'</b></span>').join('');
+ return '<span class="steps" role="img" aria-label="'+esc(label)+'">'+bitsHtml+'</span>';
 }
 function committeeLine(p){
  if(p.cessation) return 'Resigned '+fmt(p.cessation);
@@ -792,7 +820,6 @@ function screenHome(){
  }
  const m=focus.meeting;
  const t=tally(m);
- const pct=t.total? Math.round(t.withFile/t.total*100):0;
  const saved=timeSaved(state.companyId);
  const month=monthCirculars(state.companyId);
  const sentN=month.length;
@@ -809,9 +836,10 @@ function screenHome(){
   +kpi(String(t.submitted),'Waiting for review','Submitted and locked')
   +kpi(String(t.requested+(t.revision||0)),'Still requested', t.revision? t.revision+' of these are new versions':'No file yet')
   +'</div>'
-  +'<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><b>Progress</b><span class="small muted">'+pct+'%</span></div><div class="prog" style="margin:8px 0"><i style="width:'+pct+'%"></i></div>'
-  +'<div class="small">'+t.withFile+' of '+t.total+' papers have been submitted. '+t.visible+' already have a published version directors may read.'+(t.inflight?' '+t.inflight+' paper'+(t.inflight===1?' has':'s have')+' a newer file that is not published yet. Directors still see the last published version.':'')+'</div></div>'
-  +'<div class="card" style="margin-bottom:14px"><h2>Waiting on</h2><p class="small muted" style="margin-top:0">Amber ring: this person still has a paper to send. Green ring: everything assigned to them is in.</p><div class="avrow">'+groups.map(g=>avatarBlock(g)).join('')+'</div></div>'
+  +'<div class="card" style="margin-bottom:14px"><div class="packcount">'+t.published+' of '+t.total+' published</div>'+packDots(t)
+  +(t.inflight?'<div class="small muted" style="margin-top:8px">Directors can already read '+t.visible+'. '+t.inflight+' paper'+(t.inflight===1?' has':'s have')+' a newer file that is not published yet. They still see the last published version.</div>':'')
+  +'</div>'
+  +'<div class="card" style="margin-bottom:14px"><h2>Waiting on</h2><p class="small muted" style="margin-top:0">Filled dots are steps already done. The larger dot is the step the paper is on now. The words name that step.</p><div class="avrow">'+groups.map(g=>avatarBlock(g)).join('')+'</div></div>'
   +papersTable(m, true)
   +'<div class="grid g3" style="margin-top:14px">'
   +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026 · sample count from this pack</div></button>'
@@ -830,10 +858,13 @@ function picGroups(m){
  }).sort((a,b)=> (b.pending.length-a.pending.length) || a.person.name.localeCompare(b.person.name));
 }
 function avatarBlock(g){
- const p=g.person; const pend=g.pending.length>0;
+ const p=g.person;
+ const ranked=g.papers.slice().sort((a,b)=>stepIndex(displayStatus(a))-stepIndex(displayStatus(b))||a.agendaCode.localeCompare(b.agendaCode));
+ const lead=ranked[0];
+ const st=displayStatus(lead);
  const tip='<div class="tip"><b>'+esc(p.name)+'</b><div>'+esc(deptName(p.department||''))+(p.sample?' · sample name':'')+'</div>'
-  +g.papers.map(pp=>'<div style="margin-top:6px">'+esc(pp.agendaCode+' '+pp.title)+'<br>'+statusPill(displayStatus(pp))+'</div>').join('')+'</div>';
- return '<div class="avwrap"><button type="button" class="av '+(pend?'pend':'quiet')+'" style="background:'+colorFor(p.id)+'" data-go="#/cosec/paper/'+g.papers[0].id+'" aria-label="'+esc(p.name)+'">'+esc(p.initials)+'</button><div class="nm">'+esc(p.name.split(' ').slice(-1)[0])+'</div>'+tip+'</div>';
+  +g.papers.map(pp=>'<div style="margin-top:8px"><b>'+esc(pp.agendaCode+' '+pp.title)+'</b><div style="margin-top:4px">'+stepTracker(displayStatus(pp))+'</div></div>').join('')+'</div>';
+ return '<div class="avwrap"><button type="button" class="av" style="background:'+colorFor(p.id)+'" data-go="#/cosec/paper/'+lead.id+'" aria-label="'+esc(p.name+', '+stepWords(st))+'">'+esc(p.initials)+'</button><div class="nm">'+esc(p.name.split(' ').slice(-1)[0])+'</div>'+stepTracker(st)+'<div class="tiny muted">'+g.papers.length+' paper'+(g.papers.length===1?'':'s')+'</div>'+tip+'</div>';
 }
 function papersTable(m){
  const rows=papersFor(m.id).map(p=>{
