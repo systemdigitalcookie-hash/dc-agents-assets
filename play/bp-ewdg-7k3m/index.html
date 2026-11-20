@@ -4,43 +4,86 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f6e56'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='13' font-family='Arial' fill='white' font-weight='700'%3EEW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%237c6cf0'/%3E%3Cstop offset='1' stop-color='%23c084fc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='10' fill='url(%23g)'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='12' font-family='Nunito,Arial' fill='white' font-weight='800'%3EEW%3C/text%3E%3C/svg%3E">
 <title>COSEC Meeting Papers · Eco World Development Group (demo)</title>
 <style>
-:root{--bg:#f5f6f8;--panel:#fff;--ink:#1d2433;--muted:#667085;--line:#e4e7ec;--brand:#0f6e56;--brand2:#e7f4ef;--accent:#2f5bd3;--warn:#b54708;--warnbg:#fff4e5;--bad:#b42318;--badbg:#fef3f2;--ok:#067647;--okbg:#ecfdf3;--chip:#f2f4f7;--shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.08);--r:10px}
+:root{
+ --bg:#f6eefc;
+ --panel:rgba(255,255,255,.66);
+ --panel-solid:rgba(255,255,255,.9);
+ --ink:#2a2438;
+ --muted:#534e66;
+ --line:rgba(255,255,255,.78);
+ --brand:#4338ca;
+ --brand-2:#3730a3;
+ --brand2:#ece9ff;
+ --accent:#3a348f;
+ --warn:#9a3412;
+ --warnbg:#ffedd5;
+ --bad:#9f1239;
+ --badbg:#ffe4e6;
+ --ok:#0f6b45;
+ --okbg:#d8f5e8;
+ --mint:#15996a;
+ --chip:rgba(255,255,255,.62);
+ --shadow:0 10px 28px rgba(120,90,170,.12), 0 1px 2px rgba(90,70,140,.06);
+ --glass-blur:16px;
+ --r:16px;
+ --col-bg:rgba(255,255,255,.42);
+ --icon-bg:#ece9ff;
+ --icon-ink:#4338ca;
+ --icon-size:26px;
+ --card-pad:8px 10px;
+ --card-title-size:14.5px;
+ --card-meta-size:13px;
+ --card-due-size:12.5px;
+ --font:"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%}
-body{font:15.5px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+body{font:15.5px/1.5 var(--font);color:var(--ink);background:
+ radial-gradient(900px 520px at 8% -8%, #f3e4ff 0%, transparent 58%),
+ radial-gradient(820px 480px at 96% 0%, #ffe4f1 0%, transparent 52%),
+ radial-gradient(760px 460px at 78% 108%, #e4edff 0%, transparent 55%),
+ linear-gradient(155deg, #f7edff 0%, #fff0f6 46%, #eef3ff 100%);
+ background-attachment:fixed}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-input,select,textarea{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff;width:100%}
+input,select,textarea{border:1px solid rgba(255,255,255,.85);border-radius:12px;padding:10px 12px;background:var(--panel-solid);width:100%}
 textarea{min-height:88px;resize:vertical}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.banner{background:#fffbeb;border-bottom:1px solid #fde68a;color:#7a4a00;font-size:13.5px;padding:8px 16px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
-.banner b{color:#5c3a00}
+.banner{background:rgba(255,237,214,.78);border-bottom:1px solid rgba(255,255,255,.75);color:#7c2d12;font-size:12px;padding:4px 8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);line-height:1.35}
+.banner b{color:#7c2d12;font-size:6.75px;font-weight:700;line-height:1.2}
 .banner .sp{flex:1}
-.banner button,.banner .linkish{background:#fff;border:1px solid #f5d27a;border-radius:8px;padding:6px 10px;font-size:13px;color:#5c3a00}
-.rolebar{background:#fff;border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.rolebar .lbl{font-size:12.5px;color:var(--muted);font-weight:650;letter-spacing:.02em}
-.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
-.seg button{border:none;background:#fff;padding:8px 14px;min-height:42px;color:var(--ink)}
-.seg button+button{border-left:1px solid var(--line)}
-.seg button.on{background:var(--brand);color:#fff;font-weight:650}
+.banner button,.banner .linkish{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:2px 8px;font-size:11px;color:#7c2d12;min-height:0}
+.rolebar{background:rgba(255,255,255,.38);border-bottom:1px solid rgba(255,255,255,.6);padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.rolebar .lbl{font-size:13px;color:var(--ink);font-weight:800;letter-spacing:.01em}
+.switchlbl{display:inline-flex;align-items:center;gap:6px}
+.switchlbl svg{width:16px;height:16px;display:block;stroke:var(--brand);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.seg{display:flex;border:1px solid #c4b5fd;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.72);box-shadow:0 4px 14px rgba(91,33,182,.16)}
+.seg button{border:none;background:transparent;padding:8px 16px;min-height:44px;color:#3b0764;font-weight:700}
+.seg button+button{border-left:1px solid #ddd6fe}
+.seg button:hover:not(.on){background:rgba(124,58,237,.14)}
+.seg button.on{background:linear-gradient(100deg,#5b21b6 0%,#9d174d 100%);color:#fff;font-weight:800}
+.seg button.on:hover{background:linear-gradient(100deg,#4c1d95 0%,#831843 100%)}
 .rolebar select{width:auto;min-width:240px;max-width:100%;min-height:42px}
 .hint{color:var(--muted);font-size:13px;flex-basis:100%}
 .app{display:flex;min-height:calc(100vh - 108px)}
-.side{width:248px;flex:0 0 248px;background:#0d1b2a;color:#cfd8e3;padding:14px 10px 24px;position:sticky;top:0;height:100vh;overflow:auto}
-.logo{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;border-bottom:1px solid #1f3247;margin-bottom:10px}
-.logo .mk{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#19a07a,#0f6e56);display:grid;place-items:center;color:#fff;font-weight:700;letter-spacing:-.03em}
-.logo .t1{color:#fff;font-weight:650;font-size:14px}.logo .t2{font-size:11.5px;color:#8da2b8}
-.nav .sec{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#6f86a0;margin:14px 8px 6px}
-.nav button{display:flex;width:100%;text-align:left;align-items:center;gap:9px;padding:8px 9px;border-radius:7px;color:#cfd8e3;font-size:14.5px;background:none;border:none}
-.nav button:hover{background:#15283c}
-.nav button.on{background:#19354f;color:#fff}
-.nav .ct{margin-left:auto;background:#24415e;color:#dbe7f3;border-radius:10px;padding:0 7px;font-size:11.5px}
-.nav .ct.hot{background:#b54708;color:#fff}
-.side .foot{color:#6f86a0;padding:16px 8px 0;font-size:12px;line-height:1.45}
+.side{width:248px;flex:0 0 248px;background:rgba(255,255,255,.46);color:var(--ink);padding:14px 10px 24px;position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid rgba(255,255,255,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.logo{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;border-bottom:1px solid rgba(255,255,255,.7);margin-bottom:10px}
+.logoimg{width:64px;height:64px;border-radius:14px;object-fit:cover;display:block;flex:0 0 auto;box-shadow:0 6px 16px rgba(0,140,130,.28)}
+.logo .t1{color:var(--ink);font-weight:800;font-size:14px}.logo .t2{font-size:11.5px;color:var(--muted)}
+.nav .sec{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 8px 6px;font-weight:700}
+.nav button{display:flex;width:100%;text-align:left;align-items:center;gap:9px;padding:8px 12px;border-radius:999px;color:var(--ink);font-size:14.5px;background:none;border:none;font-weight:650}
+.nav button:hover{background:rgba(255,255,255,.55)}
+.nav button.on{background:rgba(255,255,255,.82);color:var(--brand);font-weight:800}
+.nav .ct{margin-left:auto;background:rgba(255,255,255,.75);color:var(--ink);border-radius:999px;padding:0 7px;font-size:11.5px}
+.nav .ct.hot{background:var(--warnbg);color:var(--warn)}
+.side .foot{color:var(--muted);padding:16px 8px 0;font-size:12px;line-height:1.45}
 .main{flex:1;min-width:0;padding:18px 22px 64px}
 .top{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 .top h1{font-size:26px;line-height:1.2;margin:0;letter-spacing:-.02em}
@@ -51,64 +94,83 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;min-width:0;backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
 .card h2,.card h3{margin:0 0 8px;font-size:16px}
 .kpi .v{font-size:28px;font-weight:750;letter-spacing:-.02em;line-height:1.1}
 .kpi .l{color:var(--muted);font-size:13px;margin-top:2px}
 .kpi .d{font-size:13px;margin-top:6px}
 .muted{color:var(--muted)}.small{font-size:13.5px}.tiny{font-size:12.5px}
-.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 8px;font-size:12.5px;background:var(--chip);color:#344054;white-space:nowrap;font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 10px;font-size:12.5px;background:var(--chip);color:var(--ink);white-space:nowrap;font-weight:700}
 .pill.ok{background:var(--okbg);color:var(--ok)}
 .pill.warn{background:var(--warnbg);color:var(--warn)}
 .pill.bad{background:var(--badbg);color:var(--bad)}
-.pill.blue{background:#eef4ff;color:#1d4ed8}
+.pill.blue{background:#e8e7ff;color:#312e81}
 .pill.green{background:var(--brand2);color:var(--brand)}
-.pill.indigo{background:#eef2ff;color:#3730a3}
-.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;min-height:40px;font-size:14.5px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
-.btn:hover{background:#f9fafb}
-.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:650}
-.btn.pri:hover{background:#0c5b47}
+.pill.indigo{background:#ece9ff;color:#3730a3}
+.btn{border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.72);border-radius:999px;padding:8px 14px;min-height:40px;font-size:14.5px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:700}
+.btn:hover{background:#fff}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:800}
+.btn.pri:hover{background:var(--brand-2)}
 .btn.sm{padding:4px 10px;min-height:34px;font-size:13.5px}
-.btn.warn{background:var(--warnbg);border-color:#f5d0a8;color:var(--warn)}
+.btn.warn{background:var(--warnbg);border-color:#fdba74;color:var(--warn)}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .acts{display:flex;gap:6px;flex-wrap:wrap}
 table{width:100%;border-collapse:collapse}
 th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
-.tw{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff}
-.prog{height:10px;background:#eef0f3;border-radius:99px;overflow:hidden}
-.prog>i{display:block;height:100%;background:var(--brand)}
+th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,255,.45)}
+.tw{overflow:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);backdrop-filter:blur(var(--glass-blur));-webkit-backdrop-filter:blur(var(--glass-blur))}
+.steps{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;max-width:100%}
+.step{width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:2px solid #8b84b8;background:transparent;flex:0 0 auto}
+.step.done{background:var(--mint);border-color:var(--mint)}
+.step.now{width:12px;height:12px;background:var(--brand);border-color:var(--brand);box-shadow:0 0 0 3px #ddd8ff}
+.stepwords{font-size:13.5px;font-weight:650;line-height:1.3}
+.stepbit{display:inline-flex;align-items:center;gap:5px;font-size:13.5px}
+.packcount{font-size:18px;margin-bottom:8px}
 .callout{border-radius:10px;padding:12px 14px;font-size:14.5px;margin-bottom:12px}
-.callout.info{background:#eef4ff;color:#1e3a8a}
-.callout.warn{background:var(--warnbg);color:#7a3e00}
-.callout.ok{background:var(--okbg);color:#05603a}
-.why{background:#eef4ff;border-radius:10px;padding:10px 12px;color:#1e3a8a;margin:6px 0}
+.callout.info{background:#ece9ff;color:#312e81}
+.callout.warn{background:var(--warnbg);color:var(--warn)}
+.callout.ok{background:var(--okbg);color:var(--ok)}
+.why{background:#ece9ff;border-radius:12px;padding:10px 12px;color:#312e81;margin:6px 0}
 .why b{display:block;margin-bottom:2px}
 .ended{background:#f8fafc;border:1px solid var(--line);border-left:4px solid #667085;border-radius:10px;padding:16px 18px}
-.empty{padding:28px 18px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px;background:#fcfcfd}
+.empty{padding:28px 18px;text-align:center;color:var(--muted);border:1px dashed rgba(255,255,255,.85);border-radius:var(--r);background:rgba(255,255,255,.4)}
 .empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
-.av{width:36px;height:36px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-size:12px;font-weight:750;flex:0 0 auto;position:relative}
-.av.sm{width:28px;height:28px;font-size:11px}
-.av.pend{box-shadow:0 0 0 2px #fff,0 0 0 4px #b54708}
-.av.quiet{box-shadow:0 0 0 2px #fff,0 0 0 4px #067647}
-.avrow{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
-.avwrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:84px;text-align:center}
-.avwrap .nm{font-size:11.5px;color:var(--muted);line-height:1.25}
-.tip{display:none;position:absolute;z-index:5;top:46px;left:0;width:260px;background:#101828;color:#fff;border-radius:10px;padding:10px 12px;font-size:12.5px;text-align:left;box-shadow:var(--shadow)}
-.avwrap:hover .tip,.avwrap:focus-within .tip{display:block}
+.dept{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.dico{width:var(--icon-size);height:var(--icon-size);border-radius:8px;background:var(--icon-bg);color:var(--icon-ink);display:inline-grid;place-items:center;flex:0 0 auto}
+.dicon{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.dname{line-height:1.3}
+.kb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}
+.kcol{background:var(--col-bg);border:1px solid rgba(255,255,255,.65);border-radius:var(--r);padding:10px 10px 4px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.kcol:nth-child(1){background:rgba(236,230,255,.55)}
+.kcol:nth-child(2){background:rgba(214,245,232,.58)}
+.kcol:nth-child(3){background:rgba(237,232,255,.52)}
+.kcol:nth-child(4){background:rgba(255,236,220,.58)}
+.kcol h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
+.kcol h3 .n{margin-left:auto;background:var(--panel);border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px;color:var(--ink)}
+.kcol .hint{margin:2px 0 8px}
+.kcard{display:block;width:100%;text-align:left;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:var(--card-pad);margin:0 0 8px;box-shadow:var(--shadow);color:var(--ink);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.kcard:hover{border-color:#c4bdf5}
+.kcard .who{display:flex;align-items:center;gap:8px;min-width:0;font-weight:700;font-size:var(--card-title-size);line-height:1.2}
+.kcard .who .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kcard .paper{display:block;margin-top:3px;font-weight:400;font-size:var(--card-meta-size);line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kcard .due{margin-left:auto;flex:0 0 auto;font-size:11.5px;font-weight:700;line-height:1.2;white-space:nowrap}
+.kcard .due.soon{color:var(--warn)}
+.kcard .due.late{color:var(--bad)}
+.kcard .due.ok{color:var(--ok)}
+.kempty{color:var(--muted);font-size:13.5px;padding:8px 4px 12px}
 .folder{margin:0 0 16px}
 .folder h2{font-size:15px;margin:0 0 8px;color:var(--brand)}
 .pack{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .pack:last-child{border-bottom:none}
 .scrim{position:fixed;inset:0;background:rgba(16,24,40,.35);z-index:40;display:none}
 .scrim.on{display:block}
-.drawer{position:fixed;top:0;right:0;height:100%;width:min(640px,100%);background:#fff;z-index:50;box-shadow:-8px 0 30px rgba(16,24,40,.15);transform:translateX(105%);transition:transform .2s ease;display:flex;flex-direction:column}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(640px,100%);background:rgba(255,252,255,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);z-index:50;box-shadow:-8px 0 30px rgba(90,70,140,.16);transform:translateX(105%);transition:transform .2s ease;display:flex;flex-direction:column}
 .drawer.on{transform:none}
 .drawer .hd{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
 .drawer .hd h2{margin:0;font-size:18px}
 .drawer .bd{padding:16px 18px;overflow:auto;flex:1}
 .x{margin-left:auto;background:none;border:none;font-size:26px;line-height:1;color:var(--muted);min-height:40px;min-width:40px}
-.modal{position:fixed;left:50%;top:6%;transform:translateX(-50%);width:min(640px,94%);max-height:88vh;overflow:auto;background:#fff;border-radius:12px;z-index:60;box-shadow:0 20px 50px rgba(16,24,40,.25);display:none}
+.modal{position:fixed;left:50%;top:6%;transform:translateX(-50%);width:min(640px,94%);max-height:88vh;overflow:auto;background:rgba(255,252,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.85);border-radius:20px;z-index:60;box-shadow:0 20px 50px rgba(90,70,140,.2);display:none}
 .modal.on{display:block}
 .modal .hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
 .modal .hd h2{margin:0;font-size:18px}
@@ -117,17 +179,17 @@ th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
 .fld{margin-bottom:12px}
 .fld label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px;font-weight:650}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#101828;color:#fff;padding:12px 16px;border-radius:10px;z-index:90;font-size:14.5px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:92vw}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2a2438;color:#fff;padding:12px 16px;border-radius:999px;z-index:90;font-size:14.5px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:92vw}
 .toast.on{opacity:1}
 .audit{border-left:2px solid var(--line);margin:8px 0 0 6px;padding-left:12px}
 .audit .a{position:relative;padding:2px 0 10px;font-size:13.5px}
 .audit .a:before{content:"";position:absolute;left:-17px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
-.docpage{background:#fbfbfa;border:1px solid var(--line);border-radius:8px;padding:28px 26px 22px;font-family:Georgia,"Times New Roman",serif;line-height:1.55;color:#1d2433}
+.docpage{background:rgba(255,252,255,.88);border:1px solid rgba(255,255,255,.9);border-radius:var(--r);padding:28px 26px 22px;font-family:Georgia,"Times New Roman",serif;line-height:1.55;color:var(--ink)}
 .docpage .co{letter-spacing:.04em;font-size:13px;font-weight:700}
 .docpage .reg,.docpage .meta{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#667085;font-size:12.5px}
 .docpage h2{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:20px;margin:14px 0 6px}
-.docpage .foot{margin-top:18px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;color:#b54708}
-.drop{border:2px dashed #b7c4ce;border-radius:14px;background:#f8fafb;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;gap:6px;cursor:pointer}
+.docpage .foot{margin-top:18px;font-family:var(--font);font-size:12px;color:var(--warn)}
+.drop{border:2px dashed #c4b8e8;border-radius:18px;background:rgba(255,255,255,.45);min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;gap:6px;cursor:pointer}
 .drop.over{border-color:var(--brand);background:var(--brand2)}
 .drop input{position:absolute;width:1px;height:1px;opacity:0}
 .drop .big{font-size:20px;font-weight:700}
@@ -140,10 +202,9 @@ th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
 .revbar .who{display:flex;align-items:center;gap:6px;background:var(--chip);border-radius:999px;padding:3px 8px 3px 3px;font-size:13px}
 .crumb{font-size:13.5px;color:var(--muted);margin-bottom:8px}
 .crumb button{background:none;border:none;color:var(--accent);padding:0;min-height:0}
-.linkcard{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px}
+.linkcard{background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);border-radius:var(--r);padding:12px}
 .pagefoot{margin-top:28px;color:var(--muted);font-size:12.5px}
 button.card{display:block;width:100%;text-align:left;color:inherit;cursor:pointer}
-button.av{padding:0;border:none}
 body.role-director .main{font-size:17px}
 body.role-director .top h1{font-size:30px}
 body.upload-mode .side{display:none}
@@ -157,9 +218,8 @@ body.upload-mode .burger{display:none !important}
  .side{position:fixed;left:0;top:0;height:100%;z-index:55;transform:translateX(-105%);transition:transform .2s}
  .side.on{transform:none}
  .burger{display:inline-flex}
- .g4,.g3,.g2,.row2{grid-template-columns:1fr}
+ .g4,.g3,.g2,.row2,.kb{grid-template-columns:1fr}
  .main{padding:14px 12px 48px}
- .tip{left:auto;right:0}
 }
 </style>
 </head>
@@ -174,7 +234,7 @@ body.upload-mode .burger{display:none !important}
 <div class="rolebar" id="rolebar"></div>
 <div class="app">
  <aside class="side" id="side">
-  <div class="logo"><div class="mk">EW</div><div><div class="t1">COSEC Meeting Papers</div><div class="t2">Eco World Development Group · demo</div></div></div>
+  <div class="logo"><img class="logoimg" src="ecoworld-logo.png" alt="EcoWorld"><div><div class="t1">COSEC Meeting Papers</div><div class="t2">Eco World Development Group</div></div></div>
   <nav class="nav" id="nav"></nav>
   <div class="foot">Corporate Secretariat demo for board and committee papers. Not connected to a live workspace.</div>
  </aside>
@@ -200,6 +260,14 @@ const DEPTS = [
  {id:'planning', name:'Corporate Planning', inferred:true}
 ];
 const STATUS_LABEL = {requested:'Requested', submitted:'Submitted & locked', reviewed:'Reviewed', published:'Published', revision:'Revision requested'};
+const STEP_ORDER = ['requested','submitted','reviewed','published'];
+const STEP_WORDS = {
+ requested:'Requested, waiting for the file',
+ submitted:'Submitted, awaiting review',
+ reviewed:'Reviewed, ready to publish',
+ published:'Published',
+ revision:'Revision requested, waiting for the new file'
+};
 
 const $ = (s, r=document) => r.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -262,11 +330,40 @@ function meetingTitle(m){return m.body+' '+m.number+' ('+dmy(m.date)+')'}
 function folderTitle(m){const fy=fyOf(m.date); return m.body+' '+fy.y1+'.'+fy.y2+' ('+dmy(fy.start)+'-'+dmy(fy.end)+')'}
 function officialName(m,p,ver,ext){return meetingTitle(m)+' - '+p.agendaCode+' '+p.title+' v'+ver+'.'+(ext||'pdf')}
 function linkFor(tk){return location.origin+location.pathname+location.search+'#/upload/'+tk}
-function colorFor(id){const pal=['#0f6e56','#175cd3','#9f1239','#93370d','#4338ca','#0e7490','#3f6212','#9a3412']; let h=0; for(let i=0;i<id.length;i++) h=(h*31+id.charCodeAt(i))>>>0; return pal[h%pal.length]}
-function avatar(p, cls){if(!p) return ''; return '<span class="av '+(cls||'')+'" style="background:'+colorFor(p.id)+'" title="'+esc(p.name)+'">'+esc(p.initials)+'</span>'}
-function statusPill(st){
- const map={requested:'warn', submitted:'blue', reviewed:'indigo', published:'ok', revision:'warn'};
- return '<span class="pill '+(map[st]||'')+'">'+esc(STATUS_LABEL[st]||st)+'</span>';
+function deptIcon(id){
+ const paths={
+  finance:'<path d="M4 19V11M10 19V6M16 19v-6M20 19H3"/>',
+  sustainability:'<path d="M5 19c1-7 6-13 14-14-1 8-6 13-14 14z"/><path d="M8.5 16c1.6-1.8 3.4-4.2 5-7"/>',
+  callcentre:'<path d="M8 4h2.2l1.2 3.2-1.8.9a10 10 0 0 0 5.3 5.3l.9-1.8 3.2 1.2V15a2 2 0 0 1-2 2A13 13 0 0 1 6 6a2 2 0 0 1 2-2z"/>',
+  audit:'<rect x="6" y="3.5" width="12" height="17" rx="2"/><path d="M9 3.5h6V6H9z"/><path d="M8.5 12.5 11 15l4.5-5"/>',
+  legal:'<path d="M12 3v16M8 20h8M6 8h12"/><path d="M6 8 4 14h5z"/><path d="M18 8l2 6h-5z"/>',
+  cosec:'<circle cx="12" cy="12" r="7.2"/><path d="M8.6 12.2 11 14.6 15.6 9.6"/>',
+  hr:'<circle cx="8.2" cy="8" r="2.1"/><circle cx="15.8" cy="9" r="1.7"/><path d="M3.6 18.5c.6-3 2.5-4.6 5-4.6s4.3 1.6 4.9 4.6"/><path d="M13.4 18.5c.3-2.1 1.5-3.3 3.2-3.3 1.6 0 2.7 1.1 3.1 3.3"/>',
+  planning:'<path d="M4 7 9 4.5l6 2.5L20 5v13.5l-5 2.5-6-2.5L4 20.5z"/><path d="M9 4.5V18M15 7v13.5"/>'
+ };
+ return '<svg class="dicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+(paths[id]||paths.cosec)+'</svg>';
+}
+function deptMark(id){
+ const extra=deptInferred(id)?' <span class="pill">Example</span>':'';
+ return '<span class="dept"><span class="dico">'+deptIcon(id)+'</span><span class="dname">'+esc(deptName(id))+extra+'</span></span>';
+}
+function stepIndex(st){if(st==='revision') return 0; const i=STEP_ORDER.indexOf(st); return i<0?0:i}
+function stepWords(st){return STEP_WORDS[st]||STATUS_LABEL[st]||st}
+function stepTracker(st){
+ const idx=stepIndex(st); const words=stepWords(st);
+ const dots=STEP_ORDER.map((name,i)=>{
+  const cls=i<idx?'step done':i===idx?'step now':'step';
+  return '<span class="'+cls+'" title="'+esc(stepWords(name))+'"></span>';
+ }).join('');
+ return '<span class="steps" role="img" aria-label="'+esc(words)+'. Step '+(idx+1)+' of 4. Filled dots are done. The larger dot is the current step.">'+dots+'<span class="stepwords">'+esc(words)+'</span></span>';
+}
+function statusPill(st){return stepTracker(st)}
+function packDots(t){
+ const bits=[['requested',(t.requested||0)+(t.revision||0)],['submitted',t.submitted||0],['reviewed',t.reviewed||0],['published',t.published||0]];
+ const names={requested:'Requested',submitted:'Submitted',reviewed:'Reviewed',published:'Published'};
+ const label=t.published+' of '+t.total+' published. '+bits.map(([k,n])=>n+' '+names[k].toLowerCase()).join(', ');
+ const bitsHtml=bits.map(([k,n])=>'<span class="stepbit"><span class="step'+(n>0?' done':'')+'"></span> '+names[k]+' <b>'+n+'</b></span>').join('');
+ return '<span class="steps" role="img" aria-label="'+esc(label)+'">'+bitsHtml+'</span>';
 }
 function committeeLine(p){
  if(p.cessation) return 'Resigned '+fmt(p.cessation);
@@ -287,7 +384,7 @@ function cessationReason(p){
 }
 function gate(p, m, paperObj){
  if(p.cessation) return {see:false, reason:cessationReason(p)};
- if(m && !(p.companies||[]).includes(m.companyId)) return {see:false, reason:p.name+' is not a director of '+companyBy(m.companyId).legalName+' in this sample.'};
+ if(m && !(p.companies||[]).includes(m.companyId)) return {see:false, reason:p.name+' is not a director of '+companyBy(m.companyId).legalName+'.'};
  if(m && m.date < p.appointment) return {see:false, reason:'This meeting is dated '+fmt(m.date)+', which is before '+p.name+' was appointed on '+fmt(p.appointment)+'. Nothing earlier than the appointment date is shown.'};
  if(m && !seesBody(p, m.body)) return {see:false, reason:p.name+' does not sit on the '+BODIES[m.body]+'. Directors see Board packs, and only the committees they sit on.'};
  if(paperObj && !latestPublished(paperObj)) return {see:false, reason:'COSEC has not published this paper. Directors only see a paper after it is published. Current status: '+(STATUS_LABEL[displayStatus(paperObj)]||'')+'.'};
@@ -295,7 +392,7 @@ function gate(p, m, paperObj){
 }
 function resolutionGate(p, r){
  if(p.cessation) return {see:false, reason:cessationReason(p)};
- if(!(p.companies||[]).includes(r.companyId)) return {see:false, reason:p.name+' is not a director of this company in this sample.'};
+ if(!(p.companies||[]).includes(r.companyId)) return {see:false, reason:p.name+' is not a director of this company.'};
  if(r.date < p.appointment) return {see:false, reason:'This is dated '+fmt(r.date)+', before '+p.name+' was appointed on '+fmt(p.appointment)+'.'};
  if(!seesBody(p, r.body)) return {see:false, reason:p.name+' does not sit on the '+BODIES[r.body]+'.'};
  return {see:true, reason:''};
@@ -426,7 +523,7 @@ function personHint(p){
  if(p.id==='ng') return 'Sees the Board, Audit and Nomination, from 22 Jun 2023. Remuneration and Investment stay hidden.';
  if(p.id==='rejina') return 'Sees the Board and Remuneration only, from 20 Jun 2024. Nothing earlier, and no Audit pack.';
  if(p.id==='leong') return 'Resigned 31 Mar 2026. No access to papers or the Resource Centre.';
- if(p.id==='heah') return 'Sample assumption: as alternate director he can read Board packs, plus Investment Committee papers.';
+ if(p.id==='heah') return 'As alternate director he can read Board packs, plus Investment Committee papers.';
  if(p.cessation) return 'Access ended on '+fmt(p.cessation)+'.';
  return 'Appointment '+fmt(p.appointment)+'. '+committeeLine(p)+'.';
 }
@@ -442,17 +539,17 @@ function monthCirculars(companyId){
 function basePeople(){
  const D=(o)=>({companies:['EWDG'], committees:[], chairs:[], ...o});
  return [
-  D({id:'farah', name:'Farah Idris', initials:'FI', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'daniel', name:'Daniel Teh', initials:'DT', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'rahman', name:'A. Rahman', initials:'AR', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'slim', name:'S. Lim', initials:'SL', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'fin', name:'Siti Aminah', initials:'SA', kind:'pic', roleTitle:'Finance PIC (sample name)', department:'finance', sample:true}),
-  D({id:'sus', name:'Amirul Hakim', initials:'AH', kind:'pic', roleTitle:'Sustainability PIC (sample name)', department:'sustainability', sample:true}),
-  D({id:'call', name:'Priya Nair', initials:'PN', kind:'pic', roleTitle:'Call Centre PIC (sample name)', department:'callcentre', sample:true}),
-  D({id:'legal', name:'Hannah Choong', initials:'HC', kind:'pic', roleTitle:'Legal PIC (sample name)', department:'legal', sample:true}),
-  D({id:'hr', name:'Mei Tan', initials:'MT', kind:'pic', roleTitle:'Human Resources PIC (sample name)', department:'hr', sample:true}),
-  D({id:'audit', name:'Rizal Ahmad', initials:'RA', kind:'pic', roleTitle:'Internal Audit PIC (sample name)', department:'audit', sample:true}),
-  D({id:'plan', name:'Hafiz Osman', initials:'HO', kind:'pic', roleTitle:'Corporate Planning PIC (sample name)', department:'planning', sample:true}),
+  D({id:'farah', name:'Farah Idris', initials:'FI', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'daniel', name:'Daniel Teh', initials:'DT', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'rahman', name:'A. Rahman', initials:'AR', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'slim', name:'S. Lim', initials:'SL', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'fin', name:'Siti Aminah', initials:'SA', kind:'pic', roleTitle:'Finance PIC', department:'finance', sample:true}),
+  D({id:'sus', name:'Amirul Hakim', initials:'AH', kind:'pic', roleTitle:'Sustainability PIC', department:'sustainability', sample:true}),
+  D({id:'call', name:'Priya Nair', initials:'PN', kind:'pic', roleTitle:'Call Centre PIC', department:'callcentre', sample:true}),
+  D({id:'legal', name:'Hannah Choong', initials:'HC', kind:'pic', roleTitle:'Legal PIC', department:'legal', sample:true}),
+  D({id:'hr', name:'Mei Tan', initials:'MT', kind:'pic', roleTitle:'Human Resources PIC', department:'hr', sample:true}),
+  D({id:'audit', name:'Rizal Ahmad', initials:'RA', kind:'pic', roleTitle:'Internal Audit PIC', department:'audit', sample:true}),
+  D({id:'plan', name:'Hafiz Osman', initials:'HO', kind:'pic', roleTitle:'Corporate Planning PIC', department:'planning', sample:true}),
   D({id:'rashid', name:"Tan Sri Abdul Rashid bin Abdul Manaf", initials:'AR', kind:'director', roleTitle:'Founder & Non-Independent Non-Executive Director', appointment:'2013-11-29'}),
   D({id:'liew', name:"Tan Sri Dato' Sri Liew Kee Sin", initials:'LS', kind:'director', roleTitle:'Executive Chairman', appointment:'2014-05-05'}),
   D({id:'leong', name:"Dato' Leong Kok Wah", initials:'LW', kind:'former', roleTitle:'Non-Independent Non-Executive Director', appointment:'2013-11-29', cessation:'2026-03-31'}),
@@ -477,30 +574,30 @@ function baseCompanies(){
 function baseResources(){
  const row=(group,title,fileName)=>({id:uid('rs'), group, title, fileName, sample:true});
  return [
-  row('Constitution and charters','Constitution','Constitution (sample).pdf'),
-  row('Constitution and charters','Board Charter','Board Charter (sample).pdf'),
-  row('Constitution and charters','Audit Committee terms of reference','Audit Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Investment Committee terms of reference','Investment Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Nomination Committee terms of reference','Nomination Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Remuneration Committee terms of reference','Remuneration Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Whistleblowing Committee terms of reference','Whistleblowing Committee terms of reference (sample).pdf'),
-  row('Policies','Code of conduct','Code of conduct (sample).pdf'),
-  row('Policies','Anti-bribery (MACC s.17A)','Anti-bribery policy (sample).pdf'),
-  row('Policies','Whistleblowing policy','Whistleblowing policy (sample).pdf'),
-  row('Policies','Fit and proper policy','Fit and proper policy (sample).pdf'),
-  row('Policies','Related-party transaction policy','Related-party transaction policy (sample).pdf'),
-  row('Reports','FY2025 Integrated Annual Report','FY2025 Integrated Annual Report (public cover, sample file).pdf'),
-  row('Reports','FY2025 Sustainability Report','FY2025 Sustainability Report (sample file).pdf'),
-  row('Reports','FY2025 Corporate Governance Report','FY2025 Corporate Governance Report (sample file).pdf'),
-  row('Oversight','Audit Oversight Board annual inspection report','AOB inspection report (sample cover).pdf'),
-  row('Oversight','Baker Tilly transparency report','Baker Tilly transparency report (sample cover).pdf'),
-  row('Market rules','Bursa Malaysia Main Market Listing Requirements — guidelines and letters','Bursa guidelines and letters (sample).pdf'),
-  row('Market rules','Malaysian Code on Corporate Governance (MCCG)','MCCG (sample copy).pdf'),
-  row('Housekeeping','Board calendar FY2026/2027 (display only)','Board calendar FY2026-2027 (sample).pdf'),
-  row('Housekeeping','Group structure (public chart, schematic)','Group structure schematic (sample).pdf'),
-  row('Housekeeping','Director onboarding pack and training records','Director onboarding pack (sample).pdf'),
-  row('Housekeeping',"Companies Act 2016 directors' duties handbook","Directors' duties handbook (sample).pdf"),
-  row('Housekeeping','Conflict of interest and declaration forms','Conflict of interest forms (sample).pdf')
+  row('Constitution and charters','Constitution','Constitution.pdf'),
+  row('Constitution and charters','Board Charter','Board Charter.pdf'),
+  row('Constitution and charters','Audit Committee terms of reference','Audit Committee terms of reference.pdf'),
+  row('Constitution and charters','Investment Committee terms of reference','Investment Committee terms of reference.pdf'),
+  row('Constitution and charters','Nomination Committee terms of reference','Nomination Committee terms of reference.pdf'),
+  row('Constitution and charters','Remuneration Committee terms of reference','Remuneration Committee terms of reference.pdf'),
+  row('Constitution and charters','Whistleblowing Committee terms of reference','Whistleblowing Committee terms of reference.pdf'),
+  row('Policies','Code of conduct','Code of conduct.pdf'),
+  row('Policies','Anti-bribery (MACC s.17A)','Anti-bribery policy.pdf'),
+  row('Policies','Whistleblowing policy','Whistleblowing policy.pdf'),
+  row('Policies','Fit and proper policy','Fit and proper policy.pdf'),
+  row('Policies','Related-party transaction policy','Related-party transaction policy.pdf'),
+  row('Reports','FY2025 Integrated Annual Report','FY2025 Integrated Annual Report (public cover).pdf'),
+  row('Reports','FY2025 Sustainability Report','FY2025 Sustainability Report.pdf'),
+  row('Reports','FY2025 Corporate Governance Report','FY2025 Corporate Governance Report.pdf'),
+  row('Oversight','Audit Oversight Board annual inspection report','AOB inspection report.pdf'),
+  row('Oversight','Baker Tilly transparency report','Baker Tilly transparency report.pdf'),
+  row('Market rules','Bursa Malaysia Main Market Listing Requirements — guidelines and letters','Bursa guidelines and letters.pdf'),
+  row('Market rules','Malaysian Code on Corporate Governance (MCCG)','MCCG.pdf'),
+  row('Housekeeping','Board calendar FY2026/2027 (display only)','Board calendar FY2026-2027.pdf'),
+  row('Housekeeping','Group structure (public chart, schematic)','Group structure schematic.pdf'),
+  row('Housekeeping','Director onboarding pack and training records','Director onboarding pack.pdf'),
+  row('Housekeeping',"Companies Act 2016 directors' duties handbook","Directors' duties handbook.pdf"),
+  row('Housekeeping','Conflict of interest and declaration forms','Conflict of interest forms.pdf')
  ];
 }
 
@@ -534,14 +631,14 @@ function seed(){
   return p;
  }
  const rv=(id,at)=>({personId:id, at});
- const acm=M({id:'m-acm-01', companyId:'EWDG', body:'ACM', number:'01', date:'2026-11-04', venue:'Meeting room (sample)'});
- const bodm=M({id:'m-bodm-01', companyId:'EWDG', body:'BODM', number:'01', date:'2026-12-09', venue:'Boardroom (sample)'});
- const icm=M({id:'m-icm-01', companyId:'EWDG', body:'ICM', number:'01', date:'2026-11-20', venue:'Meeting room (sample)'});
- const ncm=M({id:'m-ncm-01', companyId:'EWDG', body:'NCM', number:'01', date:'2026-07-15', venue:'Meeting room (sample)'});
- const rcm=M({id:'m-rcm-01', companyId:'EWDG', body:'RCM', number:'01', date:'2026-08-18', venue:'Meeting room (sample)'});
- const rcmOld=M({id:'m-rcm-old', companyId:'EWDG', body:'RCM', number:'01', date:'2024-03-14', venue:'Meeting room (sample)'});
- const acmOld=M({id:'m-acm-old', companyId:'EWDG', body:'ACM', number:'02', date:'2024-06-12', venue:'Meeting room (sample)'});
- const ebp=M({id:'m-ebp-01', companyId:'EBP1', body:'BODM', number:'01', date:'2026-11-18', venue:'Meeting room (sample)'});
+ const acm=M({id:'m-acm-01', companyId:'EWDG', body:'ACM', number:'01', date:'2026-11-04', venue:'Meeting room'});
+ const bodm=M({id:'m-bodm-01', companyId:'EWDG', body:'BODM', number:'01', date:'2026-12-09', venue:'Boardroom'});
+ const icm=M({id:'m-icm-01', companyId:'EWDG', body:'ICM', number:'01', date:'2026-11-20', venue:'Meeting room'});
+ const ncm=M({id:'m-ncm-01', companyId:'EWDG', body:'NCM', number:'01', date:'2026-07-15', venue:'Meeting room'});
+ const rcm=M({id:'m-rcm-01', companyId:'EWDG', body:'RCM', number:'01', date:'2026-08-18', venue:'Meeting room'});
+ const rcmOld=M({id:'m-rcm-old', companyId:'EWDG', body:'RCM', number:'01', date:'2024-03-14', venue:'Meeting room'});
+ const acmOld=M({id:'m-acm-old', companyId:'EWDG', body:'ACM', number:'02', date:'2024-06-12', venue:'Meeting room'});
+ const ebp=M({id:'m-ebp-01', companyId:'EBP1', body:'BODM', number:'01', date:'2026-11-18', venue:'Meeting room'});
 
  const pub=(vid, token, by, at, label, reviewers)=>({vid, version:'1.0', status:'published', token, uploadedAt:at, label, by, publishedBy:by, publishedAt:at, reviewedBy:reviewers||[rv('farah', label)], pages:4});
  [
@@ -717,7 +814,6 @@ function rolebar(){
   if(x.cessation) tag+=' (resigned)';
   else if(x.kind==='alternate') tag+=' (alternate)';
   else if(x.sample) tag+=' · '+deptName(x.department);
-  else if(x.kind==='cosec') tag+=' (sample)';
   return '<option value="'+x.id+'"'+(x.id===p.id?' selected':'')+'>'+esc(tag)+'</option>';
  }).join('');
  let company='';
@@ -731,7 +827,7 @@ function rolebar(){
   }
  }
  return '<button type="button" class="burger" id="burger" aria-label="Open menu">Menu</button>'
-  +'<span class="lbl">Viewing as</span><div class="seg" role="group" aria-label="Role">'+seg+'</div>'
+  +'<span class="lbl switchlbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3"/></svg> Viewing as</span><div class="seg" role="group" aria-label="Role">'+seg+'</div>'
   +'<label class="lbl" for="personSel">Person</label><select id="personSel" aria-label="Person">'+sel+'</select>'
   +company
   +'<div class="hint">'+esc(personHint(p))+'</div>';
@@ -739,7 +835,7 @@ function rolebar(){
 
 function docHtml(m, p, v){
  const co=companyBy(m.companyId);
- return '<article class="docpage"><div class="co">'+esc(co.legalName.toUpperCase())+'</div><div class="reg">Registration no. '+esc(co.regNo)+'</div><div class="meta" style="margin-top:10px">'+esc(meetingTitle(m))+'</div><h2>'+esc(p.agendaCode+' '+p.title)+'</h2><div class="meta">Version '+esc(v.version)+' · '+esc(v.pages||4)+' pages (sample) · not a real paper</div><p>This is a sample first page for the demo. It is not a Board paper and it does not contain real figures.</p><p>The page stands in for “'+esc(p.title)+'”, so you can see the name COSEC set and the version that was submitted.</p><div class="foot">Sample data · not for circulation</div></article>';
+ return '<article class="docpage"><div class="co">'+esc(co.legalName.toUpperCase())+'</div><div class="reg">Registration no. '+esc(co.regNo)+'</div><div class="meta" style="margin-top:10px">'+esc(meetingTitle(m))+'</div><h2>'+esc(p.agendaCode+' '+p.title)+'</h2><div class="meta">Version '+esc(v.version)+' · '+esc(v.pages||4)+' pages · not a real paper</div><p>This first page is for the demo. It is not a Board paper and it does not contain real figures.</p><p>The page stands in for “'+esc(p.title)+'”, so you can see the name COSEC set and the version that was submitted.</p><div class="foot">Not for circulation</div></article>';
 }
 function previewBlock(m,p,v){
  if(!v) return '<div class="empty"><b>No file yet</b><div>The department has not uploaded this version.</div></div>';
@@ -791,49 +887,54 @@ function screenHome(){
    +'<div class="empty"><b>No pack this month</b><div>COSEC has not opened a meeting pack for '+esc(co.legalName)+'. When a meeting is added, papers and submission links will show here.</div></div>';
  }
  const m=focus.meeting;
- const t=tally(m);
- const pct=t.total? Math.round(t.withFile/t.total*100):0;
  const saved=timeSaved(state.companyId);
  const month=monthCirculars(state.companyId);
  const sentN=month.length;
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).filter(id=>(r.sentTo||[]).includes(id)).length,0);
- const groups=picGroups(m);
  const others=state.meetings.filter(x=>x.companyId===state.companyId && x.id!==m.id).sort((a,b)=>b.date.localeCompare(a.date));
  return '<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn" type="button" data-act="create-meeting">New meeting</button>'
   +'<button class="btn pri" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'">Create submission link</button></div>'
-  +'<div class="callout '+(focus.upcoming?'warn':'info')+'"><b>'+(focus.upcoming?duePhrase(m.packDue):'This meeting date has passed')+'.</b> Pack due '+esc(fmt(m.packDue))+' · 5 business days before the meeting (sample rule). Demo clock: '+esc(fmt(DEMO_TODAY))+'.'+(focus.upcoming?'':' Showing the latest pack for this company.')+'</div>'
-  +'<div class="grid g4" style="margin-bottom:14px">'
-  +kpi(t.withFile+' / '+t.total,'Papers submitted','Current version has a file')
-  +kpi(String(t.published),'Published','Released to directors who may read them')
-  +kpi(String(t.submitted),'Waiting for review','Submitted and locked')
-  +kpi(String(t.requested+(t.revision||0)),'Still requested', t.revision? t.revision+' of these are new versions':'No file yet')
-  +'</div>'
-  +'<div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap"><b>Progress</b><span class="small muted">'+pct+'%</span></div><div class="prog" style="margin:8px 0"><i style="width:'+pct+'%"></i></div>'
-  +'<div class="small">'+t.withFile+' of '+t.total+' papers have been submitted. '+t.visible+' already have a published version directors may read.'+(t.inflight?' '+t.inflight+' paper'+(t.inflight===1?' has':'s have')+' a newer file that is not published yet. Directors still see the last published version.':'')+'</div></div>'
-  +'<div class="card" style="margin-bottom:14px"><h2>Waiting on</h2><p class="small muted" style="margin-top:0">Amber ring: this person still has a paper to send. Green ring: everything assigned to them is in.</p><div class="avrow">'+groups.map(g=>avatarBlock(g)).join('')+'</div></div>'
+  +'<div class="callout '+(focus.upcoming?'warn':'info')+'"><b>'+(focus.upcoming?duePhrase(m.packDue):'This meeting date has passed')+'.</b> Pack due '+esc(fmt(m.packDue))+' · 5 business days before the meeting. Demo clock: '+esc(fmt(DEMO_TODAY))+'.'+(focus.upcoming?'':' Showing the latest pack for this company.')+'</div>'
+  +'<div class="card" style="margin-bottom:14px"><h2>Papers by step</h2><p class="small muted" style="margin-top:0">One card is one paper. The number on each column is how many papers are there. Choose a card to open it.</p>'+kanban(m)+'</div>'
   +papersTable(m, true)
   +'<div class="grid g3" style="margin-top:14px">'
-  +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026 · sample count from this pack</div></button>'
+  +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026</div></button>'
   +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+recvN+'</div><div class="l">Acknowledgements received this month</div><div class="d">Each director acknowledgement is counted once</div></button>'
   +'<button class="card kpi" type="button" data-go="#/cosec/time" style="text-align:left"><div class="v">'+esc(aboutHours(saved.packMins).replace('About ',''))+'</div><div class="l">Time saved on this pack</div><div class="d">Illustrative · '+esc(aboutHours(saved.fyMins))+' this financial year</div></button>'
   +'</div>'
   +(others.length?'<div class="card" style="margin-top:14px"><h2>Other meetings</h2>'+others.map(om=>{const tt=tally(om); return '<div class="pack"><div><b>'+esc(meetingTitle(om))+'</b><div class="small muted">'+esc(folderTitle(om))+' · '+tt.published+' of '+tt.total+' published · '+tt.withFile+' submitted</div></div><button class="btn sm" type="button" data-go="#/cosec/meeting/'+om.id+'">Open</button></div>'}).join('')+'</div>':'');
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
-function picGroups(m){
- const map=new Map();
- papersFor(m.id).forEach(p=>{ if(!map.has(p.picId)) map.set(p.picId, []); map.get(p.picId).push(p); });
- return [...map.entries()].map(([picId, list])=>{
-  const pending=list.filter(p=>displayStatus(p)==='requested'||displayStatus(p)==='revision');
-  return {person:person(picId), papers:list, pending};
- }).sort((a,b)=> (b.pending.length-a.pending.length) || a.person.name.localeCompare(b.person.name));
+function kanban(m){
+ const cols=[
+  ['requested','Requested','Waiting for upload'],
+  ['submitted','Submitted','Awaiting review'],
+  ['reviewed','Reviewed','Ready to publish'],
+  ['published','Published','In the directors’ pack']
+ ];
+ const papers=papersFor(m.id);
+ return '<div class="kb" data-testid="kanban">'+cols.map(([key,title,hint])=>{
+  const list=papers.filter(p=>{
+   const st=displayStatus(p);
+   return key==='requested' ? (st==='requested'||st==='revision') : st===key;
+  });
+  const cards=list.length?list.map(kanbanCard).join(''):'<div class="kempty">No papers here.</div>';
+  return '<section class="kcol" aria-label="'+esc(title)+', '+list.length+'"><h3><span>'+esc(title)+'</span><span class="n">'+list.length+'</span></h3><div class="hint tiny muted">'+esc(hint)+'</div>'+cards+'</section>';
+ }).join('')+'</div>';
 }
-function avatarBlock(g){
- const p=g.person; const pend=g.pending.length>0;
- const tip='<div class="tip"><b>'+esc(p.name)+'</b><div>'+esc(deptName(p.department||''))+(p.sample?' · sample name':'')+'</div>'
-  +g.papers.map(pp=>'<div style="margin-top:6px">'+esc(pp.agendaCode+' '+pp.title)+'<br>'+statusPill(displayStatus(pp))+'</div>').join('')+'</div>';
- return '<div class="avwrap"><button type="button" class="av '+(pend?'pend':'quiet')+'" style="background:'+colorFor(p.id)+'" data-go="#/cosec/paper/'+g.papers[0].id+'" aria-label="'+esc(p.name)+'">'+esc(p.initials)+'</button><div class="nm">'+esc(p.name.split(' ').slice(-1)[0])+'</div>'+tip+'</div>';
+function cardDue(due){
+ const n=businessDaysFromTo(DEMO_TODAY, due);
+ if(n<0) return {text:'Overdue', cls:'late'};
+ if(n===0) return {text:'Due today', cls:'soon'};
+ return {text:'Due in '+n+' day'+(n===1?'':'s'), cls:n<=2?'soon':'ok'};
+}
+function kanbanCard(p){
+ const pic=person(p.picId);
+ const due=cardDue(p.due);
+ const paperLine=p.agendaCode+' '+p.title;
+ const deptTip=deptName(p.department)+(deptInferred(p.department)?' (example)':'');
+ return '<button type="button" class="kcard" data-go="#/cosec/paper/'+p.id+'"><span class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><span class="nm">'+esc(pic?pic.name:'')+'</span><span class="due '+due.cls+'">'+esc(due.text)+'</span></span><span class="paper" title="'+esc(paperLine)+'">'+esc(paperLine)+'</span></button>';
 }
 function papersTable(m){
  const rows=papersFor(m.id).map(p=>{
@@ -841,7 +942,7 @@ function papersTable(m){
   let note='';
   if(pub && st!=='published') note='<div class="tiny muted">Directors still see v'+esc(pub.version)+'</div>';
   const acts=rowActions(p, st);
-  return '<tr data-testid="paper-row-'+p.id+'"><td><b>'+esc(p.agendaCode)+'</b></td><td><div>'+esc(p.title)+'</div><div class="tiny muted">'+esc(v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0'))+'</div>'+note+'</td><td>'+esc(deptName(p.department))+(deptInferred(p.department)?' <span class="pill">Example</span>':'')+'</td><td><div style="display:flex;gap:6px;align-items:center">'+avatar(pic,'sm')+'<span>'+esc(pic.name)+'</span></div></td><td data-testid="status-'+p.id+'">'+statusPill(st)+'</td><td>'+(v?'v'+esc(v.version):'—')+'</td><td>'+esc((st==='requested'||st==='revision')?duePhrase(p.due):fmt(p.due))+'</td><td class="small">'+esc(activity(p))+'</td><td><div class="acts">'+acts+'</div></td></tr>';
+  return '<tr data-testid="paper-row-'+p.id+'"><td><b>'+esc(p.agendaCode)+'</b></td><td><div>'+esc(p.title)+'</div><div class="tiny muted">'+esc(v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0'))+'</div>'+note+'</td><td>'+deptMark(p.department)+'</td><td>'+esc(pic.name)+'</td><td data-testid="status-'+p.id+'">'+statusPill(st)+'</td><td>'+(v?'v'+esc(v.version):'—')+'</td><td>'+esc((st==='requested'||st==='revision')?duePhrase(p.due):fmt(p.due))+'</td><td class="small">'+esc(activity(p))+'</td><td><div class="acts">'+acts+'</div></td></tr>';
  }).join('');
  return '<div class="tw"><table><thead><tr><th>#</th><th>Paper</th><th>Department</th><th>PIC</th><th>Status</th><th>Version</th><th>Due</th><th>Last activity</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
@@ -891,7 +992,7 @@ function screenPaper(id){
  const st=displayStatus(p);
  const vers=versionsFor(p.id).slice().reverse().map(v=>versionCard(m,p,v,cur&&v.id===cur.id)).join('');
  const reviewers=(cur&&cur.reviewedBy||[]);
- const revBar=reviewers.length? reviewers.map(r=>{const who=person(r.personId); return '<span class="who">'+avatar(who,'sm')+' '+esc(who?who.name:'')+' · '+esc(r.at)+'</span>'}).join('') : '<span class="muted small">No one has marked this version reviewed yet.</span>';
+ const revBar=reviewers.length? reviewers.map(r=>{const who=person(r.personId); return '<span class="who">'+esc(who?who.name:'')+' · '+esc(r.at)+'</span>'}).join('') : '<span class="muted small">No one has marked this version reviewed yet.</span>';
  const access=state.people.filter(x=>x.kind==='director'||x.kind==='alternate'||x.kind==='former').map(dir=>{
   const g=gate(dir,m,p);
   return '<tr><td>'+esc(dir.name)+(dir.cessation?' <span class="pill">Resigned</span>':'')+'</td><td>'+(g.see?'<span class="pill ok">Can see the published version</span>':'<span class="pill warn">Cannot see it</span>')+'</td><td class="small">'+(g.see?'The published file is in their pack.':('<div class="why"><b>Why this director cannot see it</b>'+esc(g.reason)+'</div>'))+'</td></tr>';
@@ -907,7 +1008,7 @@ function screenPaper(id){
  return '<div class="crumb"><button type="button" data-go="#/cosec/meeting/'+m.id+'">'+esc(meetingTitle(m))+'</button> · '+esc(p.agendaCode)+'</div>'
   +'<div class="top"><div><h1>'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub">'+esc(folderTitle(m))+'</div></div><span class="sp"></span>'+statusPill(st)+'</div>'
   +inflight
-  +'<div class="grid g2"><div class="card"><h2>This version</h2><div class="small" style="display:grid;grid-template-columns:140px 1fr;gap:6px 10px"><div class="muted">Official name</div><div>'+esc(cur?cur.fileName:'')+'</div><div class="muted">Department</div><div>'+esc(deptName(p.department))+(deptInferred(p.department)?' <span class="pill">Example</span>':'')+'</div><div class="muted">PIC</div><div style="display:flex;gap:6px;align-items:center">'+avatar(pic,'sm')+esc(pic.name)+(pic.sample?' <span class="tiny muted">sample name</span>':'')+'</div><div class="muted">Due</div><div>'+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="muted">Internal reference</div><div class="tiny">'+esc(internalRef(m,p))+'</div></div><div class="acts" style="margin-top:12px">'+acts.join('')+'</div></div>'
+  +'<div class="grid g2"><div class="card"><h2>This version</h2><div class="small" style="display:grid;grid-template-columns:140px 1fr;gap:6px 10px"><div class="muted">Official name</div><div>'+esc(cur?cur.fileName:'')+'</div><div class="muted">Department</div><div>'+deptMark(p.department)+'</div><div class="muted">PIC</div><div>'+esc(pic.name)+'</div><div class="muted">Due</div><div>'+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="muted">Internal reference</div><div class="tiny">'+esc(internalRef(m,p))+'</div></div><div class="acts" style="margin-top:12px">'+acts.join('')+'</div></div>'
   +'<div class="card"><h2>Reviewed by</h2><div class="revbar">'+revBar+'</div><p class="tiny muted">Publishing needs a COSEC click. The same officer may review and publish. The bar keeps everyone who marked this version.</p></div></div>'
   +'<div class="card" style="margin-top:14px"><h2>Preview</h2>'+previewBlock(m,p,cur&&cur.uploadedAt?cur:null)+'</div>'
   +'<div class="card" style="margin-top:14px"><h2>Versions</h2><p class="small muted">History is kept. A new version does not replace the old file.</p>'+vers+'</div>'
@@ -947,11 +1048,11 @@ function screenResolutions(admin){
  const sentN=month.length;
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).length,0);
  let head='<div class="top"><div><h1>Resolutions & minutes</h1><div class="sub">'+esc(companyBy(co).legalName)+'</div></div>';
- if(admin) head+='<span class="sp"></span><button class="btn pri" type="button" data-act="circulate">Circulate a sample resolution</button></div>';
+ if(admin) head+='<span class="sp"></span><button class="btn pri" type="button" data-act="circulate">Circulate a resolution</button></div>';
  else head+='</div>';
  const counts=admin? '<div class="grid g2" style="margin-bottom:14px">'+kpi(String(sentN),'Sent this month','Circular resolutions in December 2026')+kpi(String(recvN),'Received this month','Acknowledgements on those circulars')+'</div>' : directorResSummary(me);
  if(!admin && me.cessation) return head+'<div class="ended" data-testid="access-ended"><b>Access ended on '+esc(fmt(me.cessation))+'.</b><div>Resolutions and minutes are not available.</div></div>';
- if(!list.length) return head+counts+'<div class="empty"><b>Nothing to show</b><div>'+(admin?'Circulate a sample resolution, or switch company.':'Nothing in your committees falls on or after your appointment date.')+'</div></div>';
+ if(!list.length) return head+counts+'<div class="empty"><b>Nothing to show</b><div>'+(admin?'Circulate a resolution, or switch company.':'Nothing in your committees falls on or after your appointment date.')+'</div></div>';
  const rows=list.map(r=>{
   const typeLab={DCR:'Directors’ circular', ACCR:'Audit Committee circular', minutes:'Minutes', members:'Members’ meeting'}[r.type]||r.type;
   const mine=!admin && (r.type==='DCR'||r.type==='ACCR');
@@ -970,7 +1071,7 @@ function directorResSummary(p){
  const all=circularsFor(p);
  const got=all.filter(r=>(r.receivedFrom||[]).includes(p.id));
  const q=quarterRange();
- return '<div class="card" style="margin-bottom:14px"><b>Circular resolutions sent to you this quarter: '+all.length+'.</b> Acknowledged: '+got.length+'.<div class="small muted">'+esc(q.label)+'. Sample count.</div></div>';
+ return '<div class="card" style="margin-bottom:14px"><b>Circular resolutions sent to you this quarter: '+all.length+'.</b> Acknowledged: '+got.length+'.<div class="small muted">'+esc(q.label)+'.</div></div>';
 }
 function screenResources(admin){
  const me=currentPerson();
@@ -983,13 +1084,13 @@ function screenResources(admin){
  const body=[...groups.entries()].map(([g, items])=>'<div class="folder"><h2>'+esc(g)+'</h2><div class="card">'+items.map(it=>'<div class="pack"><div><b>'+esc(it.title)+'</b><div class="tiny muted">'+esc(it.fileName)+'</div></div><button class="btn sm" type="button" data-act="resource" data-id="'+it.id+'">Open</button></div>').join('')+'</div></div>').join('');
  const add=admin?'<button class="btn" type="button" data-act="add-resource">Add a resource</button>':'';
  const note=admin?'':'<div class="callout info">The Resource Centre is open to every current director. It is not limited by appointment date or by committee.</div>';
- return '<div class="top"><div><h1>Resource Centre</h1><div class="sub">Reference material for directors. Sample files.</div></div><span class="sp"></span>'+add+'</div>'+note+body;
+ return '<div class="top"><div><h1>Resource Centre</h1><div class="sub">Reference material for directors.</div></div><span class="sp"></span>'+add+'</div>'+note+body;
 }
 function screenTime(){
  const s=timeSaved(state.companyId);
  return '<div class="top"><div><h1>Time saved</h1><div class="sub">An illustration for this demo. It is not an audited figure.</div></div></div>'
   +'<div class="grid g2"><div class="card kpi"><div class="v">'+esc(aboutHours(s.packMins))+'</div><div class="l">saved on '+esc(s.packName)+'</div><div class="d">'+s.packPapers+' submitted paper'+(s.packPapers===1?'':'s')+' × '+s.minP+' minutes. A finished pack also adds '+s.minK+' minutes, once every paper is published.</div></div>'
-  +'<div class="card kpi"><div class="v">'+esc(aboutHours(s.fyMins))+'</div><div class="l">this financial year (illustrative)</div><div class="d">'+s.fyMeetings+' meeting'+(s.fyMeetings===1?'':'s')+' so far in '+fyOf(DEMO_TODAY).y1+'.'+fyOf(DEMO_TODAY).y2+', of which '+s.packs+' pack'+(s.packs===1?' is':'s are')+' fully published. Sample.</div></div></div>'
+  +'<div class="card kpi"><div class="v">'+esc(aboutHours(s.fyMins))+'</div><div class="l">this financial year (illustrative)</div><div class="d">'+s.fyMeetings+' meeting'+(s.fyMeetings===1?'':'s')+' so far in '+fyOf(DEMO_TODAY).y1+'.'+fyOf(DEMO_TODAY).y2+', of which '+s.packs+' pack'+(s.packs===1?' is':'s are')+' fully published.</div></div></div>'
   +'<div class="card" style="margin-top:14px"><h2>Assumptions you can change</h2><div class="row2"><div class="fld"><label for="calcPaper">Minutes saved per paper</label><input id="calcPaper" type="number" min="0" step="5" value="'+esc(state.calc.minPaper)+'"></div><div class="fld"><label for="calcPack">Minutes saved per finished pack</label><input id="calcPack" type="number" min="0" step="5" value="'+esc(state.calc.minPack)+'"></div></div><p class="small muted">Default: 25 minutes for not chasing a paper, uploading it twice, and copying pages for access. 90 minutes for not building a second copy of a finished pack. Change the numbers to try a different illustration.</p><div id="calcOut"></div></div>';
 }
 function screenPeople(){
@@ -997,14 +1098,14 @@ function screenPeople(){
  const pics=state.people.filter(p=>p.kind==='pic');
  const cos=state.people.filter(p=>p.kind==='cosec');
  const rowDir=dirs.map(p=>'<tr><td>'+esc(p.name)+(p.also?'<div class="tiny muted">'+esc(p.also)+'</div>':'')+'</td><td>'+esc(p.roleTitle)+'</td><td>'+esc(fmt(p.appointment))+'</td><td>'+(p.cessation?esc(fmt(p.cessation)):'—')+'</td><td>'+esc(committeeLine(p))+'</td><td>'+esc((p.companies||[]).map(id=>companyBy(id).short).join(', '))+'</td></tr>').join('');
- const rowPic=pics.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+esc(deptName(p.department))+(deptInferred(p.department)?' <span class="pill">Example</span>':'')+'</td><td>Sample name</td></tr>').join('');
+ const rowPic=pics.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+deptMark(p.department)+'</td></tr>').join('');
  const rowC=cos.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+esc(p.roleTitle)+'</td></tr>').join('');
- return '<div class="top"><div><h1>People</h1><div class="sub">Directors are read from the public annual report and shown as sample data. PIC names are samples.</div></div></div>'
+ return '<div class="top"><div><h1>People</h1><div class="sub">Directors are from the public annual report. Department contacts are for this demo.</div></div></div>'
   +'<div class="card"><h2>Directors</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Ceased</th><th>Also sits on</th><th>Companies in this demo</th></tr></thead><tbody>'+rowDir+'</tbody></table></div>'
-  +'<p class="small muted">Subsidiary seats are a sample so the company switch can be tried: Datuk Heah Kok Boon on Eco Business Park 1, and Dato’ Chang Khim Wah on Eco Botanic. Statutory company secretaries (external, from the public annual report) are Chua Siew Chuan and Tan Ley Theng of Securities Services (Holdings) Sdn. Bhd. They are not operators of this demo. Auditor: Baker Tilly Monteiro Heng PLT.</p></div>'
-  +'<div class="grid g2" style="margin-top:14px"><div class="card"><h2>Department PICs</h2><div class="tw"><table><thead><tr><th>Name</th><th>Department</th><th></th></tr></thead><tbody>'+rowPic+'</tbody></table></div><p class="tiny muted">Finance, Sustainability and Call Centre are the departments used for this demo. Departments marked Example are not an official organisation chart.</p></div>'
-  +'<div class="card"><h2>COSEC officers in this demo</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th></tr></thead><tbody>'+rowC+'</tbody></table></div><p class="tiny muted">These four names are samples for the reviewed-by bar. They are not a staff list.</p></div></div>'
-  +'<div class="card" id="assumptions" style="margin-top:14px"><h2>Assumptions in this sample</h2><ul>'
+  +'<p class="small muted">Subsidiary seats let you try the company switch: Datuk Heah Kok Boon on Eco Business Park 1, and Dato’ Chang Khim Wah on Eco Botanic. Statutory company secretaries (external, from the public annual report) are Chua Siew Chuan and Tan Ley Theng of Securities Services (Holdings) Sdn. Bhd. They are not operators of this demo. Auditor: Baker Tilly Monteiro Heng PLT.</p></div>'
+  +'<div class="grid g2" style="margin-top:14px"><div class="card"><h2>Department PICs</h2><div class="tw"><table><thead><tr><th>Name</th><th>Department</th></tr></thead><tbody>'+rowPic+'</tbody></table></div><p class="tiny muted">Finance, Sustainability and Call Centre are the departments used for this demo. Departments marked Example are not an official organisation chart.</p></div>'
+  +'<div class="card"><h2>COSEC officers in this demo</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th></tr></thead><tbody>'+rowC+'</tbody></table></div><p class="tiny muted">These four names are for the reviewed-by bar. They are not a staff list.</p></div></div>'
+  +'<div class="card" id="assumptions" style="margin-top:14px"><h2>Assumptions</h2><ul>'
   +'<li>The department submits and the file locks. Directors see it only after COSEC publishes it.</li>'
   +'<li>The pack is due 5 business days before the meeting. For the 9 Dec 2026 Board meeting, that is 2 Dec 2026.</li>'
   +'<li>Due dates are shown as at 2 Dec 2026, so the December story stays in place.</li>'
@@ -1055,7 +1156,7 @@ function screenPic(){
    +(open?'<button class="btn pri" type="button" data-go="#/upload/'+v.linkToken+'">Upload paper</button>':'<button class="btn" type="button" data-go="#/upload/'+(v?v.linkToken:'')+'">View receipt</button>')
    +'</div>';
  }).join('');
- return '<div class="top"><div><h1>My submissions</h1><div class="sub">'+esc(me.name)+' · '+esc(deptName(me.department||'cosec'))+'</div></div></div>'
+ return '<div class="top"><div><h1>My submissions</h1><div class="sub" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(me.name)+' · '+deptMark(me.department||'cosec')+'</div></div></div>'
   +'<div class="callout info">You cannot rename a paper or change it after you submit. If something needs to change, contact COSEC and they will send a new link.</div>'+cards;
 }
 
@@ -1063,13 +1164,13 @@ function screenUpload(tk){
  const v=versionByToken(tk);
  if(!v) return '<div class="upload-wrap"><div class="empty"><b>This link does not match a paper</b><div>Ask COSEC for a new submission link.</div></div></div>';
  const p=paper(v.paperId); const m=meeting(p.meetingId); const pic=person(p.picId);
- const head='<div class="upload-wrap"><div class="small muted">'+esc(companyBy(m.companyId).legalName)+'</div><h1 style="margin:6px 0 4px">'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub muted">'+esc(meetingTitle(m))+' · '+esc(fmt(m.date))+' · '+esc(deptName(p.department))+'</div>';
+ const head='<div class="upload-wrap"><div class="small muted">'+esc(companyBy(m.companyId).legalName)+'</div><h1 style="margin:6px 0 4px">'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub muted" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(meetingTitle(m))+' · '+esc(fmt(m.date))+' · '+deptMark(p.department)+'</div>';
  if(v.uploadedAt) return head+receiptHtml(m,p,v,pic)+versionsMine(p,v)+'</div>';
  const note=v.needsNote?'<div class="fld"><label for="reason">Reason for the new version</label><textarea id="reason" data-testid="reason" placeholder="Why is this being sent again?"></textarea></div><div class="fld"><label for="what">What changed</label><textarea id="what" data-testid="what" placeholder="What should COSEC look at?"></textarea></div>':'';
  return head+'<div class="card" style="margin-top:14px"><div class="pill '+(duePhrase(p.due)==='Due today'?'warn':'')+'">'+esc(duePhrase(p.due))+'</div><p>Hello '+esc(pic.name.split(' ')[0])+'. This page is only for your paper. Upload the paper. We will name it for you.</p><div class="official" data-testid="official-name">'+esc(v.fileName)+'</div><p class="small muted">Version v'+esc(v.version)+' · due '+esc(fmt(p.due))+'</p>'
   +note
   +'<label class="drop" id="drop"><div class="big">Drop the file here</div><div>or click to choose a PDF or Office file</div><div class="small" id="fileLabel">No file chosen yet</div><input id="file" data-testid="file" type="file"></label>'
-  +'<div class="acts" style="margin-top:12px"><button class="btn" type="button" id="sampleBtn">Use a sample file</button><button class="btn pri" type="button" id="submitBtn" data-testid="submit-upload" disabled>Submit paper</button></div>'
+  +'<div class="acts" style="margin-top:12px"><button class="btn" type="button" id="sampleBtn">Use an example file</button><button class="btn pri" type="button" id="submitBtn" data-testid="submit-upload" disabled>Submit paper</button></div>'
   +'<p class="tiny muted">After you submit, the file is locked. You will get a receipt. COSEC is told that it has arrived. This demo does not send email.</p></div></div>';
 }
 function receiptHtml(m,p,v,pic){
@@ -1104,7 +1205,7 @@ function screenDirHome(){
  const me=currentPerson();
  const co=companyBy(state.companyId);
  if(me.cessation || !(me.companies||[]).includes(state.companyId)){
-  const reason=me.cessation? cessationReason(me) : me.name+' is not a director of '+co.legalName+' in this sample.';
+  const reason=me.cessation? cessationReason(me) : me.name+' is not a director of '+co.legalName+' .';
   return '<div data-testid="director-home"><div class="top"><div><h1>Hello, '+esc(me.name)+'</h1><div class="sub">'+esc(me.roleTitle)+'</div></div></div><div class="ended" data-testid="access-ended"><b>'+(me.cessation?'Access ended on '+esc(fmt(me.cessation))+'.':'No packs for this company.')+'</b><div>'+esc(reason)+'</div></div></div>';
  }
  const ms=visibleMeetings(me);
@@ -1113,7 +1214,7 @@ function screenDirHome(){
  const packs=(list)=> list.length? list.map(m=>packCard(me,m)).join('') : '';
  const awaiting=state.resolutions.filter(r=> (r.type==='DCR'||r.type==='ACCR') && r.companyId===state.companyId && resolutionGate(me,r).see && (r.sentTo||[]).includes(me.id) && !(r.receivedFrom||[]).includes(me.id) && r.status!=='filed');
  return '<div data-testid="director-home"><div class="top"><div><h1>Hello, '+esc(me.name)+'</h1><div class="sub">'+esc(me.roleTitle)+'<br>'+esc(committeeLine(me))+' · appointed '+esc(fmt(me.appointment))+'</div></div></div>'
-  +(me.kind==='alternate'?'<div class="callout info">Sample assumption: as Alternate Director you can read Board packs, and Investment Committee papers because you are the management representative on that committee.</div>':'')
+  +(me.kind==='alternate'?'<div class="callout info">As alternate director you can read Board packs, and Investment Committee papers because you are the management representative on that committee.</div>':'')
   +'<div class="card" style="margin-bottom:14px"><h2>Packs you can read</h2>'
   +(upcoming.length?'<div class="tiny muted">Coming up</div>'+packs(upcoming):'<div class="empty"><b>No upcoming pack</b><div>When COSEC publishes papers for a meeting you sit on, they will show here.</div></div>')
   +(recent.length?'<div class="tiny muted" style="margin-top:10px">Already circulated</div>'+packs(recent):'')
@@ -1188,7 +1289,7 @@ function openCreateMeeting(){
   +'<div class="fld"><label for="m-num">Meeting number</label><input id="m-num" name="number" inputmode="numeric" value="01"></div></div>'
   +'<div class="row2"><div class="fld"><label for="m-date">Meeting date</label><input id="m-date" name="date" type="date" value="2027-03-10"></div>'
   +'<div class="fld"><label for="m-due">Pack due</label><input id="m-due" name="due" type="date" value="'+businessDaysBefore('2027-03-10',5)+'"></div></div>'
-  +'<div class="fld"><label for="m-venue">Venue (optional)</label><input id="m-venue" name="venue" placeholder="Boardroom (sample)"></div>'
+  +'<div class="fld"><label for="m-venue">Venue (optional)</label><input id="m-venue" name="venue" placeholder="Boardroom"></div>'
   +'<div class="linkcard"><div class="tiny muted">Folder and meeting name</div><div id="meetPrev" class="official" style="font-size:16px"></div></div>'
   +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Create meeting</button></div></form>');
  const form=$('#f-meet');
@@ -1234,7 +1335,7 @@ function openCreateLink(meetingId){
   const dept=form.dept.value;
   const pics=state.people.filter(p=>p.department===dept && (p.kind==='pic'||p.kind==='cosec'));
   const keep=form.pic.value;
-  form.pic.innerHTML=pics.map(p=>'<option value="'+p.id+'">'+esc(p.name)+(p.sample?' (sample)':'')+'</option>').join('') || '<option value="">No one in this department</option>';
+  form.pic.innerHTML=pics.map(p=>'<option value="'+p.id+'">'+esc(p.name)+'</option>').join('') || '<option value="">No one in this department</option>';
   if(keep && pics.some(p=>p.id===keep)) form.pic.value=keep;
  };
  const upd=()=>{
@@ -1344,7 +1445,7 @@ function bindDynamic(){
   ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev, e=>{e.preventDefault(); drop.classList.add('over')}));
   ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev, e=>{e.preventDefault(); drop.classList.remove('over')}));
   drop.addEventListener('drop', e=>{ const f=e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) setFile(f); });
-  $('#sampleBtn').addEventListener('click', ()=>{ pendingFile=null; pendingSample=true; file.value=''; $('#fileLabel').textContent='Sample file ready'; submit.disabled=false; });
+  $('#sampleBtn').addEventListener('click', ()=>{ pendingFile=null; pendingSample=true; file.value=''; $('#fileLabel').textContent='Example file ready'; submit.disabled=false; });
   submit.addEventListener('click', ()=>submitUpload());
  }
 }
@@ -1381,8 +1482,8 @@ function extOf(file){
 }
 
 function openAssumptions(){
- openModal('<div class="hd"><h2>About this sample</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><ul>'
-  +'<li>Director names, roles and appointment dates are from the public FY2025 Integrated Annual Report. They are shown as sample data.</li>'
+ openModal('<div class="hd"><h2>About this demo</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><ul>'
+  +'<li>Director names, roles and appointment dates are from the public FY2025 Integrated Annual Report. The meetings and papers on this demo are made up.</li>'
   +'<li>Meetings, papers, uploads and the PIC names are made-up.</li>'
   +'<li>Submitting locks the file. Directors see it only after COSEC publishes it.</li>'
   +'<li>A new version is a new link from COSEC, for example v3.1. The old file stays.</li>'
@@ -1392,7 +1493,7 @@ function openAssumptions(){
   +'</ul></div><div class="ft"><button class="btn pri" type="button" data-act="close">Close</button></div>');
 }
 function askReset(){
- openModal('<div class="hd"><h2>Reset demo data</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><p>This puts the sample pack back. Uploads and changes in this browser will be cleared.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Keep my changes</button><button class="btn pri" type="button" data-testid="confirm-reset" data-act="do-reset">Reset demo data</button></div>');
+ openModal('<div class="hd"><h2>Reset demo data</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><p>This puts the demo pack back. Uploads and changes in this browser will be cleared.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Keep my changes</button><button class="btn pri" type="button" data-testid="confirm-reset" data-act="do-reset">Reset demo data</button></div>');
 }
 function doReset(){
  state=seed(); pendingFile=null; pendingSample=false; save(); closeOverlays();
@@ -1464,7 +1565,7 @@ function onSubmit(e){
 function openFile(act, id){
  if(act==='resource'){
   const it=state.resources.find(r=>r.id===id);
-  openDrawer(esc(it.title), '<p class="muted">Sample file · '+esc(it.fileName)+'</p><article class="docpage"><div class="co">RESOURCE CENTRE</div><h2>'+esc(it.title)+'</h2><p>This is a sample cover. It is not the real document.</p><div class="foot">Sample data</div></article><div class="acts" style="margin-top:12px"><button class="btn" type="button" data-act="toast-dl">Download</button></div>');
+  openDrawer(esc(it.title), '<p class="muted">'+esc(it.fileName)+'</p><article class="docpage"><div class="co">RESOURCE CENTRE</div><h2>'+esc(it.title)+'</h2><p>This cover is for the demo. It is not the real document.</p><div class="foot">Not for circulation</div></article><div class="acts" style="margin-top:12px"><button class="btn" type="button" data-act="toast-dl">Download</button></div>');
   return;
  }
  const v=version(id); const p=paper(v.paperId); const m=meeting(p.meetingId);
@@ -1484,7 +1585,7 @@ function acknowledge(id){
  save(); render(); toast('Acknowledgement recorded');
 }
 function openCirculate(){
- openModal('<form id="f-circ"><div class="hd"><h2>Circulate a sample resolution</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label for="c-sub">Subject</label><input id="c-sub" name="subject" placeholder="Renewal of insurance"></div><div class="fld"><label for="c-body">Body</label><select id="c-body" name="body"><option value="BODM">Board (DCR)</option><option value="ACM">Audit Committee (ACCR)</option></select></div><p class="small muted">It will be dated '+esc(fmt(DEMO_TODAY))+' and sent to directors who can receive it. No email is sent.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Circulate</button></div></form>');
+ openModal('<form id="f-circ"><div class="hd"><h2>Circulate a resolution</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label for="c-sub">Subject</label><input id="c-sub" name="subject" placeholder="Renewal of insurance"></div><div class="fld"><label for="c-body">Body</label><select id="c-body" name="body"><option value="BODM">Board (DCR)</option><option value="ACM">Audit Committee (ACCR)</option></select></div><p class="small muted">It will be dated '+esc(fmt(DEMO_TODAY))+' and sent to directors who can receive it. No email is sent.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Circulate</button></div></form>');
 }
 function saveCircular(form){
  const subject=(form.subject.value||'').trim();
@@ -1498,12 +1599,12 @@ function saveCircular(form){
 }
 function openResource(){
  const groups=['Constitution and charters','Policies','Reports','Oversight','Market rules','Housekeeping'];
- openModal('<form id="f-res"><div class="hd"><h2>Add a resource</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label>Title</label><input name="title" placeholder="Board evaluation guideline"></div><div class="fld"><label>Group</label><select name="group">'+groups.map(g=>'<option>'+esc(g)+'</option>').join('')+'</select></div><p class="small muted">A sample cover is stored. No file is uploaded.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Add</button></div></form>');
+ openModal('<form id="f-res"><div class="hd"><h2>Add a resource</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label>Title</label><input name="title" placeholder="Board evaluation guideline"></div><div class="fld"><label>Group</label><select name="group">'+groups.map(g=>'<option>'+esc(g)+'</option>').join('')+'</select></div><p class="small muted">A cover page is stored. No file is uploaded.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Add</button></div></form>');
 }
 function saveResource(form){
  const title=(form.title.value||'').trim();
  if(title.length<3){ toast('Please enter a title.'); return; }
- state.resources.push({id:uid('rs'), group:form.group.value, title, fileName:title+' (sample).pdf', sample:true});
+ state.resources.push({id:uid('rs'), group:form.group.value, title, fileName:title+'.pdf', sample:true});
  save(); closeOverlays(); render(); toast('Resource added');
 }
 
