@@ -92,16 +92,21 @@ th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
 .ended{background:#f8fafc;border:1px solid var(--line);border-left:4px solid #667085;border-radius:10px;padding:16px 18px}
 .empty{padding:28px 18px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px;background:#fcfcfd}
 .empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
-.av{width:36px;height:36px;border-radius:50%;display:inline-grid;place-items:center;color:#fff;font-size:12px;font-weight:750;flex:0 0 auto;position:relative}
-.av.sm{width:28px;height:28px;font-size:11px}
-.avrow{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
-.avwrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:168px;text-align:center}
-.avwrap .nm{font-size:12px;color:var(--muted);line-height:1.25}
-.avwrap .stepwords{font-size:12px;font-weight:650}
-.tip{display:none;position:absolute;z-index:5;top:calc(100% + 6px);left:0;width:280px;background:#101828;color:#fff;border-radius:10px;padding:10px 12px;font-size:12.5px;text-align:left;box-shadow:var(--shadow)}
-.tip .stepwords,.tip .stepbit{color:#fff}
-.tip .step{border-color:#d0d5dd}
-.avwrap:hover .tip,.avwrap:focus-within .tip{display:block}
+.dept{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.dico{width:28px;height:28px;border-radius:8px;background:var(--brand2);color:var(--brand);display:inline-grid;place-items:center;flex:0 0 auto}
+.dicon{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.dname{line-height:1.3}
+.kb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}
+.kcol{background:#eef1f5;border-radius:12px;padding:10px 10px 6px;min-height:140px}
+.kcol h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
+.kcol h3 .n{margin-left:auto;background:#fff;border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px;color:var(--ink)}
+.kcol .hint{margin:2px 0 8px}
+.kcard{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0 0 8px;box-shadow:var(--shadow);color:inherit}
+.kcard:hover{border-color:#98a2b3}
+.kcard .ag{font-weight:750;line-height:1.35}
+.kcard .who{margin-top:6px}
+.kcard .due{color:var(--muted);font-size:13px}
+.kempty{color:var(--muted);font-size:13.5px;padding:8px 4px 12px}
 .folder{margin:0 0 16px}
 .folder h2{font-size:15px;margin:0 0 8px;color:var(--brand)}
 .pack{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -149,7 +154,6 @@ th{font-size:12.5px;color:var(--muted);font-weight:650;background:#fafbfc}
 .linkcard{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px}
 .pagefoot{margin-top:28px;color:var(--muted);font-size:12.5px}
 button.card{display:block;width:100%;text-align:left;color:inherit;cursor:pointer}
-button.av{padding:0;border:none}
 body.role-director .main{font-size:17px}
 body.role-director .top h1{font-size:30px}
 body.upload-mode .side{display:none}
@@ -163,9 +167,8 @@ body.upload-mode .burger{display:none !important}
  .side{position:fixed;left:0;top:0;height:100%;z-index:55;transform:translateX(-105%);transition:transform .2s}
  .side.on{transform:none}
  .burger{display:inline-flex}
- .g4,.g3,.g2,.row2{grid-template-columns:1fr}
+ .g4,.g3,.g2,.row2,.kb{grid-template-columns:1fr}
  .main{padding:14px 12px 48px}
- .tip{left:auto;right:0}
 }
 </style>
 </head>
@@ -276,8 +279,23 @@ function meetingTitle(m){return m.body+' '+m.number+' ('+dmy(m.date)+')'}
 function folderTitle(m){const fy=fyOf(m.date); return m.body+' '+fy.y1+'.'+fy.y2+' ('+dmy(fy.start)+'-'+dmy(fy.end)+')'}
 function officialName(m,p,ver,ext){return meetingTitle(m)+' - '+p.agendaCode+' '+p.title+' v'+ver+'.'+(ext||'pdf')}
 function linkFor(tk){return location.origin+location.pathname+location.search+'#/upload/'+tk}
-function colorFor(id){const pal=['#0f6e56','#175cd3','#9f1239','#93370d','#4338ca','#0e7490','#3f6212','#9a3412']; let h=0; for(let i=0;i<id.length;i++) h=(h*31+id.charCodeAt(i))>>>0; return pal[h%pal.length]}
-function avatar(p, cls){if(!p) return ''; return '<span class="av '+(cls||'')+'" style="background:'+colorFor(p.id)+'" title="'+esc(p.name)+'">'+esc(p.initials)+'</span>'}
+function deptIcon(id){
+ const paths={
+  finance:'<path d="M4 19V11M10 19V6M16 19v-6M20 19H3"/>',
+  sustainability:'<path d="M5 19c1-7 6-13 14-14-1 8-6 13-14 14z"/><path d="M8.5 16c1.6-1.8 3.4-4.2 5-7"/>',
+  callcentre:'<path d="M8 4h2.2l1.2 3.2-1.8.9a10 10 0 0 0 5.3 5.3l.9-1.8 3.2 1.2V15a2 2 0 0 1-2 2A13 13 0 0 1 6 6a2 2 0 0 1 2-2z"/>',
+  audit:'<rect x="6" y="3.5" width="12" height="17" rx="2"/><path d="M9 3.5h6V6H9z"/><path d="M8.5 12.5 11 15l4.5-5"/>',
+  legal:'<path d="M12 3v16M8 20h8M6 8h12"/><path d="M6 8 4 14h5z"/><path d="M18 8l2 6h-5z"/>',
+  cosec:'<circle cx="12" cy="12" r="7.2"/><path d="M8.6 12.2 11 14.6 15.6 9.6"/>',
+  hr:'<circle cx="8.2" cy="8" r="2.1"/><circle cx="15.8" cy="9" r="1.7"/><path d="M3.6 18.5c.6-3 2.5-4.6 5-4.6s4.3 1.6 4.9 4.6"/><path d="M13.4 18.5c.3-2.1 1.5-3.3 3.2-3.3 1.6 0 2.7 1.1 3.1 3.3"/>',
+  planning:'<path d="M4 7 9 4.5l6 2.5L20 5v13.5l-5 2.5-6-2.5L4 20.5z"/><path d="M9 4.5V18M15 7v13.5"/>'
+ };
+ return '<svg class="dicon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'+(paths[id]||paths.cosec)+'</svg>';
+}
+function deptMark(id){
+ const extra=deptInferred(id)?' <span class="pill">Example</span>':'';
+ return '<span class="dept"><span class="dico">'+deptIcon(id)+'</span><span class="dname">'+esc(deptName(id))+extra+'</span></span>';
+}
 function stepIndex(st){if(st==='revision') return 0; const i=STEP_ORDER.indexOf(st); return i<0?0:i}
 function stepWords(st){return STEP_WORDS[st]||STATUS_LABEL[st]||st}
 function stepTracker(st){
@@ -824,7 +842,6 @@ function screenHome(){
  const month=monthCirculars(state.companyId);
  const sentN=month.length;
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).filter(id=>(r.sentTo||[]).includes(id)).length,0);
- const groups=picGroups(m);
  const others=state.meetings.filter(x=>x.companyId===state.companyId && x.id!==m.id).sort((a,b)=>b.date.localeCompare(a.date));
  return '<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn" type="button" data-act="create-meeting">New meeting</button>'
@@ -839,7 +856,7 @@ function screenHome(){
   +'<div class="card" style="margin-bottom:14px"><div class="packcount">'+t.published+' of '+t.total+' published</div>'+packDots(t)
   +(t.inflight?'<div class="small muted" style="margin-top:8px">Directors can already read '+t.visible+'. '+t.inflight+' paper'+(t.inflight===1?' has':'s have')+' a newer file that is not published yet. They still see the last published version.</div>':'')
   +'</div>'
-  +'<div class="card" style="margin-bottom:14px"><h2>Waiting on</h2><p class="small muted" style="margin-top:0">Filled dots are steps already done. The larger dot is the step the paper is on now. The words name that step.</p><div class="avrow">'+groups.map(g=>avatarBlock(g)).join('')+'</div></div>'
+  +'<div class="card" style="margin-bottom:14px"><h2>Papers by step</h2><p class="small muted" style="margin-top:0">One card is one paper. The number on each column is how many papers are there. Choose a card to open it.</p>'+kanban(m)+'</div>'
   +papersTable(m, true)
   +'<div class="grid g3" style="margin-top:14px">'
   +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026 · sample count from this pack</div></button>'
@@ -849,22 +866,29 @@ function screenHome(){
   +(others.length?'<div class="card" style="margin-top:14px"><h2>Other meetings</h2>'+others.map(om=>{const tt=tally(om); return '<div class="pack"><div><b>'+esc(meetingTitle(om))+'</b><div class="small muted">'+esc(folderTitle(om))+' · '+tt.published+' of '+tt.total+' published · '+tt.withFile+' submitted</div></div><button class="btn sm" type="button" data-go="#/cosec/meeting/'+om.id+'">Open</button></div>'}).join('')+'</div>':'');
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
-function picGroups(m){
- const map=new Map();
- papersFor(m.id).forEach(p=>{ if(!map.has(p.picId)) map.set(p.picId, []); map.get(p.picId).push(p); });
- return [...map.entries()].map(([picId, list])=>{
-  const pending=list.filter(p=>displayStatus(p)==='requested'||displayStatus(p)==='revision');
-  return {person:person(picId), papers:list, pending};
- }).sort((a,b)=> (b.pending.length-a.pending.length) || a.person.name.localeCompare(b.person.name));
+function kanban(m){
+ const cols=[
+  ['requested','Requested','Waiting for upload'],
+  ['submitted','Submitted','Awaiting review'],
+  ['reviewed','Reviewed','Ready to publish'],
+  ['published','Published','In the directors’ pack']
+ ];
+ const papers=papersFor(m.id);
+ return '<div class="kb" data-testid="kanban">'+cols.map(([key,title,hint])=>{
+  const list=papers.filter(p=>{
+   const st=displayStatus(p);
+   return key==='requested' ? (st==='requested'||st==='revision') : st===key;
+  });
+  const cards=list.length?list.map(kanbanCard).join(''):'<div class="kempty">No papers here.</div>';
+  return '<section class="kcol" aria-label="'+esc(title)+', '+list.length+'"><h3><span>'+esc(title)+'</span><span class="n">'+list.length+'</span></h3><div class="hint tiny muted">'+esc(hint)+'</div>'+cards+'</section>';
+ }).join('')+'</div>';
 }
-function avatarBlock(g){
- const p=g.person;
- const ranked=g.papers.slice().sort((a,b)=>stepIndex(displayStatus(a))-stepIndex(displayStatus(b))||a.agendaCode.localeCompare(b.agendaCode));
- const lead=ranked[0];
- const st=displayStatus(lead);
- const tip='<div class="tip"><b>'+esc(p.name)+'</b><div>'+esc(deptName(p.department||''))+(p.sample?' · sample name':'')+'</div>'
-  +g.papers.map(pp=>'<div style="margin-top:8px"><b>'+esc(pp.agendaCode+' '+pp.title)+'</b><div style="margin-top:4px">'+stepTracker(displayStatus(pp))+'</div></div>').join('')+'</div>';
- return '<div class="avwrap"><button type="button" class="av" style="background:'+colorFor(p.id)+'" data-go="#/cosec/paper/'+lead.id+'" aria-label="'+esc(p.name+', '+stepWords(st))+'">'+esc(p.initials)+'</button><div class="nm">'+esc(p.name.split(' ').slice(-1)[0])+'</div>'+stepTracker(st)+'<div class="tiny muted">'+g.papers.length+' paper'+(g.papers.length===1?'':'s')+'</div>'+tip+'</div>';
+function kanbanCard(p){
+ const st=displayStatus(p);
+ const pic=person(p.picId);
+ const due=(st==='requested'||st==='revision')?duePhrase(p.due):('Due '+fmt(p.due));
+ const rev=st==='revision'?'<div class="tiny">New version</div>':'';
+ return '<button type="button" class="kcard" data-go="#/cosec/paper/'+p.id+'"><div class="ag">'+esc(p.agendaCode+' '+p.title)+'</div><div style="margin-top:8px">'+deptMark(p.department)+'</div><div class="who">'+esc(pic?pic.name:'')+'</div><div class="due">'+esc(due)+'</div>'+rev+'</button>';
 }
 function papersTable(m){
  const rows=papersFor(m.id).map(p=>{
@@ -872,7 +896,7 @@ function papersTable(m){
   let note='';
   if(pub && st!=='published') note='<div class="tiny muted">Directors still see v'+esc(pub.version)+'</div>';
   const acts=rowActions(p, st);
-  return '<tr data-testid="paper-row-'+p.id+'"><td><b>'+esc(p.agendaCode)+'</b></td><td><div>'+esc(p.title)+'</div><div class="tiny muted">'+esc(v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0'))+'</div>'+note+'</td><td>'+esc(deptName(p.department))+(deptInferred(p.department)?' <span class="pill">Example</span>':'')+'</td><td><div style="display:flex;gap:6px;align-items:center">'+avatar(pic,'sm')+'<span>'+esc(pic.name)+'</span></div></td><td data-testid="status-'+p.id+'">'+statusPill(st)+'</td><td>'+(v?'v'+esc(v.version):'—')+'</td><td>'+esc((st==='requested'||st==='revision')?duePhrase(p.due):fmt(p.due))+'</td><td class="small">'+esc(activity(p))+'</td><td><div class="acts">'+acts+'</div></td></tr>';
+  return '<tr data-testid="paper-row-'+p.id+'"><td><b>'+esc(p.agendaCode)+'</b></td><td><div>'+esc(p.title)+'</div><div class="tiny muted">'+esc(v&&v.fileName?v.fileName:officialName(m,p,v?v.version:'1.0'))+'</div>'+note+'</td><td>'+deptMark(p.department)+'</td><td>'+esc(pic.name)+'</td><td data-testid="status-'+p.id+'">'+statusPill(st)+'</td><td>'+(v?'v'+esc(v.version):'—')+'</td><td>'+esc((st==='requested'||st==='revision')?duePhrase(p.due):fmt(p.due))+'</td><td class="small">'+esc(activity(p))+'</td><td><div class="acts">'+acts+'</div></td></tr>';
  }).join('');
  return '<div class="tw"><table><thead><tr><th>#</th><th>Paper</th><th>Department</th><th>PIC</th><th>Status</th><th>Version</th><th>Due</th><th>Last activity</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
 }
@@ -922,7 +946,7 @@ function screenPaper(id){
  const st=displayStatus(p);
  const vers=versionsFor(p.id).slice().reverse().map(v=>versionCard(m,p,v,cur&&v.id===cur.id)).join('');
  const reviewers=(cur&&cur.reviewedBy||[]);
- const revBar=reviewers.length? reviewers.map(r=>{const who=person(r.personId); return '<span class="who">'+avatar(who,'sm')+' '+esc(who?who.name:'')+' · '+esc(r.at)+'</span>'}).join('') : '<span class="muted small">No one has marked this version reviewed yet.</span>';
+ const revBar=reviewers.length? reviewers.map(r=>{const who=person(r.personId); return '<span class="who">'+esc(who?who.name:'')+' · '+esc(r.at)+'</span>'}).join('') : '<span class="muted small">No one has marked this version reviewed yet.</span>';
  const access=state.people.filter(x=>x.kind==='director'||x.kind==='alternate'||x.kind==='former').map(dir=>{
   const g=gate(dir,m,p);
   return '<tr><td>'+esc(dir.name)+(dir.cessation?' <span class="pill">Resigned</span>':'')+'</td><td>'+(g.see?'<span class="pill ok">Can see the published version</span>':'<span class="pill warn">Cannot see it</span>')+'</td><td class="small">'+(g.see?'The published file is in their pack.':('<div class="why"><b>Why this director cannot see it</b>'+esc(g.reason)+'</div>'))+'</td></tr>';
@@ -938,7 +962,7 @@ function screenPaper(id){
  return '<div class="crumb"><button type="button" data-go="#/cosec/meeting/'+m.id+'">'+esc(meetingTitle(m))+'</button> · '+esc(p.agendaCode)+'</div>'
   +'<div class="top"><div><h1>'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub">'+esc(folderTitle(m))+'</div></div><span class="sp"></span>'+statusPill(st)+'</div>'
   +inflight
-  +'<div class="grid g2"><div class="card"><h2>This version</h2><div class="small" style="display:grid;grid-template-columns:140px 1fr;gap:6px 10px"><div class="muted">Official name</div><div>'+esc(cur?cur.fileName:'')+'</div><div class="muted">Department</div><div>'+esc(deptName(p.department))+(deptInferred(p.department)?' <span class="pill">Example</span>':'')+'</div><div class="muted">PIC</div><div style="display:flex;gap:6px;align-items:center">'+avatar(pic,'sm')+esc(pic.name)+(pic.sample?' <span class="tiny muted">sample name</span>':'')+'</div><div class="muted">Due</div><div>'+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="muted">Internal reference</div><div class="tiny">'+esc(internalRef(m,p))+'</div></div><div class="acts" style="margin-top:12px">'+acts.join('')+'</div></div>'
+  +'<div class="grid g2"><div class="card"><h2>This version</h2><div class="small" style="display:grid;grid-template-columns:140px 1fr;gap:6px 10px"><div class="muted">Official name</div><div>'+esc(cur?cur.fileName:'')+'</div><div class="muted">Department</div><div>'+deptMark(p.department)+'</div><div class="muted">PIC</div><div>'+esc(pic.name)+(pic.sample?' <span class="tiny muted">sample name</span>':'')+'</div><div class="muted">Due</div><div>'+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="muted">Internal reference</div><div class="tiny">'+esc(internalRef(m,p))+'</div></div><div class="acts" style="margin-top:12px">'+acts.join('')+'</div></div>'
   +'<div class="card"><h2>Reviewed by</h2><div class="revbar">'+revBar+'</div><p class="tiny muted">Publishing needs a COSEC click. The same officer may review and publish. The bar keeps everyone who marked this version.</p></div></div>'
   +'<div class="card" style="margin-top:14px"><h2>Preview</h2>'+previewBlock(m,p,cur&&cur.uploadedAt?cur:null)+'</div>'
   +'<div class="card" style="margin-top:14px"><h2>Versions</h2><p class="small muted">History is kept. A new version does not replace the old file.</p>'+vers+'</div>'
@@ -1028,7 +1052,7 @@ function screenPeople(){
  const pics=state.people.filter(p=>p.kind==='pic');
  const cos=state.people.filter(p=>p.kind==='cosec');
  const rowDir=dirs.map(p=>'<tr><td>'+esc(p.name)+(p.also?'<div class="tiny muted">'+esc(p.also)+'</div>':'')+'</td><td>'+esc(p.roleTitle)+'</td><td>'+esc(fmt(p.appointment))+'</td><td>'+(p.cessation?esc(fmt(p.cessation)):'—')+'</td><td>'+esc(committeeLine(p))+'</td><td>'+esc((p.companies||[]).map(id=>companyBy(id).short).join(', '))+'</td></tr>').join('');
- const rowPic=pics.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+esc(deptName(p.department))+(deptInferred(p.department)?' <span class="pill">Example</span>':'')+'</td><td>Sample name</td></tr>').join('');
+ const rowPic=pics.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+deptMark(p.department)+'</td><td>Sample name</td></tr>').join('');
  const rowC=cos.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+esc(p.roleTitle)+'</td></tr>').join('');
  return '<div class="top"><div><h1>People</h1><div class="sub">Directors are read from the public annual report and shown as sample data. PIC names are samples.</div></div></div>'
   +'<div class="card"><h2>Directors</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Ceased</th><th>Also sits on</th><th>Companies in this demo</th></tr></thead><tbody>'+rowDir+'</tbody></table></div>'
@@ -1086,7 +1110,7 @@ function screenPic(){
    +(open?'<button class="btn pri" type="button" data-go="#/upload/'+v.linkToken+'">Upload paper</button>':'<button class="btn" type="button" data-go="#/upload/'+(v?v.linkToken:'')+'">View receipt</button>')
    +'</div>';
  }).join('');
- return '<div class="top"><div><h1>My submissions</h1><div class="sub">'+esc(me.name)+' · '+esc(deptName(me.department||'cosec'))+'</div></div></div>'
+ return '<div class="top"><div><h1>My submissions</h1><div class="sub" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(me.name)+' · '+deptMark(me.department||'cosec')+'</div></div></div>'
   +'<div class="callout info">You cannot rename a paper or change it after you submit. If something needs to change, contact COSEC and they will send a new link.</div>'+cards;
 }
 
@@ -1094,7 +1118,7 @@ function screenUpload(tk){
  const v=versionByToken(tk);
  if(!v) return '<div class="upload-wrap"><div class="empty"><b>This link does not match a paper</b><div>Ask COSEC for a new submission link.</div></div></div>';
  const p=paper(v.paperId); const m=meeting(p.meetingId); const pic=person(p.picId);
- const head='<div class="upload-wrap"><div class="small muted">'+esc(companyBy(m.companyId).legalName)+'</div><h1 style="margin:6px 0 4px">'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub muted">'+esc(meetingTitle(m))+' · '+esc(fmt(m.date))+' · '+esc(deptName(p.department))+'</div>';
+ const head='<div class="upload-wrap"><div class="small muted">'+esc(companyBy(m.companyId).legalName)+'</div><h1 style="margin:6px 0 4px">'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub muted" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(meetingTitle(m))+' · '+esc(fmt(m.date))+' · '+deptMark(p.department)+'</div>';
  if(v.uploadedAt) return head+receiptHtml(m,p,v,pic)+versionsMine(p,v)+'</div>';
  const note=v.needsNote?'<div class="fld"><label for="reason">Reason for the new version</label><textarea id="reason" data-testid="reason" placeholder="Why is this being sent again?"></textarea></div><div class="fld"><label for="what">What changed</label><textarea id="what" data-testid="what" placeholder="What should COSEC look at?"></textarea></div>':'';
  return head+'<div class="card" style="margin-top:14px"><div class="pill '+(duePhrase(p.due)==='Due today'?'warn':'')+'">'+esc(duePhrase(p.due))+'</div><p>Hello '+esc(pic.name.split(' ')[0])+'. This page is only for your paper. Upload the paper. We will name it for you.</p><div class="official" data-testid="official-name">'+esc(v.fileName)+'</div><p class="small muted">Version v'+esc(v.version)+' · due '+esc(fmt(p.due))+'</p>'
