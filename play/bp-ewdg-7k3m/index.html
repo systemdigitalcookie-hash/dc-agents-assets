@@ -56,22 +56,26 @@ button{cursor:pointer}
 input,select,textarea{border:1px solid rgba(255,255,255,.85);border-radius:12px;padding:10px 12px;background:var(--panel-solid);width:100%}
 textarea{min-height:88px;resize:vertical}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.banner{background:rgba(255,237,214,.78);border-bottom:1px solid rgba(255,255,255,.75);color:#7c2d12;font-size:13.5px;padding:8px 16px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.banner b{color:#7c2d12}
+.banner{background:rgba(255,237,214,.78);border-bottom:1px solid rgba(255,255,255,.75);color:#7c2d12;font-size:12px;padding:4px 8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);line-height:1.35}
+.banner b{color:#7c2d12;font-size:6.75px;font-weight:700;line-height:1.2}
 .banner .sp{flex:1}
-.banner button,.banner .linkish{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:6px 12px;font-size:13px;color:#7c2d12}
+.banner button,.banner .linkish{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:999px;padding:2px 8px;font-size:11px;color:#7c2d12;min-height:0}
 .rolebar{background:rgba(255,255,255,.38);border-bottom:1px solid rgba(255,255,255,.6);padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.rolebar .lbl{font-size:12.5px;color:var(--muted);font-weight:700;letter-spacing:.02em}
-.seg{display:flex;border:1px solid rgba(255,255,255,.8);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.5)}
-.seg button{border:none;background:transparent;padding:8px 14px;min-height:42px;color:var(--ink)}
-.seg button+button{border-left:1px solid rgba(255,255,255,.7)}
-.seg button.on{background:var(--brand);color:#fff;font-weight:700}
+.rolebar .lbl{font-size:13px;color:var(--ink);font-weight:800;letter-spacing:.01em}
+.switchlbl{display:inline-flex;align-items:center;gap:6px}
+.switchlbl svg{width:16px;height:16px;display:block;stroke:var(--brand);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.seg{display:flex;border:1px solid #c4b5fd;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.72);box-shadow:0 4px 14px rgba(91,33,182,.16)}
+.seg button{border:none;background:transparent;padding:8px 16px;min-height:44px;color:#3b0764;font-weight:700}
+.seg button+button{border-left:1px solid #ddd6fe}
+.seg button:hover:not(.on){background:rgba(124,58,237,.14)}
+.seg button.on{background:linear-gradient(100deg,#5b21b6 0%,#9d174d 100%);color:#fff;font-weight:800}
+.seg button.on:hover{background:linear-gradient(100deg,#4c1d95 0%,#831843 100%)}
 .rolebar select{width:auto;min-width:240px;max-width:100%;min-height:42px}
 .hint{color:var(--muted);font-size:13px;flex-basis:100%}
 .app{display:flex;min-height:calc(100vh - 108px)}
 .side{width:248px;flex:0 0 248px;background:rgba(255,255,255,.46);color:var(--ink);padding:14px 10px 24px;position:sticky;top:0;height:100vh;overflow:auto;border-right:1px solid rgba(255,255,255,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
 .logo{display:flex;gap:10px;align-items:center;padding:4px 8px 14px;border-bottom:1px solid rgba(255,255,255,.7);margin-bottom:10px}
-.logo .mk{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#7c6cf0,#c084fc);display:grid;place-items:center;color:#fff;font-weight:800;letter-spacing:-.03em}
+.logoimg{width:64px;height:64px;border-radius:14px;object-fit:cover;display:block;flex:0 0 auto;box-shadow:0 6px 16px rgba(0,140,130,.28)}
 .logo .t1{color:var(--ink);font-weight:800;font-size:14px}.logo .t2{font-size:11.5px;color:var(--muted)}
 .nav .sec{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 8px 6px;font-weight:700}
 .nav button{display:flex;width:100%;text-align:left;align-items:center;gap:9px;padding:8px 12px;border-radius:999px;color:var(--ink);font-size:14.5px;background:none;border:none;font-weight:650}
@@ -230,7 +234,7 @@ body.upload-mode .burger{display:none !important}
 <div class="rolebar" id="rolebar"></div>
 <div class="app">
  <aside class="side" id="side">
-  <div class="logo"><div class="mk">EW</div><div><div class="t1">COSEC Meeting Papers</div><div class="t2">Eco World Development Group · demo</div></div></div>
+  <div class="logo"><img class="logoimg" src="ecoworld-logo.png" alt="EcoWorld"><div><div class="t1">COSEC Meeting Papers</div><div class="t2">Eco World Development Group</div></div></div>
   <nav class="nav" id="nav"></nav>
   <div class="foot">Corporate Secretariat demo for board and committee papers. Not connected to a live workspace.</div>
  </aside>
@@ -380,7 +384,7 @@ function cessationReason(p){
 }
 function gate(p, m, paperObj){
  if(p.cessation) return {see:false, reason:cessationReason(p)};
- if(m && !(p.companies||[]).includes(m.companyId)) return {see:false, reason:p.name+' is not a director of '+companyBy(m.companyId).legalName+' in this sample.'};
+ if(m && !(p.companies||[]).includes(m.companyId)) return {see:false, reason:p.name+' is not a director of '+companyBy(m.companyId).legalName+'.'};
  if(m && m.date < p.appointment) return {see:false, reason:'This meeting is dated '+fmt(m.date)+', which is before '+p.name+' was appointed on '+fmt(p.appointment)+'. Nothing earlier than the appointment date is shown.'};
  if(m && !seesBody(p, m.body)) return {see:false, reason:p.name+' does not sit on the '+BODIES[m.body]+'. Directors see Board packs, and only the committees they sit on.'};
  if(paperObj && !latestPublished(paperObj)) return {see:false, reason:'COSEC has not published this paper. Directors only see a paper after it is published. Current status: '+(STATUS_LABEL[displayStatus(paperObj)]||'')+'.'};
@@ -388,7 +392,7 @@ function gate(p, m, paperObj){
 }
 function resolutionGate(p, r){
  if(p.cessation) return {see:false, reason:cessationReason(p)};
- if(!(p.companies||[]).includes(r.companyId)) return {see:false, reason:p.name+' is not a director of this company in this sample.'};
+ if(!(p.companies||[]).includes(r.companyId)) return {see:false, reason:p.name+' is not a director of this company.'};
  if(r.date < p.appointment) return {see:false, reason:'This is dated '+fmt(r.date)+', before '+p.name+' was appointed on '+fmt(p.appointment)+'.'};
  if(!seesBody(p, r.body)) return {see:false, reason:p.name+' does not sit on the '+BODIES[r.body]+'.'};
  return {see:true, reason:''};
@@ -519,7 +523,7 @@ function personHint(p){
  if(p.id==='ng') return 'Sees the Board, Audit and Nomination, from 22 Jun 2023. Remuneration and Investment stay hidden.';
  if(p.id==='rejina') return 'Sees the Board and Remuneration only, from 20 Jun 2024. Nothing earlier, and no Audit pack.';
  if(p.id==='leong') return 'Resigned 31 Mar 2026. No access to papers or the Resource Centre.';
- if(p.id==='heah') return 'Sample assumption: as alternate director he can read Board packs, plus Investment Committee papers.';
+ if(p.id==='heah') return 'As alternate director he can read Board packs, plus Investment Committee papers.';
  if(p.cessation) return 'Access ended on '+fmt(p.cessation)+'.';
  return 'Appointment '+fmt(p.appointment)+'. '+committeeLine(p)+'.';
 }
@@ -535,17 +539,17 @@ function monthCirculars(companyId){
 function basePeople(){
  const D=(o)=>({companies:['EWDG'], committees:[], chairs:[], ...o});
  return [
-  D({id:'farah', name:'Farah Idris', initials:'FI', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'daniel', name:'Daniel Teh', initials:'DT', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'rahman', name:'A. Rahman', initials:'AR', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'slim', name:'S. Lim', initials:'SL', kind:'cosec', roleTitle:'COSEC officer (sample)', department:'cosec'}),
-  D({id:'fin', name:'Siti Aminah', initials:'SA', kind:'pic', roleTitle:'Finance PIC (sample name)', department:'finance', sample:true}),
-  D({id:'sus', name:'Amirul Hakim', initials:'AH', kind:'pic', roleTitle:'Sustainability PIC (sample name)', department:'sustainability', sample:true}),
-  D({id:'call', name:'Priya Nair', initials:'PN', kind:'pic', roleTitle:'Call Centre PIC (sample name)', department:'callcentre', sample:true}),
-  D({id:'legal', name:'Hannah Choong', initials:'HC', kind:'pic', roleTitle:'Legal PIC (sample name)', department:'legal', sample:true}),
-  D({id:'hr', name:'Mei Tan', initials:'MT', kind:'pic', roleTitle:'Human Resources PIC (sample name)', department:'hr', sample:true}),
-  D({id:'audit', name:'Rizal Ahmad', initials:'RA', kind:'pic', roleTitle:'Internal Audit PIC (sample name)', department:'audit', sample:true}),
-  D({id:'plan', name:'Hafiz Osman', initials:'HO', kind:'pic', roleTitle:'Corporate Planning PIC (sample name)', department:'planning', sample:true}),
+  D({id:'farah', name:'Farah Idris', initials:'FI', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'daniel', name:'Daniel Teh', initials:'DT', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'rahman', name:'A. Rahman', initials:'AR', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'slim', name:'S. Lim', initials:'SL', kind:'cosec', roleTitle:'COSEC officer', department:'cosec'}),
+  D({id:'fin', name:'Siti Aminah', initials:'SA', kind:'pic', roleTitle:'Finance PIC', department:'finance', sample:true}),
+  D({id:'sus', name:'Amirul Hakim', initials:'AH', kind:'pic', roleTitle:'Sustainability PIC', department:'sustainability', sample:true}),
+  D({id:'call', name:'Priya Nair', initials:'PN', kind:'pic', roleTitle:'Call Centre PIC', department:'callcentre', sample:true}),
+  D({id:'legal', name:'Hannah Choong', initials:'HC', kind:'pic', roleTitle:'Legal PIC', department:'legal', sample:true}),
+  D({id:'hr', name:'Mei Tan', initials:'MT', kind:'pic', roleTitle:'Human Resources PIC', department:'hr', sample:true}),
+  D({id:'audit', name:'Rizal Ahmad', initials:'RA', kind:'pic', roleTitle:'Internal Audit PIC', department:'audit', sample:true}),
+  D({id:'plan', name:'Hafiz Osman', initials:'HO', kind:'pic', roleTitle:'Corporate Planning PIC', department:'planning', sample:true}),
   D({id:'rashid', name:"Tan Sri Abdul Rashid bin Abdul Manaf", initials:'AR', kind:'director', roleTitle:'Founder & Non-Independent Non-Executive Director', appointment:'2013-11-29'}),
   D({id:'liew', name:"Tan Sri Dato' Sri Liew Kee Sin", initials:'LS', kind:'director', roleTitle:'Executive Chairman', appointment:'2014-05-05'}),
   D({id:'leong', name:"Dato' Leong Kok Wah", initials:'LW', kind:'former', roleTitle:'Non-Independent Non-Executive Director', appointment:'2013-11-29', cessation:'2026-03-31'}),
@@ -570,30 +574,30 @@ function baseCompanies(){
 function baseResources(){
  const row=(group,title,fileName)=>({id:uid('rs'), group, title, fileName, sample:true});
  return [
-  row('Constitution and charters','Constitution','Constitution (sample).pdf'),
-  row('Constitution and charters','Board Charter','Board Charter (sample).pdf'),
-  row('Constitution and charters','Audit Committee terms of reference','Audit Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Investment Committee terms of reference','Investment Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Nomination Committee terms of reference','Nomination Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Remuneration Committee terms of reference','Remuneration Committee terms of reference (sample).pdf'),
-  row('Constitution and charters','Whistleblowing Committee terms of reference','Whistleblowing Committee terms of reference (sample).pdf'),
-  row('Policies','Code of conduct','Code of conduct (sample).pdf'),
-  row('Policies','Anti-bribery (MACC s.17A)','Anti-bribery policy (sample).pdf'),
-  row('Policies','Whistleblowing policy','Whistleblowing policy (sample).pdf'),
-  row('Policies','Fit and proper policy','Fit and proper policy (sample).pdf'),
-  row('Policies','Related-party transaction policy','Related-party transaction policy (sample).pdf'),
-  row('Reports','FY2025 Integrated Annual Report','FY2025 Integrated Annual Report (public cover, sample file).pdf'),
-  row('Reports','FY2025 Sustainability Report','FY2025 Sustainability Report (sample file).pdf'),
-  row('Reports','FY2025 Corporate Governance Report','FY2025 Corporate Governance Report (sample file).pdf'),
-  row('Oversight','Audit Oversight Board annual inspection report','AOB inspection report (sample cover).pdf'),
-  row('Oversight','Baker Tilly transparency report','Baker Tilly transparency report (sample cover).pdf'),
-  row('Market rules','Bursa Malaysia Main Market Listing Requirements — guidelines and letters','Bursa guidelines and letters (sample).pdf'),
-  row('Market rules','Malaysian Code on Corporate Governance (MCCG)','MCCG (sample copy).pdf'),
-  row('Housekeeping','Board calendar FY2026/2027 (display only)','Board calendar FY2026-2027 (sample).pdf'),
-  row('Housekeeping','Group structure (public chart, schematic)','Group structure schematic (sample).pdf'),
-  row('Housekeeping','Director onboarding pack and training records','Director onboarding pack (sample).pdf'),
-  row('Housekeeping',"Companies Act 2016 directors' duties handbook","Directors' duties handbook (sample).pdf"),
-  row('Housekeeping','Conflict of interest and declaration forms','Conflict of interest forms (sample).pdf')
+  row('Constitution and charters','Constitution','Constitution.pdf'),
+  row('Constitution and charters','Board Charter','Board Charter.pdf'),
+  row('Constitution and charters','Audit Committee terms of reference','Audit Committee terms of reference.pdf'),
+  row('Constitution and charters','Investment Committee terms of reference','Investment Committee terms of reference.pdf'),
+  row('Constitution and charters','Nomination Committee terms of reference','Nomination Committee terms of reference.pdf'),
+  row('Constitution and charters','Remuneration Committee terms of reference','Remuneration Committee terms of reference.pdf'),
+  row('Constitution and charters','Whistleblowing Committee terms of reference','Whistleblowing Committee terms of reference.pdf'),
+  row('Policies','Code of conduct','Code of conduct.pdf'),
+  row('Policies','Anti-bribery (MACC s.17A)','Anti-bribery policy.pdf'),
+  row('Policies','Whistleblowing policy','Whistleblowing policy.pdf'),
+  row('Policies','Fit and proper policy','Fit and proper policy.pdf'),
+  row('Policies','Related-party transaction policy','Related-party transaction policy.pdf'),
+  row('Reports','FY2025 Integrated Annual Report','FY2025 Integrated Annual Report (public cover).pdf'),
+  row('Reports','FY2025 Sustainability Report','FY2025 Sustainability Report.pdf'),
+  row('Reports','FY2025 Corporate Governance Report','FY2025 Corporate Governance Report.pdf'),
+  row('Oversight','Audit Oversight Board annual inspection report','AOB inspection report.pdf'),
+  row('Oversight','Baker Tilly transparency report','Baker Tilly transparency report.pdf'),
+  row('Market rules','Bursa Malaysia Main Market Listing Requirements — guidelines and letters','Bursa guidelines and letters.pdf'),
+  row('Market rules','Malaysian Code on Corporate Governance (MCCG)','MCCG.pdf'),
+  row('Housekeeping','Board calendar FY2026/2027 (display only)','Board calendar FY2026-2027.pdf'),
+  row('Housekeeping','Group structure (public chart, schematic)','Group structure schematic.pdf'),
+  row('Housekeeping','Director onboarding pack and training records','Director onboarding pack.pdf'),
+  row('Housekeeping',"Companies Act 2016 directors' duties handbook","Directors' duties handbook.pdf"),
+  row('Housekeeping','Conflict of interest and declaration forms','Conflict of interest forms.pdf')
  ];
 }
 
@@ -627,14 +631,14 @@ function seed(){
   return p;
  }
  const rv=(id,at)=>({personId:id, at});
- const acm=M({id:'m-acm-01', companyId:'EWDG', body:'ACM', number:'01', date:'2026-11-04', venue:'Meeting room (sample)'});
- const bodm=M({id:'m-bodm-01', companyId:'EWDG', body:'BODM', number:'01', date:'2026-12-09', venue:'Boardroom (sample)'});
- const icm=M({id:'m-icm-01', companyId:'EWDG', body:'ICM', number:'01', date:'2026-11-20', venue:'Meeting room (sample)'});
- const ncm=M({id:'m-ncm-01', companyId:'EWDG', body:'NCM', number:'01', date:'2026-07-15', venue:'Meeting room (sample)'});
- const rcm=M({id:'m-rcm-01', companyId:'EWDG', body:'RCM', number:'01', date:'2026-08-18', venue:'Meeting room (sample)'});
- const rcmOld=M({id:'m-rcm-old', companyId:'EWDG', body:'RCM', number:'01', date:'2024-03-14', venue:'Meeting room (sample)'});
- const acmOld=M({id:'m-acm-old', companyId:'EWDG', body:'ACM', number:'02', date:'2024-06-12', venue:'Meeting room (sample)'});
- const ebp=M({id:'m-ebp-01', companyId:'EBP1', body:'BODM', number:'01', date:'2026-11-18', venue:'Meeting room (sample)'});
+ const acm=M({id:'m-acm-01', companyId:'EWDG', body:'ACM', number:'01', date:'2026-11-04', venue:'Meeting room'});
+ const bodm=M({id:'m-bodm-01', companyId:'EWDG', body:'BODM', number:'01', date:'2026-12-09', venue:'Boardroom'});
+ const icm=M({id:'m-icm-01', companyId:'EWDG', body:'ICM', number:'01', date:'2026-11-20', venue:'Meeting room'});
+ const ncm=M({id:'m-ncm-01', companyId:'EWDG', body:'NCM', number:'01', date:'2026-07-15', venue:'Meeting room'});
+ const rcm=M({id:'m-rcm-01', companyId:'EWDG', body:'RCM', number:'01', date:'2026-08-18', venue:'Meeting room'});
+ const rcmOld=M({id:'m-rcm-old', companyId:'EWDG', body:'RCM', number:'01', date:'2024-03-14', venue:'Meeting room'});
+ const acmOld=M({id:'m-acm-old', companyId:'EWDG', body:'ACM', number:'02', date:'2024-06-12', venue:'Meeting room'});
+ const ebp=M({id:'m-ebp-01', companyId:'EBP1', body:'BODM', number:'01', date:'2026-11-18', venue:'Meeting room'});
 
  const pub=(vid, token, by, at, label, reviewers)=>({vid, version:'1.0', status:'published', token, uploadedAt:at, label, by, publishedBy:by, publishedAt:at, reviewedBy:reviewers||[rv('farah', label)], pages:4});
  [
@@ -810,7 +814,6 @@ function rolebar(){
   if(x.cessation) tag+=' (resigned)';
   else if(x.kind==='alternate') tag+=' (alternate)';
   else if(x.sample) tag+=' · '+deptName(x.department);
-  else if(x.kind==='cosec') tag+=' (sample)';
   return '<option value="'+x.id+'"'+(x.id===p.id?' selected':'')+'>'+esc(tag)+'</option>';
  }).join('');
  let company='';
@@ -824,7 +827,7 @@ function rolebar(){
   }
  }
  return '<button type="button" class="burger" id="burger" aria-label="Open menu">Menu</button>'
-  +'<span class="lbl">Viewing as</span><div class="seg" role="group" aria-label="Role">'+seg+'</div>'
+  +'<span class="lbl switchlbl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11M15 4l3 3-3 3M17 17H6M9 14l-3 3 3 3"/></svg> Viewing as</span><div class="seg" role="group" aria-label="Role">'+seg+'</div>'
   +'<label class="lbl" for="personSel">Person</label><select id="personSel" aria-label="Person">'+sel+'</select>'
   +company
   +'<div class="hint">'+esc(personHint(p))+'</div>';
@@ -832,7 +835,7 @@ function rolebar(){
 
 function docHtml(m, p, v){
  const co=companyBy(m.companyId);
- return '<article class="docpage"><div class="co">'+esc(co.legalName.toUpperCase())+'</div><div class="reg">Registration no. '+esc(co.regNo)+'</div><div class="meta" style="margin-top:10px">'+esc(meetingTitle(m))+'</div><h2>'+esc(p.agendaCode+' '+p.title)+'</h2><div class="meta">Version '+esc(v.version)+' · '+esc(v.pages||4)+' pages (sample) · not a real paper</div><p>This is a sample first page for the demo. It is not a Board paper and it does not contain real figures.</p><p>The page stands in for “'+esc(p.title)+'”, so you can see the name COSEC set and the version that was submitted.</p><div class="foot">Sample data · not for circulation</div></article>';
+ return '<article class="docpage"><div class="co">'+esc(co.legalName.toUpperCase())+'</div><div class="reg">Registration no. '+esc(co.regNo)+'</div><div class="meta" style="margin-top:10px">'+esc(meetingTitle(m))+'</div><h2>'+esc(p.agendaCode+' '+p.title)+'</h2><div class="meta">Version '+esc(v.version)+' · '+esc(v.pages||4)+' pages · not a real paper</div><p>This first page is for the demo. It is not a Board paper and it does not contain real figures.</p><p>The page stands in for “'+esc(p.title)+'”, so you can see the name COSEC set and the version that was submitted.</p><div class="foot">Not for circulation</div></article>';
 }
 function previewBlock(m,p,v){
  if(!v) return '<div class="empty"><b>No file yet</b><div>The department has not uploaded this version.</div></div>';
@@ -884,7 +887,6 @@ function screenHome(){
    +'<div class="empty"><b>No pack this month</b><div>COSEC has not opened a meeting pack for '+esc(co.legalName)+'. When a meeting is added, papers and submission links will show here.</div></div>';
  }
  const m=focus.meeting;
- const t=tally(m);
  const saved=timeSaved(state.companyId);
  const month=monthCirculars(state.companyId);
  const sentN=month.length;
@@ -893,20 +895,11 @@ function screenHome(){
  return '<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn" type="button" data-act="create-meeting">New meeting</button>'
   +'<button class="btn pri" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'">Create submission link</button></div>'
-  +'<div class="callout '+(focus.upcoming?'warn':'info')+'"><b>'+(focus.upcoming?duePhrase(m.packDue):'This meeting date has passed')+'.</b> Pack due '+esc(fmt(m.packDue))+' · 5 business days before the meeting (sample rule). Demo clock: '+esc(fmt(DEMO_TODAY))+'.'+(focus.upcoming?'':' Showing the latest pack for this company.')+'</div>'
-  +'<div class="grid g4" style="margin-bottom:14px">'
-  +kpi(t.withFile+' / '+t.total,'Papers submitted','Current version has a file')
-  +kpi(String(t.published),'Published','Released to directors who may read them')
-  +kpi(String(t.submitted),'Waiting for review','Submitted and locked')
-  +kpi(String(t.requested+(t.revision||0)),'Still requested', t.revision? t.revision+' of these are new versions':'No file yet')
-  +'</div>'
-  +'<div class="card" style="margin-bottom:14px"><div class="packcount">'+t.published+' of '+t.total+' published</div>'+packDots(t)
-  +(t.inflight?'<div class="small muted" style="margin-top:8px">Directors can already read '+t.visible+'. '+t.inflight+' paper'+(t.inflight===1?' has':'s have')+' a newer file that is not published yet. They still see the last published version.</div>':'')
-  +'</div>'
+  +'<div class="callout '+(focus.upcoming?'warn':'info')+'"><b>'+(focus.upcoming?duePhrase(m.packDue):'This meeting date has passed')+'.</b> Pack due '+esc(fmt(m.packDue))+' · 5 business days before the meeting. Demo clock: '+esc(fmt(DEMO_TODAY))+'.'+(focus.upcoming?'':' Showing the latest pack for this company.')+'</div>'
   +'<div class="card" style="margin-bottom:14px"><h2>Papers by step</h2><p class="small muted" style="margin-top:0">One card is one paper. The number on each column is how many papers are there. Choose a card to open it.</p>'+kanban(m)+'</div>'
   +papersTable(m, true)
   +'<div class="grid g3" style="margin-top:14px">'
-  +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026 · sample count from this pack</div></button>'
+  +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026</div></button>'
   +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+recvN+'</div><div class="l">Acknowledgements received this month</div><div class="d">Each director acknowledgement is counted once</div></button>'
   +'<button class="card kpi" type="button" data-go="#/cosec/time" style="text-align:left"><div class="v">'+esc(aboutHours(saved.packMins).replace('About ',''))+'</div><div class="l">Time saved on this pack</div><div class="d">Illustrative · '+esc(aboutHours(saved.fyMins))+' this financial year</div></button>'
   +'</div>'
@@ -1015,7 +1008,7 @@ function screenPaper(id){
  return '<div class="crumb"><button type="button" data-go="#/cosec/meeting/'+m.id+'">'+esc(meetingTitle(m))+'</button> · '+esc(p.agendaCode)+'</div>'
   +'<div class="top"><div><h1>'+esc(p.agendaCode+' '+p.title)+'</h1><div class="sub">'+esc(folderTitle(m))+'</div></div><span class="sp"></span>'+statusPill(st)+'</div>'
   +inflight
-  +'<div class="grid g2"><div class="card"><h2>This version</h2><div class="small" style="display:grid;grid-template-columns:140px 1fr;gap:6px 10px"><div class="muted">Official name</div><div>'+esc(cur?cur.fileName:'')+'</div><div class="muted">Department</div><div>'+deptMark(p.department)+'</div><div class="muted">PIC</div><div>'+esc(pic.name)+(pic.sample?' <span class="tiny muted">sample name</span>':'')+'</div><div class="muted">Due</div><div>'+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="muted">Internal reference</div><div class="tiny">'+esc(internalRef(m,p))+'</div></div><div class="acts" style="margin-top:12px">'+acts.join('')+'</div></div>'
+  +'<div class="grid g2"><div class="card"><h2>This version</h2><div class="small" style="display:grid;grid-template-columns:140px 1fr;gap:6px 10px"><div class="muted">Official name</div><div>'+esc(cur?cur.fileName:'')+'</div><div class="muted">Department</div><div>'+deptMark(p.department)+'</div><div class="muted">PIC</div><div>'+esc(pic.name)+'</div><div class="muted">Due</div><div>'+esc(fmt(p.due))+' · '+esc(duePhrase(p.due))+'</div><div class="muted">Internal reference</div><div class="tiny">'+esc(internalRef(m,p))+'</div></div><div class="acts" style="margin-top:12px">'+acts.join('')+'</div></div>'
   +'<div class="card"><h2>Reviewed by</h2><div class="revbar">'+revBar+'</div><p class="tiny muted">Publishing needs a COSEC click. The same officer may review and publish. The bar keeps everyone who marked this version.</p></div></div>'
   +'<div class="card" style="margin-top:14px"><h2>Preview</h2>'+previewBlock(m,p,cur&&cur.uploadedAt?cur:null)+'</div>'
   +'<div class="card" style="margin-top:14px"><h2>Versions</h2><p class="small muted">History is kept. A new version does not replace the old file.</p>'+vers+'</div>'
@@ -1055,11 +1048,11 @@ function screenResolutions(admin){
  const sentN=month.length;
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).length,0);
  let head='<div class="top"><div><h1>Resolutions & minutes</h1><div class="sub">'+esc(companyBy(co).legalName)+'</div></div>';
- if(admin) head+='<span class="sp"></span><button class="btn pri" type="button" data-act="circulate">Circulate a sample resolution</button></div>';
+ if(admin) head+='<span class="sp"></span><button class="btn pri" type="button" data-act="circulate">Circulate a resolution</button></div>';
  else head+='</div>';
  const counts=admin? '<div class="grid g2" style="margin-bottom:14px">'+kpi(String(sentN),'Sent this month','Circular resolutions in December 2026')+kpi(String(recvN),'Received this month','Acknowledgements on those circulars')+'</div>' : directorResSummary(me);
  if(!admin && me.cessation) return head+'<div class="ended" data-testid="access-ended"><b>Access ended on '+esc(fmt(me.cessation))+'.</b><div>Resolutions and minutes are not available.</div></div>';
- if(!list.length) return head+counts+'<div class="empty"><b>Nothing to show</b><div>'+(admin?'Circulate a sample resolution, or switch company.':'Nothing in your committees falls on or after your appointment date.')+'</div></div>';
+ if(!list.length) return head+counts+'<div class="empty"><b>Nothing to show</b><div>'+(admin?'Circulate a resolution, or switch company.':'Nothing in your committees falls on or after your appointment date.')+'</div></div>';
  const rows=list.map(r=>{
   const typeLab={DCR:'Directors’ circular', ACCR:'Audit Committee circular', minutes:'Minutes', members:'Members’ meeting'}[r.type]||r.type;
   const mine=!admin && (r.type==='DCR'||r.type==='ACCR');
@@ -1078,7 +1071,7 @@ function directorResSummary(p){
  const all=circularsFor(p);
  const got=all.filter(r=>(r.receivedFrom||[]).includes(p.id));
  const q=quarterRange();
- return '<div class="card" style="margin-bottom:14px"><b>Circular resolutions sent to you this quarter: '+all.length+'.</b> Acknowledged: '+got.length+'.<div class="small muted">'+esc(q.label)+'. Sample count.</div></div>';
+ return '<div class="card" style="margin-bottom:14px"><b>Circular resolutions sent to you this quarter: '+all.length+'.</b> Acknowledged: '+got.length+'.<div class="small muted">'+esc(q.label)+'.</div></div>';
 }
 function screenResources(admin){
  const me=currentPerson();
@@ -1091,13 +1084,13 @@ function screenResources(admin){
  const body=[...groups.entries()].map(([g, items])=>'<div class="folder"><h2>'+esc(g)+'</h2><div class="card">'+items.map(it=>'<div class="pack"><div><b>'+esc(it.title)+'</b><div class="tiny muted">'+esc(it.fileName)+'</div></div><button class="btn sm" type="button" data-act="resource" data-id="'+it.id+'">Open</button></div>').join('')+'</div></div>').join('');
  const add=admin?'<button class="btn" type="button" data-act="add-resource">Add a resource</button>':'';
  const note=admin?'':'<div class="callout info">The Resource Centre is open to every current director. It is not limited by appointment date or by committee.</div>';
- return '<div class="top"><div><h1>Resource Centre</h1><div class="sub">Reference material for directors. Sample files.</div></div><span class="sp"></span>'+add+'</div>'+note+body;
+ return '<div class="top"><div><h1>Resource Centre</h1><div class="sub">Reference material for directors.</div></div><span class="sp"></span>'+add+'</div>'+note+body;
 }
 function screenTime(){
  const s=timeSaved(state.companyId);
  return '<div class="top"><div><h1>Time saved</h1><div class="sub">An illustration for this demo. It is not an audited figure.</div></div></div>'
   +'<div class="grid g2"><div class="card kpi"><div class="v">'+esc(aboutHours(s.packMins))+'</div><div class="l">saved on '+esc(s.packName)+'</div><div class="d">'+s.packPapers+' submitted paper'+(s.packPapers===1?'':'s')+' × '+s.minP+' minutes. A finished pack also adds '+s.minK+' minutes, once every paper is published.</div></div>'
-  +'<div class="card kpi"><div class="v">'+esc(aboutHours(s.fyMins))+'</div><div class="l">this financial year (illustrative)</div><div class="d">'+s.fyMeetings+' meeting'+(s.fyMeetings===1?'':'s')+' so far in '+fyOf(DEMO_TODAY).y1+'.'+fyOf(DEMO_TODAY).y2+', of which '+s.packs+' pack'+(s.packs===1?' is':'s are')+' fully published. Sample.</div></div></div>'
+  +'<div class="card kpi"><div class="v">'+esc(aboutHours(s.fyMins))+'</div><div class="l">this financial year (illustrative)</div><div class="d">'+s.fyMeetings+' meeting'+(s.fyMeetings===1?'':'s')+' so far in '+fyOf(DEMO_TODAY).y1+'.'+fyOf(DEMO_TODAY).y2+', of which '+s.packs+' pack'+(s.packs===1?' is':'s are')+' fully published.</div></div></div>'
   +'<div class="card" style="margin-top:14px"><h2>Assumptions you can change</h2><div class="row2"><div class="fld"><label for="calcPaper">Minutes saved per paper</label><input id="calcPaper" type="number" min="0" step="5" value="'+esc(state.calc.minPaper)+'"></div><div class="fld"><label for="calcPack">Minutes saved per finished pack</label><input id="calcPack" type="number" min="0" step="5" value="'+esc(state.calc.minPack)+'"></div></div><p class="small muted">Default: 25 minutes for not chasing a paper, uploading it twice, and copying pages for access. 90 minutes for not building a second copy of a finished pack. Change the numbers to try a different illustration.</p><div id="calcOut"></div></div>';
 }
 function screenPeople(){
@@ -1105,14 +1098,14 @@ function screenPeople(){
  const pics=state.people.filter(p=>p.kind==='pic');
  const cos=state.people.filter(p=>p.kind==='cosec');
  const rowDir=dirs.map(p=>'<tr><td>'+esc(p.name)+(p.also?'<div class="tiny muted">'+esc(p.also)+'</div>':'')+'</td><td>'+esc(p.roleTitle)+'</td><td>'+esc(fmt(p.appointment))+'</td><td>'+(p.cessation?esc(fmt(p.cessation)):'—')+'</td><td>'+esc(committeeLine(p))+'</td><td>'+esc((p.companies||[]).map(id=>companyBy(id).short).join(', '))+'</td></tr>').join('');
- const rowPic=pics.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+deptMark(p.department)+'</td><td>Sample name</td></tr>').join('');
+ const rowPic=pics.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+deptMark(p.department)+'</td></tr>').join('');
  const rowC=cos.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+esc(p.roleTitle)+'</td></tr>').join('');
- return '<div class="top"><div><h1>People</h1><div class="sub">Directors are read from the public annual report and shown as sample data. PIC names are samples.</div></div></div>'
+ return '<div class="top"><div><h1>People</h1><div class="sub">Directors are from the public annual report. Department contacts are for this demo.</div></div></div>'
   +'<div class="card"><h2>Directors</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th><th>Appointed</th><th>Ceased</th><th>Also sits on</th><th>Companies in this demo</th></tr></thead><tbody>'+rowDir+'</tbody></table></div>'
-  +'<p class="small muted">Subsidiary seats are a sample so the company switch can be tried: Datuk Heah Kok Boon on Eco Business Park 1, and Dato’ Chang Khim Wah on Eco Botanic. Statutory company secretaries (external, from the public annual report) are Chua Siew Chuan and Tan Ley Theng of Securities Services (Holdings) Sdn. Bhd. They are not operators of this demo. Auditor: Baker Tilly Monteiro Heng PLT.</p></div>'
-  +'<div class="grid g2" style="margin-top:14px"><div class="card"><h2>Department PICs</h2><div class="tw"><table><thead><tr><th>Name</th><th>Department</th><th></th></tr></thead><tbody>'+rowPic+'</tbody></table></div><p class="tiny muted">Finance, Sustainability and Call Centre are the departments used for this demo. Departments marked Example are not an official organisation chart.</p></div>'
-  +'<div class="card"><h2>COSEC officers in this demo</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th></tr></thead><tbody>'+rowC+'</tbody></table></div><p class="tiny muted">These four names are samples for the reviewed-by bar. They are not a staff list.</p></div></div>'
-  +'<div class="card" id="assumptions" style="margin-top:14px"><h2>Assumptions in this sample</h2><ul>'
+  +'<p class="small muted">Subsidiary seats let you try the company switch: Datuk Heah Kok Boon on Eco Business Park 1, and Dato’ Chang Khim Wah on Eco Botanic. Statutory company secretaries (external, from the public annual report) are Chua Siew Chuan and Tan Ley Theng of Securities Services (Holdings) Sdn. Bhd. They are not operators of this demo. Auditor: Baker Tilly Monteiro Heng PLT.</p></div>'
+  +'<div class="grid g2" style="margin-top:14px"><div class="card"><h2>Department PICs</h2><div class="tw"><table><thead><tr><th>Name</th><th>Department</th></tr></thead><tbody>'+rowPic+'</tbody></table></div><p class="tiny muted">Finance, Sustainability and Call Centre are the departments used for this demo. Departments marked Example are not an official organisation chart.</p></div>'
+  +'<div class="card"><h2>COSEC officers in this demo</h2><div class="tw"><table><thead><tr><th>Name</th><th>Role</th></tr></thead><tbody>'+rowC+'</tbody></table></div><p class="tiny muted">These four names are for the reviewed-by bar. They are not a staff list.</p></div></div>'
+  +'<div class="card" id="assumptions" style="margin-top:14px"><h2>Assumptions</h2><ul>'
   +'<li>The department submits and the file locks. Directors see it only after COSEC publishes it.</li>'
   +'<li>The pack is due 5 business days before the meeting. For the 9 Dec 2026 Board meeting, that is 2 Dec 2026.</li>'
   +'<li>Due dates are shown as at 2 Dec 2026, so the December story stays in place.</li>'
@@ -1177,7 +1170,7 @@ function screenUpload(tk){
  return head+'<div class="card" style="margin-top:14px"><div class="pill '+(duePhrase(p.due)==='Due today'?'warn':'')+'">'+esc(duePhrase(p.due))+'</div><p>Hello '+esc(pic.name.split(' ')[0])+'. This page is only for your paper. Upload the paper. We will name it for you.</p><div class="official" data-testid="official-name">'+esc(v.fileName)+'</div><p class="small muted">Version v'+esc(v.version)+' · due '+esc(fmt(p.due))+'</p>'
   +note
   +'<label class="drop" id="drop"><div class="big">Drop the file here</div><div>or click to choose a PDF or Office file</div><div class="small" id="fileLabel">No file chosen yet</div><input id="file" data-testid="file" type="file"></label>'
-  +'<div class="acts" style="margin-top:12px"><button class="btn" type="button" id="sampleBtn">Use a sample file</button><button class="btn pri" type="button" id="submitBtn" data-testid="submit-upload" disabled>Submit paper</button></div>'
+  +'<div class="acts" style="margin-top:12px"><button class="btn" type="button" id="sampleBtn">Use an example file</button><button class="btn pri" type="button" id="submitBtn" data-testid="submit-upload" disabled>Submit paper</button></div>'
   +'<p class="tiny muted">After you submit, the file is locked. You will get a receipt. COSEC is told that it has arrived. This demo does not send email.</p></div></div>';
 }
 function receiptHtml(m,p,v,pic){
@@ -1212,7 +1205,7 @@ function screenDirHome(){
  const me=currentPerson();
  const co=companyBy(state.companyId);
  if(me.cessation || !(me.companies||[]).includes(state.companyId)){
-  const reason=me.cessation? cessationReason(me) : me.name+' is not a director of '+co.legalName+' in this sample.';
+  const reason=me.cessation? cessationReason(me) : me.name+' is not a director of '+co.legalName+' .';
   return '<div data-testid="director-home"><div class="top"><div><h1>Hello, '+esc(me.name)+'</h1><div class="sub">'+esc(me.roleTitle)+'</div></div></div><div class="ended" data-testid="access-ended"><b>'+(me.cessation?'Access ended on '+esc(fmt(me.cessation))+'.':'No packs for this company.')+'</b><div>'+esc(reason)+'</div></div></div>';
  }
  const ms=visibleMeetings(me);
@@ -1221,7 +1214,7 @@ function screenDirHome(){
  const packs=(list)=> list.length? list.map(m=>packCard(me,m)).join('') : '';
  const awaiting=state.resolutions.filter(r=> (r.type==='DCR'||r.type==='ACCR') && r.companyId===state.companyId && resolutionGate(me,r).see && (r.sentTo||[]).includes(me.id) && !(r.receivedFrom||[]).includes(me.id) && r.status!=='filed');
  return '<div data-testid="director-home"><div class="top"><div><h1>Hello, '+esc(me.name)+'</h1><div class="sub">'+esc(me.roleTitle)+'<br>'+esc(committeeLine(me))+' · appointed '+esc(fmt(me.appointment))+'</div></div></div>'
-  +(me.kind==='alternate'?'<div class="callout info">Sample assumption: as Alternate Director you can read Board packs, and Investment Committee papers because you are the management representative on that committee.</div>':'')
+  +(me.kind==='alternate'?'<div class="callout info">As alternate director you can read Board packs, and Investment Committee papers because you are the management representative on that committee.</div>':'')
   +'<div class="card" style="margin-bottom:14px"><h2>Packs you can read</h2>'
   +(upcoming.length?'<div class="tiny muted">Coming up</div>'+packs(upcoming):'<div class="empty"><b>No upcoming pack</b><div>When COSEC publishes papers for a meeting you sit on, they will show here.</div></div>')
   +(recent.length?'<div class="tiny muted" style="margin-top:10px">Already circulated</div>'+packs(recent):'')
@@ -1296,7 +1289,7 @@ function openCreateMeeting(){
   +'<div class="fld"><label for="m-num">Meeting number</label><input id="m-num" name="number" inputmode="numeric" value="01"></div></div>'
   +'<div class="row2"><div class="fld"><label for="m-date">Meeting date</label><input id="m-date" name="date" type="date" value="2027-03-10"></div>'
   +'<div class="fld"><label for="m-due">Pack due</label><input id="m-due" name="due" type="date" value="'+businessDaysBefore('2027-03-10',5)+'"></div></div>'
-  +'<div class="fld"><label for="m-venue">Venue (optional)</label><input id="m-venue" name="venue" placeholder="Boardroom (sample)"></div>'
+  +'<div class="fld"><label for="m-venue">Venue (optional)</label><input id="m-venue" name="venue" placeholder="Boardroom"></div>'
   +'<div class="linkcard"><div class="tiny muted">Folder and meeting name</div><div id="meetPrev" class="official" style="font-size:16px"></div></div>'
   +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Create meeting</button></div></form>');
  const form=$('#f-meet');
@@ -1342,7 +1335,7 @@ function openCreateLink(meetingId){
   const dept=form.dept.value;
   const pics=state.people.filter(p=>p.department===dept && (p.kind==='pic'||p.kind==='cosec'));
   const keep=form.pic.value;
-  form.pic.innerHTML=pics.map(p=>'<option value="'+p.id+'">'+esc(p.name)+(p.sample?' (sample)':'')+'</option>').join('') || '<option value="">No one in this department</option>';
+  form.pic.innerHTML=pics.map(p=>'<option value="'+p.id+'">'+esc(p.name)+'</option>').join('') || '<option value="">No one in this department</option>';
   if(keep && pics.some(p=>p.id===keep)) form.pic.value=keep;
  };
  const upd=()=>{
@@ -1452,7 +1445,7 @@ function bindDynamic(){
   ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev, e=>{e.preventDefault(); drop.classList.add('over')}));
   ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev, e=>{e.preventDefault(); drop.classList.remove('over')}));
   drop.addEventListener('drop', e=>{ const f=e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) setFile(f); });
-  $('#sampleBtn').addEventListener('click', ()=>{ pendingFile=null; pendingSample=true; file.value=''; $('#fileLabel').textContent='Sample file ready'; submit.disabled=false; });
+  $('#sampleBtn').addEventListener('click', ()=>{ pendingFile=null; pendingSample=true; file.value=''; $('#fileLabel').textContent='Example file ready'; submit.disabled=false; });
   submit.addEventListener('click', ()=>submitUpload());
  }
 }
@@ -1489,8 +1482,8 @@ function extOf(file){
 }
 
 function openAssumptions(){
- openModal('<div class="hd"><h2>About this sample</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><ul>'
-  +'<li>Director names, roles and appointment dates are from the public FY2025 Integrated Annual Report. They are shown as sample data.</li>'
+ openModal('<div class="hd"><h2>About this demo</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><ul>'
+  +'<li>Director names, roles and appointment dates are from the public FY2025 Integrated Annual Report. The meetings and papers on this demo are made up.</li>'
   +'<li>Meetings, papers, uploads and the PIC names are made-up.</li>'
   +'<li>Submitting locks the file. Directors see it only after COSEC publishes it.</li>'
   +'<li>A new version is a new link from COSEC, for example v3.1. The old file stays.</li>'
@@ -1500,7 +1493,7 @@ function openAssumptions(){
   +'</ul></div><div class="ft"><button class="btn pri" type="button" data-act="close">Close</button></div>');
 }
 function askReset(){
- openModal('<div class="hd"><h2>Reset demo data</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><p>This puts the sample pack back. Uploads and changes in this browser will be cleared.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Keep my changes</button><button class="btn pri" type="button" data-testid="confirm-reset" data-act="do-reset">Reset demo data</button></div>');
+ openModal('<div class="hd"><h2>Reset demo data</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><p>This puts the demo pack back. Uploads and changes in this browser will be cleared.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Keep my changes</button><button class="btn pri" type="button" data-testid="confirm-reset" data-act="do-reset">Reset demo data</button></div>');
 }
 function doReset(){
  state=seed(); pendingFile=null; pendingSample=false; save(); closeOverlays();
@@ -1572,7 +1565,7 @@ function onSubmit(e){
 function openFile(act, id){
  if(act==='resource'){
   const it=state.resources.find(r=>r.id===id);
-  openDrawer(esc(it.title), '<p class="muted">Sample file · '+esc(it.fileName)+'</p><article class="docpage"><div class="co">RESOURCE CENTRE</div><h2>'+esc(it.title)+'</h2><p>This is a sample cover. It is not the real document.</p><div class="foot">Sample data</div></article><div class="acts" style="margin-top:12px"><button class="btn" type="button" data-act="toast-dl">Download</button></div>');
+  openDrawer(esc(it.title), '<p class="muted">'+esc(it.fileName)+'</p><article class="docpage"><div class="co">RESOURCE CENTRE</div><h2>'+esc(it.title)+'</h2><p>This cover is for the demo. It is not the real document.</p><div class="foot">Not for circulation</div></article><div class="acts" style="margin-top:12px"><button class="btn" type="button" data-act="toast-dl">Download</button></div>');
   return;
  }
  const v=version(id); const p=paper(v.paperId); const m=meeting(p.meetingId);
@@ -1592,7 +1585,7 @@ function acknowledge(id){
  save(); render(); toast('Acknowledgement recorded');
 }
 function openCirculate(){
- openModal('<form id="f-circ"><div class="hd"><h2>Circulate a sample resolution</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label for="c-sub">Subject</label><input id="c-sub" name="subject" placeholder="Renewal of insurance"></div><div class="fld"><label for="c-body">Body</label><select id="c-body" name="body"><option value="BODM">Board (DCR)</option><option value="ACM">Audit Committee (ACCR)</option></select></div><p class="small muted">It will be dated '+esc(fmt(DEMO_TODAY))+' and sent to directors who can receive it. No email is sent.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Circulate</button></div></form>');
+ openModal('<form id="f-circ"><div class="hd"><h2>Circulate a resolution</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label for="c-sub">Subject</label><input id="c-sub" name="subject" placeholder="Renewal of insurance"></div><div class="fld"><label for="c-body">Body</label><select id="c-body" name="body"><option value="BODM">Board (DCR)</option><option value="ACM">Audit Committee (ACCR)</option></select></div><p class="small muted">It will be dated '+esc(fmt(DEMO_TODAY))+' and sent to directors who can receive it. No email is sent.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Circulate</button></div></form>');
 }
 function saveCircular(form){
  const subject=(form.subject.value||'').trim();
@@ -1606,12 +1599,12 @@ function saveCircular(form){
 }
 function openResource(){
  const groups=['Constitution and charters','Policies','Reports','Oversight','Market rules','Housekeeping'];
- openModal('<form id="f-res"><div class="hd"><h2>Add a resource</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label>Title</label><input name="title" placeholder="Board evaluation guideline"></div><div class="fld"><label>Group</label><select name="group">'+groups.map(g=>'<option>'+esc(g)+'</option>').join('')+'</select></div><p class="small muted">A sample cover is stored. No file is uploaded.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Add</button></div></form>');
+ openModal('<form id="f-res"><div class="hd"><h2>Add a resource</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><div class="fld"><label>Title</label><input name="title" placeholder="Board evaluation guideline"></div><div class="fld"><label>Group</label><select name="group">'+groups.map(g=>'<option>'+esc(g)+'</option>').join('')+'</select></div><p class="small muted">A cover page is stored. No file is uploaded.</p></div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="submit">Add</button></div></form>');
 }
 function saveResource(form){
  const title=(form.title.value||'').trim();
  if(title.length<3){ toast('Please enter a title.'); return; }
- state.resources.push({id:uid('rs'), group:form.group.value, title, fileName:title+' (sample).pdf', sample:true});
+ state.resources.push({id:uid('rs'), group:form.group.value, title, fileName:title+'.pdf', sample:true});
  save(); closeOverlays(); render(); toast('Resource added');
 }
 
