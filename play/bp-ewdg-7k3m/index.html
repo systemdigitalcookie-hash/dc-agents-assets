@@ -136,6 +136,26 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .callout.info{background:#ece9ff;color:#312e81}
 .callout.warn{background:var(--warnbg);color:var(--warn)}
 .callout.ok{background:var(--okbg);color:var(--ok)}
+.clockcard{display:flex;align-items:center;gap:14px;margin:0 0 12px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.85);box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.clockcard.today{background:linear-gradient(105deg,rgba(255,237,214,.88),rgba(255,228,240,.72));border-color:rgba(255,214,170,.95)}
+.clockcard.past{background:rgba(255,228,232,.78);border-color:rgba(251,205,214,.95)}
+.clocksvg{width:58px;height:58px;flex:0 0 auto;display:block}
+.clocksvg .track{fill:none;stroke:rgba(255,255,255,.9);stroke-width:4}
+.clocksvg .arc{fill:none;stroke:#4338ca;stroke-width:4;stroke-linecap:round;transform:rotate(-90deg);transform-origin:32px 32px}
+.clocksvg .face{fill:rgba(255,255,255,.88)}
+.clocksvg .hand{stroke:#2a2438;stroke-width:2;stroke-linecap:round}
+.clocksvg .hand.hour{stroke-width:2.6}
+.clocksvg .pin{fill:#4338ca}
+.clockcard.today .arc,.clockcard.today .pin{stroke:#c2410c;fill:#c2410c}
+.clockcard.today .arc{fill:none}
+.clockcard.past .arc,.clockcard.past .pin{stroke:#be123c;fill:#be123c}
+.clockcard.past .arc{fill:none}
+.clockcopy{min-width:0}
+.clockmain{font-weight:800;font-size:17px;line-height:1.25;letter-spacing:-.02em}
+.clockcard.today .clockmain{color:#9a3412}
+.clockcard.past .clockmain{color:#9f1239}
+.clockwhen{color:var(--muted);font-size:13px;margin-top:3px}
+.dueico{width:11px;height:11px;display:inline-block;margin-right:2px;vertical-align:-1px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .why{background:#ece9ff;border-radius:12px;padding:10px 12px;color:#312e81;margin:6px 0}
 .why b{display:block;margin-bottom:2px}
 .ended{background:#f8fafc;border:1px solid var(--line);border-left:4px solid #667085;border-radius:10px;padding:16px 18px}
@@ -383,6 +403,69 @@ function duePhrase(due){
  if(n===0) return 'Due today';
  if(n>0) return 'Due in '+n+' working day'+(n===1?'':'s');
  const a=-n; return 'Overdue by '+a+' working day'+(a===1?'':'s');
+}
+function klClock(){
+ const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kuala_Lumpur',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+ const g=t=>parts.find(p=>p.type===t).value;
+ return {h:+g('hour'), m:+g('minute'), s:+g('second')};
+}
+function demoInstant(){
+ const t=klClock();
+ return new Date(DEMO_TODAY+'T'+pad(t.h)+':'+pad(t.m)+':'+pad(t.s)+'+08:00');
+}
+function deadlineCaption(iso){
+ const dt=new Date(iso+'T17:00:00+08:00');
+ const wd=new Intl.DateTimeFormat('en-MY',{weekday:'short',timeZone:'Asia/Kuala_Lumpur'}).format(dt);
+ const [y,m,d]=iso.split('-');
+ return wd+', '+(+d)+' '+MONTHS[+m-1]+' '+y+' · 5:00 PM MYT';
+}
+function deadlineCard(due){
+ return '<section class="clockcard" data-testid="deadline-clock" data-due="'+esc(due)+'" aria-live="polite">'
+  +'<svg class="clocksvg" viewBox="0 0 64 64" aria-hidden="true"><circle class="track" cx="32" cy="32" r="28"/><circle class="arc" cx="32" cy="32" r="28"/><circle class="face" cx="32" cy="32" r="21"/><line class="hand hour" x1="32" y1="34" x2="32" y2="18"/><line class="hand min" x1="32" y1="34" x2="32" y2="13"/><circle class="pin" cx="32" cy="32" r="2.4"/></svg>'
+  +'<div class="clockcopy"><div class="clockmain"></div><div class="clockwhen">'+esc(deadlineCaption(due))+'</div></div></section>';
+}
+let clockTimer=null;
+function paintDeadline(el){
+ if(!el || !el.isConnected){ clearInterval(clockTimer); clockTimer=null; return; }
+ const due=el.getAttribute('data-due');
+ const end=new Date(due+'T17:00:00+08:00');
+ const now=demoInstant();
+ const ms=end-now;
+ const t=klClock();
+ el.classList.remove('today','past');
+ let text;
+ if(ms<=0){
+  el.classList.add('past');
+  text='Deadline passed';
+ } else {
+  const minsTotal=Math.floor(ms/60000);
+  const days=Math.floor(minsTotal/1440);
+  const hours=Math.floor((minsTotal%1440)/60);
+  const mins=minsTotal%60;
+  if(due===DEMO_TODAY){
+   el.classList.add('today');
+   text='Due today · '+hours+'h '+mins+'m left';
+  } else text='Papers due in '+days+'d '+pad(hours)+'h '+pad(mins)+'m';
+ }
+ const main=el.querySelector('.clockmain');
+ if(main) main.textContent=text;
+ const C=2*Math.PI*28;
+ const frac=ms<=0?1:Math.min(1, ms/(24*60*60*1000));
+ const arc=el.querySelector('.arc');
+ if(arc){ arc.style.strokeDasharray=C+' '+C; arc.style.strokeDashoffset=String(C*(1-frac)); }
+ const hAng=((t.h%12)+t.m/60)*30;
+ const mAng=t.m*6;
+ const hour=el.querySelector('.hand.hour');
+ const minute=el.querySelector('.hand.min');
+ if(hour) hour.setAttribute('transform','rotate('+hAng+' 32 32)');
+ if(minute) minute.setAttribute('transform','rotate('+mAng+' 32 32)');
+}
+function startDeadlineClock(){
+ clearInterval(clockTimer); clockTimer=null;
+ const el=document.querySelector('[data-testid="deadline-clock"]');
+ if(!el) return;
+ paintDeadline(el);
+ clockTimer=setInterval(()=>paintDeadline(el),1000);
 }
 function nowLabel(){
  const time=new Intl.DateTimeFormat('en-MY',{timeZone:'Asia/Kuala_Lumpur',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date());
@@ -985,7 +1068,7 @@ function screenHome(){
  return '<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
   +'<button class="btn create" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
-  +'<div class="callout '+(focus.upcoming?'warn':'info')+'"><b>'+(focus.upcoming?duePhrase(m.packDue):'This meeting date has passed')+'.</b> Pack due '+esc(fmt(m.packDue))+' · 5 business days before the meeting. Demo clock: '+esc(fmt(DEMO_TODAY))+'.'+(focus.upcoming?'':' Showing the latest pack for this company.')+'</div>'
+  +deadlineCard(m.packDue)
   +'<div class="card" style="margin-bottom:14px"><h2>Papers by step</h2><p class="small muted" style="margin-top:0">One card is one paper. The number on each column is how many papers are there. Choose a card to open it.</p>'+kanban(m)+'</div>'
   +papersTable(m, true)
   +'<div class="grid g3" style="margin-top:14px">'
@@ -1013,18 +1096,19 @@ function kanban(m){
   return '<section class="kcol" aria-label="'+esc(title)+', '+list.length+'"><h3><span>'+esc(title)+'</span><span class="n">'+list.length+'</span></h3><div class="hint tiny muted">'+esc(hint)+'</div>'+cards+'</section>';
  }).join('')+'</div>';
 }
+const DUE_CLOCK='<svg class="dueico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>';
 function cardDue(due){
  const n=businessDaysFromTo(DEMO_TODAY, due);
- if(n<0) return {text:'Overdue', cls:'late'};
- if(n===0) return {text:'Due today', cls:'soon'};
- return {text:'Due in '+n+' day'+(n===1?'':'s'), cls:n<=2?'soon':'ok'};
+ if(n<0) return {text:'Overdue', cls:'late', icon:''};
+ if(n===0) return {text:'Due today', cls:'soon', icon:DUE_CLOCK};
+ return {text:'Due in '+n+' day'+(n===1?'':'s'), cls:n<=2?'soon':'ok', icon:''};
 }
 function kanbanCard(p){
  const pic=person(p.picId);
  const due=cardDue(p.due);
  const paperLine=p.agendaCode+' '+p.title;
  const deptTip=deptName(p.department)+(deptInferred(p.department)?' (example)':'');
- return '<button type="button" class="kcard" data-go="#/cosec/paper/'+p.id+'"><span class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><span class="nm">'+esc(pic?pic.name:'')+'</span><span class="due '+due.cls+'">'+esc(due.text)+'</span></span><span class="paper" title="'+esc(paperLine)+'">'+esc(paperLine)+'</span></button>';
+ return '<button type="button" class="kcard" data-go="#/cosec/paper/'+p.id+'"><span class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><span class="nm">'+esc(pic?pic.name:'')+'</span><span class="due '+due.cls+'">'+due.icon+esc(due.text)+'</span></span><span class="paper" title="'+esc(paperLine)+'">'+esc(paperLine)+'</span></button>';
 }
 function papersTable(m){
  const rows=papersFor(m.id).map(p=>{
@@ -1568,6 +1652,7 @@ function doRevise(form){
 }
 
 function bindDynamic(){
+ startDeadlineClock();
  const drop=$('#drop'); const file=$('#file'); const submit=$('#submitBtn');
  if(drop && file){
   const setFile=(f)=>{ pendingFile=f||null; pendingSample=false; const lab=$('#fileLabel'); if(lab) lab.textContent=f?f.name:'No file chosen yet'; if(submit) submit.disabled=!f && !pendingSample; };
