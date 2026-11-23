@@ -32,14 +32,9 @@
  --shadow:0 10px 28px rgba(120,90,170,.12), 0 1px 2px rgba(90,70,140,.06);
  --glass-blur:16px;
  --r:16px;
- --col-bg:rgba(255,255,255,.42);
  --icon-bg:#ece9ff;
  --icon-ink:#4338ca;
  --icon-size:26px;
- --card-pad:8px 10px;
- --card-title-size:14.5px;
- --card-meta-size:13px;
- --card-due-size:12.5px;
  --font:"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box}
@@ -165,25 +160,21 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .dico{width:var(--icon-size);height:var(--icon-size);border-radius:8px;background:var(--icon-bg);color:var(--icon-ink);display:inline-grid;place-items:center;flex:0 0 auto}
 .dicon{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .dname{line-height:1.3}
-.kb{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}
-.kcol{background:var(--col-bg);border:1px solid rgba(255,255,255,.65);border-radius:var(--r);padding:10px 10px 4px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.kcol:nth-child(1){background:rgba(236,230,255,.55)}
-.kcol:nth-child(2){background:rgba(214,245,232,.58)}
-.kcol:nth-child(3){background:rgba(237,232,255,.52)}
-.kcol:nth-child(4){background:rgba(255,236,220,.58)}
-.kcol h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px}
-.kcol h3 .n{margin-left:auto;background:var(--panel);border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px;color:var(--ink)}
-.kcol .hint{margin:2px 0 8px}
-.kcard{display:block;width:100%;text-align:left;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:var(--card-pad);margin:0 0 8px;box-shadow:var(--shadow);color:var(--ink);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.kcard:hover{border-color:#c4bdf5}
-.kcard .who{display:flex;align-items:center;gap:8px;min-width:0;font-weight:700;font-size:var(--card-title-size);line-height:1.2}
-.kcard .who .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.kcard .paper{display:block;margin-top:3px;font-weight:400;font-size:var(--card-meta-size);line-height:1.3;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.kcard .due{margin-left:auto;flex:0 0 auto;font-size:11.5px;font-weight:700;line-height:1.2;white-space:nowrap}
-.kcard .due.soon{color:var(--warn)}
-.kcard .due.late{color:var(--bad)}
-.kcard .due.ok{color:var(--ok)}
-.kempty{color:var(--muted);font-size:13.5px;padding:8px 4px 12px}
+.overview{margin:0 0 16px}
+.plist{margin:0 0 14px;min-width:0}
+.phead{display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:15px;font-weight:800}
+.phead .n{margin-left:auto;background:rgba(255,255,255,.75);border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px;font-weight:800}
+.psub{margin:0 0 8px}
+.prow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:12px;margin:0 0 8px;box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);min-width:0;max-width:100%}
+.prow .who{display:flex;gap:8px;align-items:flex-start;min-width:0;flex:1 1 220px}
+.prow .grow{min-width:0;flex:1}
+.prow .pname{font-weight:800;font-size:15.5px;line-height:1.25;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.prow .due{font-size:12px;font-weight:700;line-height:1.2;white-space:nowrap}
+.prow .due.soon{color:var(--warn)}
+.prow .due.late{color:var(--bad)}
+.prow .due.ok{color:var(--ok)}
+.prow .ppaper{color:var(--muted);font-size:13.5px;line-height:1.35;overflow-wrap:anywhere}
+.prowmeta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-left:auto}
 .links{display:flex;flex-direction:column;gap:10px}
 .lcard{background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
 .urlclip{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--muted);margin:6px 0}
@@ -291,10 +282,8 @@ body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
  .rolebar select{min-width:0;width:100%}
  .seg{width:100%}
  .seg button{flex:1}
- .g4,.g3,.g2,.row2,.kb{grid-template-columns:1fr}
- .card,.kcard,.kcol,.tw,.pack,.grid{max-width:100%;min-width:0}
- .kcard{overflow:hidden}
- .kcard .paper{white-space:normal;overflow:visible;text-overflow:unset;overflow-wrap:anywhere}
+ .g4,.g3,.g2,.row2{grid-template-columns:1fr}
+ .card,.tw,.pack,.grid,.prow,.plist{max-width:100%;min-width:0}
  .sheet{border:none;background:transparent;overflow:visible;backdrop-filter:none}
  .sheet table,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}
  .sheet thead{display:none}
@@ -1065,37 +1054,20 @@ function screenHome(){
  const sentN=month.length;
  const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).filter(id=>(r.sentTo||[]).includes(id)).length,0);
  const others=state.meetings.filter(x=>x.companyId===state.companyId && x.id!==m.id).sort((a,b)=>b.date.localeCompare(a.date));
- return '<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
-  +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
-  +'<button class="btn create" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
-  +deadlineCard(m.packDue)
-  +'<div class="card" style="margin-bottom:14px"><h2>Papers by step</h2><p class="small muted" style="margin-top:0">One card is one paper. The number on each column is how many papers are there. Choose a card to open it.</p>'+kanban(m)+'</div>'
-  +papersTable(m, true)
-  +'<div class="grid g3" style="margin-top:14px">'
+ const overview='<div class="grid g3 overview" data-testid="overview">'
   +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026</div></button>'
   +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+recvN+'</div><div class="l">Acknowledgements received this month</div><div class="d">Each director acknowledgement is counted once</div></button>'
   +'<button class="card kpi" type="button" data-go="#/cosec/time" style="text-align:left"><div class="v">'+esc(aboutHours(saved.packMins).replace('About ',''))+'</div><div class="l">Time saved on this pack</div><div class="d">Illustrative · '+esc(aboutHours(saved.fyMins))+' this financial year</div></button>'
-  +'</div>'
+  +'</div>';
+ return overview
+  +'<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
+  +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
+  +'<button class="btn create" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
+  +deadlineCard(m.packDue)
+  +paperList(m)
   +(others.length?'<div class="card" style="margin-top:14px"><h2>Other meetings</h2>'+others.map(om=>{const tt=tally(om); return '<div class="pack"><div><b>'+esc(meetingTitle(om))+'</b><div class="small muted">'+esc(folderTitle(om))+' · '+tt.published+' of '+tt.total+' published · '+tt.withFile+' submitted</div></div><button class="btn sm" type="button" data-go="#/cosec/meeting/'+om.id+'">Open</button></div>'}).join('')+'</div>':'');
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
-function kanban(m){
- const cols=[
-  ['requested','Requested','Waiting for upload'],
-  ['submitted','Submitted','Awaiting review'],
-  ['reviewed','Reviewed','Ready to publish'],
-  ['published','Published','In the directors’ pack']
- ];
- const papers=papersFor(m.id);
- return '<div class="kb" data-testid="kanban">'+cols.map(([key,title,hint])=>{
-  const list=papers.filter(p=>{
-   const st=displayStatus(p);
-   return key==='requested' ? (st==='requested'||st==='revision') : st===key;
-  });
-  const cards=list.length?list.map(kanbanCard).join(''):'<div class="kempty">No papers here.</div>';
-  return '<section class="kcol" aria-label="'+esc(title)+', '+list.length+'"><h3><span>'+esc(title)+'</span><span class="n">'+list.length+'</span></h3><div class="hint tiny muted">'+esc(hint)+'</div>'+cards+'</section>';
- }).join('')+'</div>';
-}
 const DUE_CLOCK='<svg class="dueico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>';
 function cardDue(due){
  const n=businessDaysFromTo(DEMO_TODAY, due);
@@ -1103,12 +1075,29 @@ function cardDue(due){
  if(n===0) return {text:'Due today', cls:'soon', icon:DUE_CLOCK};
  return {text:'Due in '+n+' day'+(n===1?'':'s'), cls:n<=2?'soon':'ok', icon:''};
 }
-function kanbanCard(p){
+function paperList(m){
+ const waiting=p=>{const st=displayStatus(p); return st==='requested'||st==='revision'};
+ const groups=[
+  {title:'Overdue', hint:'Past the due date, still waiting for the file', match:p=>waiting(p)&&businessDaysFromTo(DEMO_TODAY, p.due)<0},
+  {title:'To submit', hint:'Waiting for the file', match:p=>waiting(p)&&businessDaysFromTo(DEMO_TODAY, p.due)>=0},
+  {title:'Submitted', hint:'Awaiting review', match:p=>displayStatus(p)==='submitted'},
+  {title:'Under review', hint:'Ready to publish', match:p=>displayStatus(p)==='reviewed'},
+  {title:'Published', hint:'In the directors’ pack', match:p=>displayStatus(p)==='published'}
+ ];
+ const papers=papersFor(m.id);
+ const html=groups.map(g=>{
+  const list=papers.filter(g.match).sort((a,b)=> (a.due||'').localeCompare(b.due||'') || a.agendaCode.localeCompare(b.agendaCode));
+  if(!list.length) return '';
+  return '<section class="plist"><h3 class="phead"><span>'+esc(g.title)+'</span><span class="n">'+list.length+'</span></h3><p class="tiny muted psub">'+esc(g.hint)+'</p>'+list.map(paperRow).join('')+'</section>';
+ }).join('');
+ return html||'<div class="empty"><b>No papers yet</b><div>Create a submission link to add the first paper.</div></div>';
+}
+function paperRow(p){
  const pic=person(p.picId);
  const due=cardDue(p.due);
- const paperLine=p.agendaCode+' '+p.title;
+ const st=displayStatus(p);
  const deptTip=deptName(p.department)+(deptInferred(p.department)?' (example)':'');
- return '<button type="button" class="kcard" data-go="#/cosec/paper/'+p.id+'"><span class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><span class="nm">'+esc(pic?pic.name:'')+'</span><span class="due '+due.cls+'">'+due.icon+esc(due.text)+'</span></span><span class="paper" title="'+esc(paperLine)+'">'+esc(paperLine)+'</span></button>';
+ return '<article class="prow" data-testid="paper-row-'+p.id+'"><div class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><div class="grow"><div class="pname">'+esc(pic?pic.name:'')+'<span class="due '+due.cls+'">'+due.icon+esc(due.text)+'</span></div><div class="ppaper">'+esc(p.agendaCode+' '+p.title)+'</div></div></div><div class="prowmeta"><span data-testid="status-'+p.id+'">'+statusPill(st)+'</span><div class="acts">'+rowActions(p, st)+'</div></div></article>';
 }
 function papersTable(m){
  const rows=papersFor(m.id).map(p=>{
