@@ -206,6 +206,15 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .modal .hd h2{margin:0;font-size:18px}
 .modal .bd{padding:16px 18px}
 .modal .ft{padding:12px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.agroup{margin:0 0 16px}
+.agroup h3{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:15px}
+.agroup h3 .n{margin-left:auto;background:rgba(255,255,255,.75);border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px}
+.arow{padding:10px 0;border-top:1px solid rgba(90,70,140,.12)}
+.arow:first-of-type{border-top:none}
+.arow b{display:block;font-weight:750}
+.arow .whyline{color:var(--muted);font-size:13.5px;line-height:1.35}
+.modal.access.on{display:flex;flex-direction:column;overflow:hidden}
+.modal.access .bd{overflow:auto;flex:1;min-height:0}
 .fld{margin-bottom:12px}
 .fld label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px;font-weight:650}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -304,6 +313,8 @@ body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
  .picstate{font-weight:800;margin-top:6px}
  .picstate.done{color:var(--ok)}
  .picstate.todo{color:var(--ink);font-weight:650}
+ .modal.access{left:0;right:0;top:auto;bottom:0;transform:none;width:100%;max-height:92dvh;border-radius:18px 18px 0 0}
+ .modal.access .ft .btn{width:100%}
 }
 </style>
 </head>
@@ -1076,8 +1087,8 @@ function meetingOverview(m){
  const waiting=papers.filter(p=>{const st=displayStatus(p); return st==='requested'||st==='revision'});
  const overdue=waiting.filter(p=>businessDaysFromTo(DEMO_TODAY, p.due)<0).length;
  const received=papers.length-waiting.length;
+ const published=papers.filter(p=>displayStatus(p)==='published').length;
  const total=papers.length;
- const pct=total? Math.round(received/total*100):0;
  const name=m.body+' '+m.number;
  const days=calendarDays(DEMO_TODAY, m.date);
  const when=weekdayShort(m.date)+', '+fmt(m.date);
@@ -1086,21 +1097,13 @@ function meetingOverview(m){
  else if(days===1) dayWord=name+' tomorrow';
  else if(days===0) dayWord=name+' is today';
  else dayWord=name+' was '+(-days)+' day'+(-days===1?'':'s')+' ago';
- const circType=m.body==='ACM'?'ACCR':'DCR';
- const latest=state.resolutions.filter(r=>r.companyId===m.companyId && r.body===m.body && (r.type==='DCR'||r.type==='ACCR') && r.type===circType).sort((a,b)=>b.date.localeCompare(a.date))[0];
- let ackV='—', ackD='No circular yet';
- if(latest){
-  const sent=latest.sentTo||[];
-  const got=(latest.receivedFrom||[]).filter(id=>sent.includes(id)).length;
-  ackV=got+' of '+sent.length;
-  ackD='Latest circular';
- }
  const late=overdue? '<span class="late">'+overdue+' overdue</span>' : 'None overdue';
+ const bar=(now,label)=>'<div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+now+'" aria-label="'+esc(label)+'"><i style="width:'+(total?Math.round(now/total*100):0)+'%"></i></div>';
  return '<div class="overview" data-testid="overview">'
-  +'<div class="card kpi"><div class="v">'+received+' of '+total+'</div><div class="l">Papers received</div><div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+received+'" aria-label="Papers received"><i style="width:'+pct+'%"></i></div><div class="d muted">Expected for '+esc(name)+'</div></div>'
+  +'<div class="card kpi"><div class="v">'+received+' of '+total+'</div><div class="l">Papers received</div>'+bar(received,'Papers received')+'<div class="d muted">Expected for '+esc(name)+'</div></div>'
+  +'<div class="card kpi"><div class="v">'+published+' of '+total+'</div><div class="l">Papers published</div>'+bar(published,'Papers published')+'<div class="d muted">'+published+' of '+total+' published</div></div>'
   +'<div class="card kpi"><div class="v">'+waiting.length+'</div><div class="l">Still to submit</div><div class="d">'+waiting.length+' to submit · '+late+'</div></div>'
   +'<div class="card kpi"><div class="v">'+(days<0?-days:days)+'</div><div class="l">'+esc(dayWord)+'</div><div class="d muted">'+esc(when)+'</div></div>'
-  +'<div class="card kpi"><div class="v">'+esc(ackV)+'</div><div class="l">Directors acknowledged</div><div class="d muted">'+esc(ackD)+'</div></div>'
   +'</div>';
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
@@ -1157,6 +1160,7 @@ function rowActions(p, st){
  if(st==='requested'||st==='revision') return '<button class="btn sm pri" type="button" data-act="copy-link" data-id="'+v.id+'">Copy link</button>'+open;
  if(st==='submitted') return '<button class="btn sm" type="button" data-act="review" data-id="'+p.id+'">Review</button><button class="btn sm pri" type="button" data-act="publish" data-id="'+v.id+'">Publish</button>'+open;
  if(st==='reviewed') return '<button class="btn sm pri" type="button" data-act="publish" data-id="'+v.id+'">Publish</button>'+open;
+ if(st==='published') return '<button class="btn sm pri" type="button" data-act="access" data-id="'+p.id+'">Who has access</button>'+open+'<button class="btn sm" type="button" data-act="revise" data-id="'+p.id+'">New version</button>';
  return open+'<button class="btn sm" type="button" data-act="revise" data-id="'+p.id+'">New version</button>';
 }
 
@@ -1515,7 +1519,7 @@ function openModal(html){
  if(f) f.focus();
 }
 function closeOverlays(){
- $('#modal').classList.remove('on'); $('#modal').innerHTML='';
+ $('#modal').classList.remove('on','access'); $('#modal').innerHTML='';
  $('#drawer').classList.remove('on');
  $('#side').classList.remove('on');
  $('#scrim').classList.remove('on');
@@ -1770,6 +1774,7 @@ function onClick(e){
  if(act==='revise'){ askRevise(id); return; }
  if(act==='preview' || act==='read' || act==='download' || act==='resource'){ openFile(act, id); return; }
  if(act==='ack'){ acknowledge(id); return; }
+ if(act==='access'){ openAccess(id); return; }
  if(act==='circulate'){ openCirculate(); return; }
  if(act==='add-resource'){ openResource(); return; }
  if(act==='check-as'){ state.checkId=id; save(); render(); return; }
@@ -1816,6 +1821,32 @@ function openFile(act, id){
  if(!v.uploadedAt && act!=='read'){ openDrawer('No file yet', '<div class="empty"><b>Nothing uploaded</b><div>The official name is reserved: '+esc(v.fileName)+'</div></div>'); return; }
  const show=act==='read'? latestPublished(p) : v;
  openDrawer(esc(p.agendaCode+' '+p.title), '<div class="small muted">'+esc(show.fileName)+'</div>'+previewBlock(m,p,show)+'<div class="acts" style="margin-top:12px"><button class="btn" type="button" data-act="download" data-id="'+show.id+'">Download</button></div>');
+}
+function accessNote(dir, m){
+ if(dir.cessation) return 'Resigned '+fmt(dir.cessation);
+ if(m && !(dir.companies||[]).includes(m.companyId)) return 'Not a director of this company';
+ if(m && m.date < dir.appointment) return 'Appointed after this meeting ('+fmt(dir.appointment)+')';
+ if(m && !seesBody(dir, m.body)) return 'Not on this committee';
+ return 'Not available for this paper';
+}
+function openAccess(paperId){
+ const p=paper(paperId); if(!p) return;
+ const m=meeting(p.meetingId);
+ const dirs=state.people.filter(x=>x.kind==='director'||x.kind==='alternate'||x.kind==='former').slice().sort((a,b)=>a.name.localeCompare(b.name));
+ const yes=[], no=[];
+ dirs.forEach(dir=>{
+  const g=gate(dir, m, p);
+  if(g.see) yes.push(dir);
+  else no.push({dir, reason:accessNote(dir, m)});
+ });
+ const rowYes=d=>'<div class="arow"><b>'+esc(d.name)+'</b><div class="whyline">'+esc(d.roleTitle)+'</div></div>';
+ const rowNo=x=>'<div class="arow"><b>'+esc(x.dir.name)+'</b><div class="whyline">'+esc(x.reason)+'</div></div>';
+ const group=(title, n, body)=>'<section class="agroup"><h3>'+title+' <span class="n">'+n+'</span></h3>'+(n?body:'<div class="whyline">None</div>')+'</section>';
+ $('#modal').classList.add('access');
+ openModal('<div class="hd"><h2 id="accessTitle">Who has access</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd" data-testid="access-sheet"><p class="small muted" style="margin-top:0">'+esc(p.agendaCode+' '+p.title)+' · '+esc(meetingTitle(m))+'</p>'
+  +group('Has access', yes.length, yes.map(rowYes).join(''))
+  +group('No access', no.length, no.map(rowNo).join(''))
+  +'</div><div class="ft"><button class="btn pri" type="button" data-act="close">Close</button></div>');
 }
 function acknowledge(id){
  const r=state.resolutions.find(x=>x.id===id); const me=currentPerson();
