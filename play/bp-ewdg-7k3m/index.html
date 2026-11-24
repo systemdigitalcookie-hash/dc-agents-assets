@@ -160,7 +160,12 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .dico{width:var(--icon-size);height:var(--icon-size);border-radius:8px;background:var(--icon-bg);color:var(--icon-ink);display:inline-grid;place-items:center;flex:0 0 auto}
 .dicon{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .dname{line-height:1.3}
-.overview{margin:0 0 16px}
+.overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px}
+.overview .card{min-width:0}
+.overview .l{overflow-wrap:anywhere}
+.meter{height:5px;border-radius:99px;background:rgba(90,70,140,.14);margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#5b21b6,#9d174d)}
+.kpi .late{color:#9f1239;font-weight:800}
 .plist{margin:0 0 14px;min-width:0}
 .phead{display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:15px;font-weight:800}
 .phead .n{margin-left:auto;background:rgba(255,255,255,.75);border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px;font-weight:800}
@@ -283,6 +288,7 @@ body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
  .seg{width:100%}
  .seg button{flex:1}
  .g4,.g3,.g2,.row2{grid-template-columns:1fr}
+ .overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
  .card,.tw,.pack,.grid,.prow,.plist{max-width:100%;min-width:0}
  .sheet{border:none;background:transparent;overflow:visible;backdrop-filter:none}
  .sheet table,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}
@@ -1049,16 +1055,8 @@ function screenHome(){
    +'<div class="empty"><b>No pack this month</b><div>COSEC has not opened a meeting pack for '+esc(co.legalName)+'. When a meeting is added, papers and submission links will show here.</div></div>';
  }
  const m=focus.meeting;
- const saved=timeSaved(state.companyId);
- const month=monthCirculars(state.companyId);
- const sentN=month.length;
- const recvN=month.reduce((n,r)=>n+(r.receivedFrom||[]).filter(id=>(r.sentTo||[]).includes(id)).length,0);
  const others=state.meetings.filter(x=>x.companyId===state.companyId && x.id!==m.id).sort((a,b)=>b.date.localeCompare(a.date));
- const overview='<div class="grid g3 overview" data-testid="overview">'
-  +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+sentN+'</div><div class="l">Circular resolutions sent this month</div><div class="d">December 2026</div></button>'
-  +'<button class="card kpi" type="button" data-go="#/cosec/resolutions" style="text-align:left"><div class="v">'+recvN+'</div><div class="l">Acknowledgements received this month</div><div class="d">Each director acknowledgement is counted once</div></button>'
-  +'<button class="card kpi" type="button" data-go="#/cosec/time" style="text-align:left"><div class="v">'+esc(aboutHours(saved.packMins).replace('About ',''))+'</div><div class="l">Time saved on this pack</div><div class="d">Illustrative · '+esc(aboutHours(saved.fyMins))+' this financial year</div></button>'
-  +'</div>';
+ const overview=meetingOverview(m);
  return overview
   +'<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
@@ -1066,6 +1064,44 @@ function screenHome(){
   +deadlineCard(m.packDue)
   +paperList(m)
   +(others.length?'<div class="card" style="margin-top:14px"><h2>Other meetings</h2>'+others.map(om=>{const tt=tally(om); return '<div class="pack"><div><b>'+esc(meetingTitle(om))+'</b><div class="small muted">'+esc(folderTitle(om))+' · '+tt.published+' of '+tt.total+' published · '+tt.withFile+' submitted</div></div><button class="btn sm" type="button" data-go="#/cosec/meeting/'+om.id+'">Open</button></div>'}).join('')+'</div>':'');
+}
+function calendarDays(from, to){
+ return Math.round((parseISO(to)-parseISO(from))/86400000);
+}
+function weekdayShort(iso){
+ return new Intl.DateTimeFormat('en-MY',{weekday:'short',timeZone:'Asia/Kuala_Lumpur'}).format(new Date(iso+'T12:00:00+08:00'));
+}
+function meetingOverview(m){
+ const papers=papersFor(m.id);
+ const waiting=papers.filter(p=>{const st=displayStatus(p); return st==='requested'||st==='revision'});
+ const overdue=waiting.filter(p=>businessDaysFromTo(DEMO_TODAY, p.due)<0).length;
+ const received=papers.length-waiting.length;
+ const total=papers.length;
+ const pct=total? Math.round(received/total*100):0;
+ const name=m.body+' '+m.number;
+ const days=calendarDays(DEMO_TODAY, m.date);
+ const when=weekdayShort(m.date)+', '+fmt(m.date);
+ let dayWord;
+ if(days>1) dayWord=name+' in '+days+' days';
+ else if(days===1) dayWord=name+' tomorrow';
+ else if(days===0) dayWord=name+' is today';
+ else dayWord=name+' was '+(-days)+' day'+(-days===1?'':'s')+' ago';
+ const circType=m.body==='ACM'?'ACCR':'DCR';
+ const latest=state.resolutions.filter(r=>r.companyId===m.companyId && r.body===m.body && (r.type==='DCR'||r.type==='ACCR') && r.type===circType).sort((a,b)=>b.date.localeCompare(a.date))[0];
+ let ackV='—', ackD='No circular yet';
+ if(latest){
+  const sent=latest.sentTo||[];
+  const got=(latest.receivedFrom||[]).filter(id=>sent.includes(id)).length;
+  ackV=got+' of '+sent.length;
+  ackD='Latest circular';
+ }
+ const late=overdue? '<span class="late">'+overdue+' overdue</span>' : 'None overdue';
+ return '<div class="overview" data-testid="overview">'
+  +'<div class="card kpi"><div class="v">'+received+' of '+total+'</div><div class="l">Papers received</div><div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+received+'" aria-label="Papers received"><i style="width:'+pct+'%"></i></div><div class="d muted">Expected for '+esc(name)+'</div></div>'
+  +'<div class="card kpi"><div class="v">'+waiting.length+'</div><div class="l">Still to submit</div><div class="d">'+waiting.length+' to submit · '+late+'</div></div>'
+  +'<div class="card kpi"><div class="v">'+(days<0?-days:days)+'</div><div class="l">'+esc(dayWord)+'</div><div class="d muted">'+esc(when)+'</div></div>'
+  +'<div class="card kpi"><div class="v">'+esc(ackV)+'</div><div class="l">Directors acknowledged</div><div class="d muted">'+esc(ackD)+'</div></div>'
+  +'</div>';
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
 const DUE_CLOCK='<svg class="dueico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>';
