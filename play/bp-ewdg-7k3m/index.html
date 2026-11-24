@@ -150,26 +150,6 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .meter{height:5px;border-radius:99px;background:rgba(90,70,140,.14);margin-top:8px;overflow:hidden}
 .meter i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#5b21b6,#9d174d)}
 .kpi .late{color:#9f1239;font-weight:800}
-.prep{margin:0 0 16px}
-.prephead{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
-.prephead h2{margin:0;font-size:16px}
-.prephead .pct{margin-left:auto;font-size:18px;font-weight:800;color:#5b21b6}
-.prep .subline{margin:6px 0 0}
-.steps7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px;list-style:none;margin:14px 0 0;padding:0;position:relative}
-.steps7:before{content:"";position:absolute;top:13px;left:16px;right:16px;height:2px;background:#e6e1f2;z-index:0}
-.steps7 li{min-width:0;position:relative;z-index:1}
-.steps7 .dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;border:2px solid #d9d4ea;background:#fff;color:#8b84a8;margin-bottom:6px}
-.steps7 .dot svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.steps7 li.done .dot{background:#5b21b6;border-color:#5b21b6;color:#fff}
-.steps7 li.now .dot{border-color:#5b21b6;color:#5b21b6;box-shadow:0 0 0 4px #ede9fe}
-.steps7 b{display:block;font-size:13px;line-height:1.25}
-.steps7 .detail,.steps7 .live{display:block;margin-top:3px;font-size:12px;line-height:1.35;color:var(--muted);overflow-wrap:anywhere}
-.steps7 .live{font-weight:750;color:var(--ink)}
-.steps7 li.soon b,.steps7 li.soon .detail,.steps7 li.soon .live{color:#8b84a8}
-.nowlab,.ptag{display:inline-block;border-radius:99px;font-size:10px;font-weight:800;letter-spacing:.03em;line-height:1.4;padding:1px 6px;margin:2px 4px 0 0;vertical-align:middle}
-.nowlab{background:#5b21b6;color:#fff;text-transform:uppercase}
-.ptag{background:#ece9ff;color:#5b21b6;text-transform:uppercase}
-.steps7 li.soon .ptag{background:#f3f0fa;color:#6d6590}
 .plist{margin:0 0 14px;min-width:0}
 .phead{display:flex;align-items:center;gap:8px;margin:0 0 4px;font-size:15px;font-weight:800}
 .phead .n{margin-left:auto;background:rgba(255,255,255,.75);border-radius:99px;min-width:26px;text-align:center;padding:1px 8px;font-size:13px;font-weight:800}
@@ -303,12 +283,6 @@ body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
  .seg button{flex:1}
  .g4,.g3,.g2,.row2{grid-template-columns:1fr}
  .overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
- .steps7{display:flex;flex-direction:column;gap:0}
- .steps7:before{display:none}
- .steps7 li{display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:10px;padding:0 0 12px}
- .steps7 li:before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:#e6e1f2}
- .steps7 li:last-child:before{display:none}
- .steps7 .dot{margin:0}
  .card,.tw,.pack,.grid,.prow,.plist{max-width:100%;min-width:0}
  .sheet{border:none;background:transparent;overflow:visible;backdrop-filter:none}
  .sheet table,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}
@@ -1057,7 +1031,6 @@ function screenHome(){
  const others=state.meetings.filter(x=>x.companyId===state.companyId && x.id!==m.id).sort((a,b)=>b.date.localeCompare(a.date));
  const overview=meetingOverview(m);
  return overview
-  +prepTracker(m)
   +'<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
   +'<button class="btn create" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
@@ -1092,42 +1065,6 @@ function meetingOverview(m){
   +'</div>';
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
-const CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5 10 16.5 18 8"/></svg>';
-function prepTracker(m){
- const papers=papersFor(m.id);
- const waiting=papers.filter(p=>{const st=displayStatus(p); return st==='requested'||st==='revision'}).length;
- const total=papers.length;
- const received=total-waiting;
- const published=papers.filter(p=>displayStatus(p)==='published').length;
- let current=3;
- if(!total) current=1;
- else if(received<total) current=3;
- else if(published<total) current=5;
- else if(m.date>DEMO_TODAY) current=6;
- else current=8;
- const frac=current===3&&total? received/total : 0;
- const pct=Math.round((((Math.min(current,8)-1)+frac)/7)*100);
- const done=Math.max(0, Math.min(current,8)-1);
- const steps=[
-  ['Agenda call','The Company Secretary emails each person to confirm the agenda items.', false],
-  ['Agenda lock','The agenda is confirmed and the meeting notice is sent.', false],
-  ['Paper upload','Non-financial papers are due 5 clear days before the meeting. Financial papers are due 4.', true],
-  ['Follow up','Reminders go out 5, 4, 3 and 1 days before the meeting. Late papers are raised with the head of department.', true],
-  ['Daily alert','At 9 pm, directors hear which papers were released that day.', true],
-  ['Final alert','When every paper is in, directors are told and the checklist is complete.', true],
-  ['Logistics','Headcount, seating, and the door systems (DTS, MST and Amano) are arranged.', false]
- ];
- const items=steps.map((s,i)=>{
-  const n=i+1;
-  const state=n<current?'done':n===current?'now':'soon';
-  const dot=state==='done'?CHECK:String(n);
-  const tag=s[2]?' <span class="ptag">Papers</span>':'';
-  const now=state==='now'?' <span class="nowlab">Now</span>':'';
-  const live=n===3?'<span class="live">'+received+' of '+total+' papers received</span>':'';
-  return '<li class="'+state+(s[2]?' papers':'')+'"><span class="dot">'+dot+'</span><div><b>'+s[0]+now+tag+'</b>'+live+'<span class="detail">'+s[1]+'</span></div></li>';
- }).join('');
- return '<section class="card prep" data-testid="prep"><div class="prephead"><h2>Meeting preparation</h2><span class="pct">'+pct+'%</span></div><div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct+'" aria-label="Meeting preparation"><i style="width:'+pct+'%"></i></div><p class="tiny muted subline">'+done+' of 7 steps done</p><ol class="steps7">'+items+'</ol></section>';
-}
 const DUE_CLOCK='<svg class="dueico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></svg>';
 function cardDue(due){
  const n=businessDaysFromTo(DEMO_TODAY, due);
