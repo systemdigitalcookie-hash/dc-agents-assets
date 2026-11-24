@@ -234,6 +234,15 @@ body.role-director .main{font-size:17px}
 .dirhello{padding-bottom:18px;margin-bottom:4px;border-bottom:1px solid rgba(255,255,255,.72)}
 .dirhello h1{margin:0;font-size:28px;line-height:1.15;font-weight:650;letter-spacing:-.03em}
 .dirhello .sub{margin:8px 0 0;color:#534e66;font-size:14.5px;line-height:1.5;max-width:42rem}
+.dirhero{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0 0}
+.dirhero .card{min-width:0}
+.agendarow{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid rgba(255,255,255,.7);flex-wrap:wrap}
+.dlist .agendarow:first-child{border-top:none}
+.agendarow .grow{min-width:0;flex:1 1 180px}
+.agendarow.wait{color:#8b849c}
+.udot{width:8px;height:8px;border-radius:50%;background:#4338ca;flex:0 0 auto}
+.readok{color:#0f6b45;font-weight:750;font-size:13.5px;white-space:nowrap}
+.packready{margin:0 0 10px}
 .dirboard{display:flex;flex-direction:column;gap:26px;margin-top:22px}
 .dsec{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:15px;font-weight:650;letter-spacing:-.01em;color:#241f33}
 .dsec svg{width:18px;height:18px;flex:0 0 auto;stroke:#4338ca;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
@@ -285,6 +294,8 @@ body.upload-mode .main{max-width:860px;margin:0 auto;font-size:17px}
  .seg button{flex:1}
  .g4,.g3,.g2,.row2{grid-template-columns:1fr}
  .overview{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .dirhero{grid-template-columns:1fr 1fr;gap:10px}
+ .dirhero .wide{grid-column:1 / -1}
  .card,.tw,.pack,.grid,.prow,.plist{max-width:100%;min-width:0}
  .sheet{border:none;background:transparent;overflow:visible;backdrop-filter:none}
  .sheet table,.sheet tbody,.sheet tr,.sheet td{display:block;width:100%}
@@ -1446,17 +1457,66 @@ function screenDirHome(){
   return '<div class="drow"><div class="grow"><b>'+esc(h.title)+'</b><div class="small muted">'+esc(meta)+'</div></div><button class="btn pri" type="button" data-act="ack" data-id="'+r.id+'">Acknowledge receipt</button></div>';
  }).join('');
  const action='<section class="dpanel d-action'+(awaiting.length?'':' quiet')+'" data-testid="ack-panel"><h2 class="dsec">'+I_ACK+'Resolutions awaiting your acknowledgement <span class="dbadge">'+awaiting.length+'</span></h2>'+(ackRows||'<p class="dquiet">No circular is awaiting acknowledgement.</p>')+'</section>';
+ const hero=upcoming.length? dirHero(me, upcoming[0]) : '';
  let up;
  if(!upcoming.length) up='<section class="d-up"><h2 class="dsec">'+I_CAL+'Upcoming meeting</h2><article class="dfeat"><p class="dquiet">There is no upcoming meeting with published papers.</p></article></section>';
  else {
-  const m=upcoming[0]; const n=paperCount(me, m);
   const more=upcoming.slice(1).map(x=>dirMeetRow(me,x)).join('');
-  up='<section class="d-up"><h2 class="dsec">'+I_CAL+(upcoming.length>1?'Upcoming meetings':'Upcoming meeting')+'</h2><article class="dfeat"><div class="small" style="color:#4338ca;font-weight:650;margin-bottom:6px">'+esc(BODIES[m.body]||'')+'</div><h3>'+esc(meetingTitle(m))+'</h3><p class="meta">'+esc(fmtLong(m.date)+(m.venue?' · '+m.venue:'')+' · '+papersWord(n))+'</p><button class="btn pri" type="button" data-go="#/director/meeting/'+m.id+'">Open papers</button></article>'+(more?'<div class="dlist" style="margin-top:10px">'+more+'</div>':'')+'</section>';
+  up='<section class="d-up">'+agendaList(me, upcoming[0])+(more?'<h2 class="dsec" style="margin-top:16px">'+I_CAL+'Other upcoming meetings</h2><div class="dlist">'+more+'</div>':'')+'</section>';
  }
  const pastHtml='<section class="d-past"><h2 class="dsec">'+I_PAST+'Past meetings</h2>'+(past.length?'<div class="dlist">'+past.map(m=>dirMeetRow(me,m)).join('')+'</div>':'<p class="dquiet">There are no earlier meetings in this view.</p>')+'</section>';
  const res='<section class="dres d-res"><h2 class="dsec">'+I_LIB+'Resource Centre</h2><p class="meta">Charters, policies and reports, available to current directors without a date limit.</p><button class="btn" type="button" data-go="#/director/resources">Open Resource Centre</button></section>';
  const alt=me.kind==='alternate'?'<div class="dnote" style="margin-top:16px">As Alternate Director, Board papers are available, together with Investment Committee papers held as the management representative.</div>':'';
- return '<div data-testid="director-home">'+hello+alt+'<div class="dirboard">'+action+up+pastHtml+directorResSummary(me)+res+'</div></div>';
+ return '<div data-testid="director-home">'+hello+alt+hero+'<div class="dirboard">'+action+up+pastHtml+directorResSummary(me)+res+'</div></div>';
+}
+const READ_KEY='ewdg-bp-7k3m-read';
+const VISIT_KEY='ewdg-bp-7k3m-visit';
+const VISIT_DEFAULT='2026-11-25T21:00:00+08:00';
+function readMap(){ try{ return JSON.parse(localStorage.getItem(READ_KEY)||'{}'); } catch(e){ return {}; } }
+function markRead(versionId){
+ const v=version(versionId); if(!v) return;
+ const map=readMap(); map[v.paperId]=true;
+ localStorage.setItem(READ_KEY, JSON.stringify(map));
+}
+function lastVisit(){
+ let v=localStorage.getItem(VISIT_KEY);
+ if(!v){ v=VISIT_DEFAULT; localStorage.setItem(VISIT_KEY, v); }
+ return v;
+}
+function dirHero(dir, m){
+ const all=papersFor(m.id);
+ const released=all.filter(p=>latestPublished(p));
+ const fresh=released.filter(p=>{ const pub=latestPublished(p); return pub.publishedAt > lastVisit().slice(0,10); });
+ const days=calendarDays(DEMO_TODAY, m.date);
+ const n=Math.abs(days);
+ const dayFig=n+' '+(n===1?'day':'days');
+ const pct=all.length? Math.round(released.length/all.length*100):0;
+ const label=m.body+String(parseInt(m.number,10))+' countdown';
+ return '<div class="dirhero" data-testid="dir-hero">'
+  +'<div class="card kpi"><div class="v">'+released.length+' of '+all.length+'</div><div class="l">Papers ready to read</div><div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="'+all.length+'" aria-valuenow="'+released.length+'" aria-label="Papers ready to read"><i style="width:'+pct+'%"></i></div><div class="d muted">'+released.length+' of '+all.length+' released</div></div>'
+  +'<div class="card kpi"><div class="v">'+fresh.length+'</div><div class="l">New since your last visit</div><div class="d muted">Released after the 9 pm alert</div></div>'
+  +'<div class="card kpi wide"><div class="v">'+esc(dayFig)+'</div><div class="l">'+esc(label)+'</div><div class="d muted">'+esc(weekdayShort(m.date)+', '+fmt(m.date))+'</div></div>'
+  +'</div>';
+}
+function agendaList(dir, m){
+ const all=papersFor(m.id).slice().sort((a,b)=>a.agendaCode.localeCompare(b.agendaCode));
+ const reads=readMap();
+ const released=all.filter(p=>latestPublished(p));
+ const ready=all.length && released.length===all.length;
+ const banner=ready?'<div class="callout ok packready" data-testid="full-pack"><b>Full pack ready.</b> Every paper for this meeting has been released.<div class="acts" style="margin-top:8px"><button class="btn pri" type="button" data-act="paper-index" data-id="'+m.id+'">View paper index</button></div></div>':'';
+ const rows=all.map(p=>{
+  const pub=latestPublished(p);
+  if(!pub) return '<div class="agendarow wait"><div class="grow"><b>'+esc(p.agendaCode+' '+p.title)+'</b><div class="small">Coming soon</div></div></div>';
+  const seen=!!reads[p.id];
+  const mark=seen?'<span class="readok">Read ✓</span>':'<span class="udot" title="Unread"></span>';
+  return '<div class="agendarow"><div class="grow"><b>'+esc(p.agendaCode+' '+p.title)+'</b></div>'+mark+'<button class="btn sm pri" type="button" data-act="read" data-id="'+pub.id+'">Open</button></div>';
+ }).join('');
+ return '<h2 class="dsec">'+I_CAL+'Upcoming meeting</h2><p class="dfeat meta" style="margin-top:0">'+esc(BODIES[m.body]||'')+' · '+esc(fmtLong(m.date))+(m.venue?' · '+esc(m.venue):'')+'</p>'+banner+'<div class="dlist" data-testid="agenda-list">'+rows+'</div>';
+}
+function openPaperIndex(meetingId){
+ const m=meeting(meetingId); if(!m) return;
+ const rows=papersFor(m.id).slice().sort((a,b)=>a.agendaCode.localeCompare(b.agendaCode)).map(p=>'<div class="arow"><b>'+esc(p.agendaCode+' '+p.title)+'</b></div>').join('');
+ openModal('<div class="hd"><h2>Paper index</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><p class="small muted" style="margin-top:0">'+esc(meetingTitle(m))+'</p>'+rows+'</div><div class="ft"><button class="btn pri" type="button" data-act="close">Close</button></div>');
 }
 const BOOK='<svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V4z"/><path d="M9 8h6M9 12h6"/></svg>';
 function packCard(dir, m){return dirMeetRow(dir, m)}
@@ -1761,7 +1821,13 @@ function onClick(e){
  if(act==='do-publish'){ doPublish(id); return; }
  if(act==='unpublish'){ askUnpublish(id); return; }
  if(act==='revise'){ askRevise(id); return; }
- if(act==='preview' || act==='read' || act==='download' || act==='resource'){ openFile(act, id); return; }
+ if(act==='preview' || act==='read' || act==='download' || act==='resource'){
+  if(act==='read') markRead(id);
+  openFile(act, id);
+  if(act==='read') render();
+  return;
+ }
+ if(act==='paper-index'){ openPaperIndex(id); return; }
  if(act==='ack'){ acknowledge(id); return; }
  if(act==='access'){ openAccess(id); return; }
  if(act==='jump-paper'){ const el=document.getElementById('pic-'+id); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); return; }
