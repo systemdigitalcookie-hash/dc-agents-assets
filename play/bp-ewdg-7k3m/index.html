@@ -1118,6 +1118,8 @@ function meetingOverview(m){
  const total=papers.length;
  const name=m.body+' '+m.number;
  const days=calendarDays(DEMO_TODAY, m.date);
+ const dayCount=Math.abs(days);
+ const dayFig=dayCount+' '+(dayCount===1?'day':'days');
  const when=weekdayShort(m.date)+', '+fmt(m.date);
  const late=overdue? '<span class="late">'+overdue+' overdue</span>' : 'None overdue';
  const bar=(now,label)=>'<div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="'+total+'" aria-valuenow="'+now+'" aria-label="'+esc(label)+'"><i style="width:'+(total?Math.round(now/total*100):0)+'%"></i></div>';
@@ -1125,7 +1127,7 @@ function meetingOverview(m){
   +'<div class="card kpi"><div class="v">'+received+' of '+total+'</div><div class="l">Papers received</div>'+bar(received,'Papers received')+'<div class="d muted">Expected for '+esc(name)+'</div></div>'
   +'<div class="card kpi"><div class="v">'+published+' of '+total+'</div><div class="l">Papers published</div>'+bar(published,'Papers published')+'<div class="d muted">'+published+' of '+total+' published</div></div>'
   +'<div class="card kpi"><div class="v">'+waiting.length+'</div><div class="l">Still to submit</div><div class="d">'+waiting.length+' to submit · '+late+'</div></div>'
-  +'<div class="card kpi"><div class="v">'+(days<0?-days:days)+'</div><div class="l">'+esc(m.body)+' countdown (days)</div><div class="d muted">'+esc(when)+'</div></div>'
+  +'<div class="card kpi"><div class="v">'+esc(dayFig)+'</div><div class="l">'+esc(m.body+String(parseInt(m.number,10)))+' countdown</div><div class="d muted">'+esc(when)+'</div></div>'
   +'</div>';
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
