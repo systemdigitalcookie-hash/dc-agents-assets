@@ -133,8 +133,10 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .callout.ok{background:var(--okbg);color:var(--ok)}
 .dueico{width:11px;height:11px;display:inline-block;margin-right:2px;vertical-align:-1px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .paperdue{margin-top:6px;font-size:13px;line-height:1.35;font-weight:750;overflow-wrap:anywhere}
+.v.paperdue{margin-top:0;font-size:18px;line-height:1.2;letter-spacing:-.02em}
 .countdown.today .paperdue{color:#9a3412}
 .countdown.past .paperdue{color:#9f1239}
+.kpi .v .late{font-size:15px}
 .why{background:#ece9ff;border-radius:12px;padding:10px 12px;color:#312e81;margin:6px 0}
 .why b{display:block;margin-bottom:2px}
 .ended{background:#f8fafc;border:1px solid var(--line);border-left:4px solid #667085;border-radius:10px;padding:16px 18px}
@@ -405,35 +407,41 @@ function demoInstant(){
  return new Date(DEMO_TODAY+'T'+pad(t.h)+':'+pad(t.m)+':'+pad(t.s)+'+08:00');
 }
 let clockTimer=null;
-function paintDeadline(el){
- if(!el || !el.isConnected){ clearInterval(clockTimer); clockTimer=null; return; }
- const due=el.getAttribute('data-due');
+function dueLiveParts(due){
  const end=new Date(due+'T17:00:00+08:00');
  const ms=end-demoInstant();
+ if(ms<=0) return {cls:'past', line:'Paper deadline passed', fig:'Deadline passed', sub:''};
+ const minsTotal=Math.floor(ms/60000);
+ const days=Math.floor(minsTotal/1440);
+ const hours=Math.floor((minsTotal%1440)/60);
+ const mins=minsTotal%60;
+ if(due===DEMO_TODAY) return {cls:'today', line:'Papers due in '+hours+'h '+mins+'m · 5:00 PM today', fig:'Due in '+hours+'h '+mins+'m', sub:'5:00 PM today'};
+ const rest=days+'d'+(hours?' '+hours+'h':'');
+ return {cls:'', line:'Papers due in '+rest, fig:'Due in '+rest, sub:fmt(due)};
+}
+function paintDeadline(el){
+ if(!el || !el.isConnected) return;
+ const due=el.getAttribute('data-due');
+ const parts=dueLiveParts(due);
  el.classList.remove('today','past');
- let text;
- if(ms<=0){
-  el.classList.add('past');
-  text='Paper deadline passed';
- } else {
-  const minsTotal=Math.floor(ms/60000);
-  const days=Math.floor(minsTotal/1440);
-  const hours=Math.floor((minsTotal%1440)/60);
-  const mins=minsTotal%60;
-  if(due===DEMO_TODAY){
-   el.classList.add('today');
-   text='Papers due in '+hours+'h '+mins+'m · 5:00 PM today';
-  } else text='Papers due in '+days+'d'+(hours?' '+hours+'h':'');
- }
- const line=el.querySelector('.paperdue');
- if(line) line.textContent=text;
+ if(parts.cls) el.classList.add(parts.cls);
+ const line=el.querySelector('[data-due-line]');
+ if(line) line.textContent=parts.line;
+ const fig=el.querySelector('[data-due-fig]');
+ if(fig) fig.textContent=parts.fig;
+ const sub=el.querySelector('[data-due-sub]');
+ if(sub) sub.textContent=parts.sub;
 }
 function startDeadlineClock(){
  clearInterval(clockTimer); clockTimer=null;
- const el=document.querySelector('[data-testid="countdown-card"]');
- if(!el) return;
- paintDeadline(el);
- clockTimer=setInterval(()=>paintDeadline(el),1000);
+ const tick=()=>{
+  const els=[...document.querySelectorAll('[data-due-live]')].filter(el=>el.isConnected);
+  if(!els.length){ clearInterval(clockTimer); clockTimer=null; return; }
+  els.forEach(paintDeadline);
+ };
+ if(!document.querySelector('[data-due-live]')) return;
+ tick();
+ clockTimer=setInterval(tick,1000);
 }
 function nowLabel(){
  const time=new Intl.DateTimeFormat('en-MY',{timeZone:'Asia/Kuala_Lumpur',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date());
@@ -1061,7 +1069,7 @@ function meetingOverview(m){
   +'<div class="card kpi"><div class="v">'+received+' of '+total+'</div><div class="l">Papers received</div>'+bar(received,'Papers received')+'<div class="d muted">Expected for '+esc(name)+'</div></div>'
   +'<div class="card kpi"><div class="v">'+published+' of '+total+'</div><div class="l">Papers published</div>'+bar(published,'Papers published')+'<div class="d muted">'+published+' of '+total+' published</div></div>'
   +'<div class="card kpi"><div class="v">'+waiting.length+'</div><div class="l">Still to submit</div><div class="d">'+waiting.length+' to submit · '+late+'</div></div>'
-  +'<div class="card kpi countdown" data-testid="countdown-card" data-due="'+esc(m.packDue)+'"><div class="v">'+esc(dayFig)+'</div><div class="l">'+esc(m.body+String(parseInt(m.number,10)))+' countdown</div><div class="paperdue" data-testid="paper-deadline"></div><div class="d muted">'+esc(when)+'</div></div>'
+  +'<div class="card kpi countdown" data-testid="countdown-card" data-due-live data-due="'+esc(m.packDue)+'"><div class="v">'+esc(dayFig)+'</div><div class="l">'+esc(m.body+String(parseInt(m.number,10)))+' countdown</div><div class="paperdue" data-due-line data-testid="paper-deadline"></div><div class="d muted">'+esc(when)+'</div></div>'
   +'</div>';
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
@@ -1337,12 +1345,35 @@ function screenPic(){
   const btn=waiting
    ? '<button class="btn pri" type="button" data-go="#/upload/'+v.linkToken+'">Upload paper</button>'
    : '<button class="btn pri" type="button" data-go="#/upload/'+(v?v.linkToken:'')+'">'+BOOK+' View receipt</button>';
-  return '<article class="card" style="margin-bottom:12px"><div class="small muted">'+esc(meetingTitle(m))+'</div><h2 style="margin-top:4px">'+esc(p.agendaCode+' '+p.title)+ver+'</h2>'+line+'<div class="picfile">'+esc(file)+'</div>'+btn+'</article>';
+  return '<article class="card" id="pic-'+p.id+'" style="margin-bottom:12px"><div class="small muted">'+esc(meetingTitle(m))+'</div><h2 style="margin-top:4px">'+esc(p.agendaCode+' '+p.title)+ver+'</h2>'+line+'<div class="picfile">'+esc(file)+'</div>'+btn+'</article>';
  };
  const block=(title,list)=>list.length?'<h3 class="pichead">'+title+' ('+list.length+')</h3>'+list.map(card).join(''):'';
- return '<div class="top"><div><h1>My submissions</h1><div class="sub" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(me.name)+' · '+deptMark(me.department||'cosec')+'</div></div></div>'
+ return picHero(me, mine)
+  +'<div class="top"><div><h1>My submissions</h1><div class="sub" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+esc(me.name)+' · '+deptMark(me.department||'cosec')+'</div></div></div>'
   +'<div class="callout info">You cannot rename a paper or change it after you submit. If something needs to change, contact COSEC and they will send a new link.</div>'
   +block('To submit', open)+block('Submitted', sent);
+}
+function picHero(me, mine){
+ const upcoming=mine.filter(p=>{ const m=meeting(p.meetingId); return m && m.date>=DEMO_TODAY; });
+ const set=upcoming.length?upcoming:mine;
+ const owed=set.filter(p=>{ const v=currentVersion(p); return v && !v.uploadedAt; });
+ const filed=set.filter(p=>{ const v=currentVersion(p); return v && v.uploadedAt; });
+ const late=owed.filter(p=>businessDaysFromTo(DEMO_TODAY, p.due)<0);
+ const redo=owed.filter(p=>displayStatus(p)==='revision');
+ const soon=owed.slice().sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999'))[0];
+ const oweFig=owed.length+(late.length?' · <span class="late">'+late.length+' overdue</span>':'');
+ const redoCard=redo.length
+  ? '<button class="card kpi" type="button" data-act="jump-paper" data-id="'+redo[0].id+'"><div class="v">'+redo.length+'</div><div class="l">New version requested</div><div class="d muted">Tap to see it</div></button>'
+  : '<div class="card kpi"><div class="v">0</div><div class="l">New version requested</div><div class="d muted">Nothing to redo</div></div>';
+ const dueCard=soon
+  ? '<div class="card kpi countdown" data-testid="pic-deadline" data-due-live data-due="'+esc(soon.due)+'"><div class="v paperdue duefig" data-due-fig></div><div class="l">Next deadline</div><div class="d" data-due-sub></div></div>'
+  : '<div class="card kpi"><div class="v">All done ✓</div><div class="l">Next deadline</div><div class="d muted">Nothing waiting</div></div>';
+ return '<div class="overview" data-testid="pic-hero">'
+  +'<div class="card kpi"><div class="v">'+oweFig+'</div><div class="l">To submit</div></div>'
+  +'<div class="card kpi"><div class="v">'+filed.length+' of '+set.length+'</div><div class="l">Submitted</div><div class="d muted">This meeting</div></div>'
+  +redoCard
+  +dueCard
+  +'</div>';
 }
 
 function screenUpload(tk){
@@ -1733,6 +1764,7 @@ function onClick(e){
  if(act==='preview' || act==='read' || act==='download' || act==='resource'){ openFile(act, id); return; }
  if(act==='ack'){ acknowledge(id); return; }
  if(act==='access'){ openAccess(id); return; }
+ if(act==='jump-paper'){ const el=document.getElementById('pic-'+id); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); return; }
  if(act==='circulate'){ openCirculate(); return; }
  if(act==='add-resource'){ openResource(); return; }
  if(act==='check-as'){ state.checkId=id; save(); render(); return; }
