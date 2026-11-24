@@ -131,26 +131,10 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .callout.info{background:#ece9ff;color:#312e81}
 .callout.warn{background:var(--warnbg);color:var(--warn)}
 .callout.ok{background:var(--okbg);color:var(--ok)}
-.clockcard{display:flex;align-items:center;gap:14px;margin:0 0 12px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.85);box-shadow:var(--shadow);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.clockcard.today{background:linear-gradient(105deg,rgba(255,237,214,.88),rgba(255,228,240,.72));border-color:rgba(255,214,170,.95)}
-.clockcard.past{background:rgba(255,228,232,.78);border-color:rgba(251,205,214,.95)}
-.clocksvg{width:58px;height:58px;flex:0 0 auto;display:block}
-.clocksvg .track{fill:none;stroke:rgba(255,255,255,.9);stroke-width:4}
-.clocksvg .arc{fill:none;stroke:#4338ca;stroke-width:4;stroke-linecap:round;transform:rotate(-90deg);transform-origin:32px 32px}
-.clocksvg .face{fill:rgba(255,255,255,.88)}
-.clocksvg .hand{stroke:#2a2438;stroke-width:2;stroke-linecap:round}
-.clocksvg .hand.hour{stroke-width:2.6}
-.clocksvg .pin{fill:#4338ca}
-.clockcard.today .arc,.clockcard.today .pin{stroke:#c2410c;fill:#c2410c}
-.clockcard.today .arc{fill:none}
-.clockcard.past .arc,.clockcard.past .pin{stroke:#be123c;fill:#be123c}
-.clockcard.past .arc{fill:none}
-.clockcopy{min-width:0}
-.clockmain{font-weight:800;font-size:17px;line-height:1.25;letter-spacing:-.02em}
-.clockcard.today .clockmain{color:#9a3412}
-.clockcard.past .clockmain{color:#9f1239}
-.clockwhen{color:var(--muted);font-size:13px;margin-top:3px}
 .dueico{width:11px;height:11px;display:inline-block;margin-right:2px;vertical-align:-1px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.paperdue{margin-top:6px;font-size:13px;line-height:1.35;font-weight:750;overflow-wrap:anywhere}
+.countdown.today .paperdue{color:#9a3412}
+.countdown.past .paperdue{color:#9f1239}
 .why{background:#ece9ff;border-radius:12px;padding:10px 12px;color:#312e81;margin:6px 0}
 .why b{display:block;margin-bottom:2px}
 .ended{background:#f8fafc;border:1px solid var(--line);border-left:4px solid #667085;border-radius:10px;padding:16px 18px}
@@ -200,13 +184,6 @@ th{font-size:12.5px;color:var(--muted);font-weight:700;background:rgba(255,255,2
 .prow .due.ok{color:var(--ok)}
 .prow .ppaper{color:var(--muted);font-size:13.5px;line-height:1.35;overflow-wrap:anywhere}
 .prowmeta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-left:auto}
-.notifybox{margin:0 0 14px}
-.notifybox .nrow{padding:8px 0;border-top:1px solid rgba(90,70,140,.12);font-weight:700}
-.notifybox .nrow:first-of-type{border-top:none}
-.btn.noteall{width:100%;min-height:52px;margin-top:10px;background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(67,56,202,.22)}
-.btn.noteall:hover{background:var(--brand-2);color:#fff}
-.noted{margin-top:4px;font-size:13.5px;font-weight:750;color:var(--ok)}
-.linkish{background:none;border:none;padding:0;min-height:0;color:var(--accent);font-weight:750;text-decoration:underline}
 .links{display:flex;flex-direction:column;gap:10px}
 .lcard{background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:12px;box-shadow:var(--shadow)}
 .urlclip{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--muted);margin:6px 0}
@@ -453,30 +430,17 @@ function demoInstant(){
  const t=klClock();
  return new Date(DEMO_TODAY+'T'+pad(t.h)+':'+pad(t.m)+':'+pad(t.s)+'+08:00');
 }
-function deadlineCaption(iso){
- const dt=new Date(iso+'T17:00:00+08:00');
- const wd=new Intl.DateTimeFormat('en-MY',{weekday:'short',timeZone:'Asia/Kuala_Lumpur'}).format(dt);
- const [y,m,d]=iso.split('-');
- return wd+', '+(+d)+' '+MONTHS[+m-1]+' '+y+' · 5:00 PM MYT';
-}
-function deadlineCard(due){
- return '<section class="clockcard" data-testid="deadline-clock" data-due="'+esc(due)+'" aria-live="polite">'
-  +'<svg class="clocksvg" viewBox="0 0 64 64" aria-hidden="true"><circle class="track" cx="32" cy="32" r="28"/><circle class="arc" cx="32" cy="32" r="28"/><circle class="face" cx="32" cy="32" r="21"/><line class="hand hour" x1="32" y1="34" x2="32" y2="18"/><line class="hand min" x1="32" y1="34" x2="32" y2="13"/><circle class="pin" cx="32" cy="32" r="2.4"/></svg>'
-  +'<div class="clockcopy"><div class="clockmain"></div><div class="clockwhen">'+esc(deadlineCaption(due))+'</div></div></section>';
-}
 let clockTimer=null;
 function paintDeadline(el){
  if(!el || !el.isConnected){ clearInterval(clockTimer); clockTimer=null; return; }
  const due=el.getAttribute('data-due');
  const end=new Date(due+'T17:00:00+08:00');
- const now=demoInstant();
- const ms=end-now;
- const t=klClock();
+ const ms=end-demoInstant();
  el.classList.remove('today','past');
  let text;
  if(ms<=0){
   el.classList.add('past');
-  text='Deadline passed';
+  text='Paper deadline passed';
  } else {
   const minsTotal=Math.floor(ms/60000);
   const days=Math.floor(minsTotal/1440);
@@ -484,25 +448,15 @@ function paintDeadline(el){
   const mins=minsTotal%60;
   if(due===DEMO_TODAY){
    el.classList.add('today');
-   text='Due today · '+hours+'h '+mins+'m left';
-  } else text='Papers due in '+days+'d '+pad(hours)+'h '+pad(mins)+'m';
+   text='Papers due in '+hours+'h '+mins+'m · 5:00 PM today';
+  } else text='Papers due in '+days+'d'+(hours?' '+hours+'h':'');
  }
- const main=el.querySelector('.clockmain');
- if(main) main.textContent=text;
- const C=2*Math.PI*28;
- const frac=ms<=0?1:Math.min(1, ms/(24*60*60*1000));
- const arc=el.querySelector('.arc');
- if(arc){ arc.style.strokeDasharray=C+' '+C; arc.style.strokeDashoffset=String(C*(1-frac)); }
- const hAng=((t.h%12)+t.m/60)*30;
- const mAng=t.m*6;
- const hour=el.querySelector('.hand.hour');
- const minute=el.querySelector('.hand.min');
- if(hour) hour.setAttribute('transform','rotate('+hAng+' 32 32)');
- if(minute) minute.setAttribute('transform','rotate('+mAng+' 32 32)');
+ const line=el.querySelector('.paperdue');
+ if(line) line.textContent=text;
 }
 function startDeadlineClock(){
  clearInterval(clockTimer); clockTimer=null;
- const el=document.querySelector('[data-testid="deadline-clock"]');
+ const el=document.querySelector('[data-testid="countdown-card"]');
  if(!el) return;
  paintDeadline(el);
  clockTimer=setInterval(()=>paintDeadline(el),1000);
@@ -1107,7 +1061,6 @@ function screenHome(){
   +'<div class="top" data-testid="dashboard"><div><h1>'+esc(meetingTitle(m))+'</h1><div class="sub">'+esc(folderTitle(m))+' · '+esc(fmt(m.date))+(m.venue?' · '+esc(m.venue):'')+'</div></div><span class="sp"></span>'
   +'<button class="btn create" type="button" data-act="create-meeting"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New meeting</button>'
   +'<button class="btn create" type="button" data-testid="create-link" data-act="create-link" data-meeting="'+m.id+'"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Create submission link</button></div>'
-  +deadlineCard(m.packDue)
   +paperList(m)
   +(others.length?'<div class="card" style="margin-top:14px"><h2>Other meetings</h2>'+others.map(om=>{const tt=tally(om); return '<div class="pack"><div><b>'+esc(meetingTitle(om))+'</b><div class="small muted">'+esc(folderTitle(om))+' · '+tt.published+' of '+tt.total+' published · '+tt.withFile+' submitted</div></div><button class="btn sm" type="button" data-go="#/cosec/meeting/'+om.id+'">Open</button></div>'}).join('')+'</div>':'');
 }
@@ -1135,7 +1088,7 @@ function meetingOverview(m){
   +'<div class="card kpi"><div class="v">'+received+' of '+total+'</div><div class="l">Papers received</div>'+bar(received,'Papers received')+'<div class="d muted">Expected for '+esc(name)+'</div></div>'
   +'<div class="card kpi"><div class="v">'+published+' of '+total+'</div><div class="l">Papers published</div>'+bar(published,'Papers published')+'<div class="d muted">'+published+' of '+total+' published</div></div>'
   +'<div class="card kpi"><div class="v">'+waiting.length+'</div><div class="l">Still to submit</div><div class="d">'+waiting.length+' to submit · '+late+'</div></div>'
-  +'<div class="card kpi"><div class="v">'+esc(dayFig)+'</div><div class="l">'+esc(m.body+String(parseInt(m.number,10)))+' countdown</div><div class="d muted">'+esc(when)+'</div></div>'
+  +'<div class="card kpi countdown" data-testid="countdown-card" data-due="'+esc(m.packDue)+'"><div class="v">'+esc(dayFig)+'</div><div class="l">'+esc(m.body+String(parseInt(m.number,10)))+' countdown</div><div class="paperdue" data-testid="paper-deadline"></div><div class="d muted">'+esc(when)+'</div></div>'
   +'</div>';
 }
 function kpi(v,l,d){return '<div class="card kpi"><div class="v">'+esc(v)+'</div><div class="l">'+esc(l)+'</div>'+(d?'<div class="d muted">'+esc(d)+'</div>':'')+'</div>'}
@@ -1189,43 +1142,22 @@ function paperList(m){
   {title:'To submit', hint:'Waiting for the file', match:p=>waiting(p)&&businessDaysFromTo(DEMO_TODAY, p.due)>=0},
   {title:'Submitted', hint:'Awaiting review', match:p=>displayStatus(p)==='submitted'},
   {title:'Under review', hint:'Ready to publish', match:p=>displayStatus(p)==='reviewed'},
-  {title:'Published', hint:'In the directors’ pack, not yet sent as a notice.', match:p=>displayStatus(p)==='published' && !p.notifiedAt}
+  {title:'Published', hint:'In the directors’ pack', match:p=>displayStatus(p)==='published'}
  ];
  const papers=papersFor(m.id);
- let html=groups.map(g=>{
+ const html=groups.map(g=>{
   const list=papers.filter(g.match).sort((a,b)=> (a.due||'').localeCompare(b.due||'') || a.agendaCode.localeCompare(b.agendaCode));
   if(!list.length) return '';
   return '<section class="plist"><h3 class="phead"><span>'+esc(g.title)+'</span><span class="n">'+list.length+'</span></h3><p class="tiny muted psub">'+esc(g.hint)+'</p>'+list.map(paperRow).join('')+'</section>';
  }).join('');
- const pending=papers.filter(p=>displayStatus(p)==='published' && !p.notifiedAt).sort((a,b)=>a.agendaCode.localeCompare(b.agendaCode));
- const done=papers.filter(p=>displayStatus(p)==='published' && p.notifiedAt).sort((a,b)=>a.agendaCode.localeCompare(b.agendaCode));
- html+=notifyBlock(m, pending);
- if(done.length) html+='<section class="plist" data-testid="notified-section"><h3 class="phead"><span>Notified</span><span class="n">'+done.length+'</span></h3><p class="tiny muted psub">Directors have been told these papers are ready.</p>'+done.map(paperRow).join('')+'</section>';
  return html||'<div class="empty"><b>No papers yet</b><div>Create a submission link to add the first paper.</div></div>';
-}
-function readersFor(m, list){
- return state.people.filter(x=>x.kind==='director'||x.kind==='alternate'||x.kind==='former').filter(d=>list.some(p=>gate(d, m, p).see)).sort((a,b)=>a.name.localeCompare(b.name));
-}
-function notifyBlock(m, list){
- if(!list.length) return '';
- const n=readersFor(m, list).length;
- const lines=list.map(p=>'<div class="nrow">'+esc(p.agendaCode+' '+p.title)+'</div>').join('');
- return '<section class="card notifybox" data-testid="notify-section"><h3 class="phead"><span>Notify directors</span><span class="n">'+list.length+'</span></h3><p class="tiny muted psub">These published papers have not been sent to directors yet.</p>'+lines
-  +'<button class="btn noteall" type="button" data-act="notify-ask" data-meeting="'+m.id+'">Notify '+n+' director'+(n===1?'':'s')+'</button></section>';
-}
-function notifyStamp(){
- const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kuala_Lumpur',day:'numeric',month:'short',hour:'numeric',minute:'2-digit',hour12:true}).formatToParts(new Date());
- const g=t=>{const hit=parts.find(p=>p.type===t); return hit?hit.value:'';};
- return g('day')+' '+g('month')+', '+g('hour')+':'+g('minute')+' '+g('dayPeriod').replace(/\./g,'').toUpperCase();
 }
 function paperRow(p){
  const pic=person(p.picId);
  const due=cardDue(p.due);
  const st=displayStatus(p);
  const deptTip=deptName(p.department)+(deptInferred(p.department)?' (example)':'');
- const told=p.notifiedAt?'<div class="noted">Directors notified · '+esc(p.notifiedLabel)+' <button type="button" class="linkish" data-act="recipients" data-id="'+p.id+'">View recipients</button></div>':'';
- const pill=p.notifiedAt?'<span class="pill ok">Notified</span>':statusPill(st);
- return '<article class="prow" data-testid="paper-row-'+p.id+'"><div class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><div class="grow"><div class="pname">'+esc(pic?pic.name:'')+'<span class="due '+due.cls+'">'+due.icon+esc(due.text)+'</span></div><div class="ppaper">'+esc(p.agendaCode+' '+p.title)+'</div>'+told+'</div></div><div class="prowmeta"><span data-testid="status-'+p.id+'">'+pill+'</span><div class="acts">'+rowActions(p, st)+'</div></div></article>';
+ return '<article class="prow" data-testid="paper-row-'+p.id+'"><div class="who"><span class="dico" title="'+esc(deptTip)+'">'+deptIcon(p.department)+'</span><div class="grow"><div class="pname">'+esc(pic?pic.name:'')+'<span class="due '+due.cls+'">'+due.icon+esc(due.text)+'</span></div><div class="ppaper">'+esc(p.agendaCode+' '+p.title)+'</div></div></div><div class="prowmeta"><span data-testid="status-'+p.id+'">'+statusPill(st)+'</span><div class="acts">'+rowActions(p, st)+'</div></div></article>';
 }
 function papersTable(m){
  const rows=papersFor(m.id).map(p=>{
@@ -1864,9 +1796,6 @@ function onClick(e){
  if(act==='preview' || act==='read' || act==='download' || act==='resource'){ openFile(act, id); return; }
  if(act==='ack'){ acknowledge(id); return; }
  if(act==='access'){ openAccess(id); return; }
- if(act==='notify-ask'){ openNotify(actEl.dataset.meeting); return; }
- if(act==='notify-send'){ sendNotice(actEl.dataset.meeting); return; }
- if(act==='recipients'){ openRecipients(id); return; }
  if(act==='circulate'){ openCirculate(); return; }
  if(act==='add-resource'){ openResource(); return; }
  if(act==='check-as'){ state.checkId=id; save(); render(); return; }
@@ -1938,39 +1867,6 @@ function openAccess(paperId){
  openModal('<div class="hd"><h2 id="accessTitle">Who has access</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd" data-testid="access-sheet"><p class="small muted" style="margin-top:0">'+esc(p.agendaCode+' '+p.title)+' · '+esc(meetingTitle(m))+'</p>'
   +group('Has access', yes.length, yes.map(rowYes).join(''))
   +group('No access', no.length, no.map(rowNo).join(''))
-  +'</div><div class="ft"><button class="btn pri" type="button" data-act="close">Close</button></div>');
-}
-function openNotify(meetingId){
- const m=meeting(meetingId); if(!m) return;
- const list=papersFor(m.id).filter(p=>displayStatus(p)==='published' && !p.notifiedAt).sort((a,b)=>a.agendaCode.localeCompare(b.agendaCode));
- const readers=readersFor(m, list);
- const people=readers.map(d=>'<div class="arow"><b>'+esc(d.name)+'</b><div class="whyline">'+esc(d.roleTitle)+'</div></div>').join('');
- const papers=list.map(p=>'<div class="arow"><b>'+esc(p.agendaCode+' '+p.title)+'</b></div>').join('');
- $('#modal').classList.add('access');
- openModal('<div class="hd"><h2>Send notice</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd" data-testid="notify-sheet"><p class="small" style="margin-top:0">These directors can read the papers, so they will receive this notice. No email is sent in this demo.</p>'
-  +'<section class="agroup"><h3>Papers <span class="n">'+list.length+'</span></h3>'+papers+'</section>'
-  +'<section class="agroup"><h3>Directors <span class="n">'+readers.length+'</span></h3>'+(people||'<div class="whyline">No directors can read these papers yet.</div>')+'</section>'
-  +'</div><div class="ft"><button class="btn" type="button" data-act="close">Cancel</button><button class="btn pri" type="button" data-testid="send-notice" data-act="notify-send" data-meeting="'+m.id+'"'+(readers.length&&list.length?'':' disabled')+'>Send notice</button></div>');
-}
-function sendNotice(meetingId){
- const m=meeting(meetingId); if(!m) return;
- const list=papersFor(m.id).filter(p=>displayStatus(p)==='published' && !p.notifiedAt);
- if(!list.length){ closeOverlays(); return; }
- const stamp=notifyStamp();
- list.forEach(p=>{
-  p.notifiedAt=new Date().toISOString();
-  p.notifiedLabel=stamp;
-  p.notifiedTo=readersFor(m, [p]).map(d=>d.id);
- });
- logAudit('Notified directors', '', list.map(p=>p.agendaCode).join(', '));
- save(); closeOverlays(); render(); toast('Directors notified');
-}
-function openRecipients(paperId){
- const p=paper(paperId); if(!p) return;
- const names=(p.notifiedTo||[]).map(id=>person(id)).filter(Boolean);
- $('#modal').classList.add('access');
- openModal('<div class="hd"><h2>View recipients</h2><button class="x" type="button" data-act="close" aria-label="Close">×</button></div><div class="bd"><p class="small muted" style="margin-top:0">'+esc(p.agendaCode+' '+p.title)+'</p><p class="noted" style="margin-top:0">Directors notified · '+esc(p.notifiedLabel)+'</p>'
-  +names.map(d=>'<div class="arow"><b>'+esc(d.name)+'</b></div>').join('')
   +'</div><div class="ft"><button class="btn pri" type="button" data-act="close">Close</button></div>');
 }
 function acknowledge(id){
