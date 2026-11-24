@@ -1363,8 +1363,8 @@ function picHero(me, mine){
  const soon=owed.slice().sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999'))[0];
  const oweFig=owed.length+(late.length?' · <span class="late">'+late.length+' overdue</span>':'');
  const redoCard=redo.length
-  ? '<button class="card kpi" type="button" data-act="jump-paper" data-id="'+redo[0].id+'"><div class="v">'+redo.length+'</div><div class="l">New version requested</div><div class="d muted">Tap to see it</div></button>'
-  : '<div class="card kpi"><div class="v">0</div><div class="l">New version requested</div><div class="d muted">Nothing to redo</div></div>';
+  ? '<button class="card kpi" type="button" data-act="jump-paper" data-id="'+redo[0].id+'"><div class="v">'+redo.length+'</div><div class="l">Resubmission link requested</div><div class="d muted">Tap to see the paper</div></button>'
+  : '<div class="card kpi"><div class="v">0</div><div class="l">Resubmission link requested</div><div class="d muted">No link waiting</div></div>';
  const dueCard=soon
   ? '<div class="card kpi countdown" data-testid="pic-deadline" data-due-live data-due="'+esc(soon.due)+'"><div class="v paperdue duefig" data-due-fig></div><div class="l">Next deadline</div><div class="d" data-due-sub></div></div>'
   : '<div class="card kpi"><div class="v">All done ✓</div><div class="l">Next deadline</div><div class="d muted">Nothing waiting</div></div>';
